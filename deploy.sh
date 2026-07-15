@@ -15,7 +15,9 @@ echo -e "${BOLD}${BLUE}=========================================================
 # Leer puerto y credenciales del .env
 if [ -f .env ]; then
     # Cargar variables del .env
-    export $(grep -v '^#' .env | xargs)
+    set -a
+    source .env
+    set +a
 else
     echo -e "${RED}Error: No se encontró el archivo .env${NC}"
     exit 1
@@ -49,6 +51,9 @@ fi
 
 echo -e "\n${BLUE}[2/4] Iniciando contenedor de Base de Datos...${NC}"
 docker compose up -d db5771
+
+echo -e "\n${BLUE}[2.5/4] Construyendo imagen de Odoo 18 local...${NC}"
+docker compose build web9049
 
 echo -e "\n${BLUE}[3/4] Iniciando contenedor de Inicialización Automática...${NC}"
 docker compose up -d init
