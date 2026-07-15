@@ -35,6 +35,17 @@ def import_settings():
     with registry.cursor() as cr:
         env = api.Environment(cr, SUPERUSER_ID, {})
         
+        # Ensure company's currency (PYG) is active (critical for POS)
+        pyg = env['res.currency'].search([('name', '=', 'PYG')], active_test=False)
+        if pyg and not pyg.active:
+            pyg.write({'active': True})
+            print("  ✓ Activated PYG currency (Guaraní) in the system.")
+        
+        company = env['res.company'].browse(1)
+        if company.currency_id and not company.currency_id.active:
+            company.currency_id.write({'active': True})
+            print(f"  ✓ Activated company currency: {company.currency_id.name}")
+        
         # 1. Outgoing Mail Server (SMTP)
         smtp_data = config.get('smtp', {})
         if smtp_data:
