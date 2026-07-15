@@ -189,6 +189,57 @@ def import_settings():
                     env['account.analytic.account'].create(ana_vals)
                     print(f"  ✓ Created Analytic Account: {name} ({code})")
 
+        # 7. POS Config (Punto de Venta)
+        print("Configuring Point of Sale (POS)...")
+        # Ensure cash and bank payment methods exist
+        cash_journal = env['account.journal'].search([('type', '=', 'cash'), ('company_id', '=', 1)], limit=1)
+        cash_method = env['pos.payment.method'].search([('journal_id', '=', cash_journal.id)], limit=1) if cash_journal else None
+        if cash_journal and not cash_method:
+            cash_method = env['pos.payment.method'].create({
+                'name': 'Efectivo',
+                'journal_id': cash_journal.id,
+            })
+            print(f"  ✓ Created POS Payment Method: {cash_method.name}")
+
+        bank_journal = env['account.journal'].search([('type', '=', 'bank'), ('company_id', '=', 1)], limit=1)
+        bank_method = env['pos.payment.method'].search([('journal_id', '=', bank_journal.id)], limit=1) if bank_journal else None
+        if bank_journal and not bank_method:
+            bank_method = env['pos.payment.method'].create({
+                'name': 'Banco/Tarjeta',
+                'journal_id': bank_journal.id,
+            })
+            print(f"  ✓ Created POS Payment Method: {bank_method.name}")
+
+        # Find default invoice/sales journal
+        invoice_journal = env['account.journal'].search([
+            ('type', '=', 'sale'),
+            ('company_id', '=', 1)
+        ], limit=1)
+
+        # Create or update POS Config
+        pos_config = env['pos.config'].search([('name', '=', 'Caja Principal')], limit=1)
+        payment_methods = []
+        if cash_method:
+            payment_methods.append(cash_method.id)
+        if bank_method:
+            payment_methods.append(bank_method.id)
+            
+        pos_vals = {
+            'name': 'Caja Principal',
+            'module_pos_restaurant': True,
+        }
+        if invoice_journal:
+            pos_vals['invoice_journal_id'] = invoice_journal.id
+        if payment_methods:
+            pos_vals['payment_method_ids'] = [(6, 0, payment_methods)]
+
+        if pos_config:
+            pos_config.write(pos_vals)
+            print(f"  ✓ Updated POS Config: {pos_config.name}")
+        else:
+            pos_config = env['pos.config'].create(pos_vals)
+            print(f"  ✓ Created POS Config: {pos_config.name}")
+
         cr.commit()
         print("✓ System Settings configuration finished successfully!")
 
