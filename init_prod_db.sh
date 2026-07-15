@@ -56,7 +56,7 @@ fi
 echo "Inicializando Odoo en '$DB_NAME'..."
 odoo \
      -d "$DB_NAME" \
-     --init base,web,mail \
+     --init base,web,mail,mrp,point_of_sale,pos_restaurant,stock,purchase,sale,product_mass_import,pos_product_bom,excel_recipe_import \
      --stop-after-init \
      --db_host "$DB_HOST" \
      --db_port "$DB_PORT" \
