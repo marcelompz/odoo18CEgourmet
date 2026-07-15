@@ -102,17 +102,20 @@ try:
         else:
             print('  ✗ Usuario no encontrado')
 
-        # Cargar logo de la empresa si existe
-        import os
+        # Cargar logo de la empresa si existe en /mnt/migracion/
+        import glob
         import base64
-        logo_path = '/mnt/migracion/provecchio_logo.png'
-        if os.path.exists(logo_path):
+        logo_files = glob.glob('/mnt/migracion/*logo*.[pP][nN][gG]') + \
+                     glob.glob('/mnt/migracion/*logo*.[jJ][pP][gG]') + \
+                     glob.glob('/mnt/migracion/*logo*.[jJ][pP][eE][gG]')
+        if logo_files:
+            logo_path = logo_files[0]
             with open(logo_path, 'rb') as f:
                 logo_data = base64.b64encode(f.read())
             company = env['res.company'].browse(1)
             if company.exists():
                 company.write({'logo': logo_data})
-                print('  ✓ Logo de empresa cargado con éxito')
+                print(f'  ✓ Logo de empresa cargado con éxito desde {logo_path}')
         cr.commit()
 except Exception as e:
     print('  ✗ Error:', e)
