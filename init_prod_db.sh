@@ -139,9 +139,9 @@ echo "  NOTA: electronic_invoice_cross y pos_einvoice_cross se pueden instalar d
 
 echo ""
 echo "=== Importando Datos Maestros (Materias Primas, Comidas, Recetas) ==="
-python3 /mnt/extra-addons-customize/import_products_direct.py
-python3 /mnt/extra-addons-customize/import_comidas_direct.py
-python3 /mnt/extra-addons-customize/import_recipes_direct.py
+python3 /mnt/migracion/import_products_direct.py
+python3 /mnt/migracion/import_comidas_direct.py
+python3 /mnt/migracion/import_recipes_direct.py
 echo "✓ Datos maestros importados"
 echo ""
 echo "============================================================"

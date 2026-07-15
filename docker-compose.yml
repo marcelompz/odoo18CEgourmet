@@ -15,6 +15,7 @@ services:
       - /mnt/addons:/mnt/extra-addons
       - ${WEB_ADDONS_CUSTOMIZE}:/mnt/extra-addons-customize
       - ${WEB_ADDONS_L10NPY}:/mnt/extra-addons-l10py
+      - ./migracion:/mnt/migracion
     environment:
       - HOST=${DB_HOST}
       - USER=${DB_USER}
@@ -54,6 +55,7 @@ services:
       - ${WEB_ADDONS_CUSTOMIZE}:/mnt/extra-addons-customize
       - ${WEB_ADDONS_L10NPY}:/mnt/extra-addons-l10py
       - ./init_prod_db.sh:/init_prod_db.sh:ro
+      - ./migracion:/mnt/migracion
     environment:
       - DB_NAME=${DB_NAME}
       - DB_HOST=${DB_HOST}

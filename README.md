@@ -57,22 +57,22 @@ The service `init` defined in `docker-compose.yml` runs a lightweight, temporary
 
 The project contains several scripts to automate imports and test setups. Here is a breakdown of their structure and purpose:
 
-### 1. `addons/import_products_direct.py`
-- **Path:** `addons/import_products_direct.py`
-- **Mechanism:** Direct Odoo ORM execution. It loads Odoo's registry for database `prod`, opens a cursor, and reads `addons/materia_prima_fixed.csv` (348 raw materials).
+### 1. `migracion/import_products_direct.py`
+- **Path:** `migracion/import_products_direct.py`
+- **Mechanism:** Direct Odoo ORM execution. It loads Odoo's registry for database `prod`, opens a cursor, and reads `migracion/materia_prima_fixed.csv` (348 raw materials).
 - **Target:** Imports ingredients and raw materials, automatically creating categories and setting units.
 - **Odoo 18 Adaptation:** In Odoo 18, the storable and consumable types are merged into `'consu'` (Goods). This script sets `type = 'consu'` and `is_storable = True` to enable stock tracking.
 - **Verdict:** **Highly recommended** for loading raw materials quickly without browser timeouts.
 
-### 2. `addons/import_comidas_direct.py`
-- **Path:** `addons/import_comidas_direct.py`
-- **Mechanism:** Direct Odoo ORM execution. Reads `addons/comida.csv` (132 finished dishes).
+### 2. `migracion/import_comidas_direct.py`
+- **Path:** `migracion/import_comidas_direct.py`
+- **Mechanism:** Direct Odoo ORM execution. Reads `migracion/comida.csv` (132 finished dishes).
 - **Target:** Imports finished POS dishes. It maps columns to set sales prices, marks them as `available_in_pos = True`, and activates the `is_pos_bom = True` checkbox (allowing ingredients recipes to be configured).
 - **Verdict:** **Required** to load the menu/plates in bulk before linking ingredients.
 
-### 3. `addons/import_recipes_direct.py`
-- **Path:** `addons/import_recipes_direct.py`
-- **Mechanism:** Instantiates Odoo's custom `excel.recipe.import.wizard` model via the ORM. It loads `addons/plantilla_importacion.xlsx` as binary base64 and executes the wizard's action programmatically.
+### 3. `migracion/import_recipes_direct.py`
+- **Path:** `migracion/import_recipes_direct.py`
+- **Mechanism:** Instantiates Odoo's custom `excel.recipe.import.wizard` model via the ORM. It loads `migracion/plantilla_importacion.xlsx` as binary base64 and executes the wizard's action programmatically.
 - **Target:** Automatically imports recipes into two categories:
   - **MRP BoMs (Manufacturing):** Associated with production subproducts (e.g. *PAN DE LA CASA BLANCO*, *FOCACCIA*).
   - **POS BoMs (Point of Sale):** Associated with dishes (e.g. *HUEVOS BENEDICTINOS CON JAMÓN DE PAVO*).
@@ -96,12 +96,17 @@ odoo18_provecchio/
 ├── .env                            # Environment variables (ports, hostnames, passwords)
 ├── config/
 │   └── odoo.conf                   # Odoo server configuration
-├── addons/                         # Custom modules & import data
+├── addons/                         # Custom modules
 │   ├── excel_recipe_import/       # Wizard to import recipes from Excel
 │   ├── product_mass_import/       # Bulk product import UI
-│   ├── pos_product_bom/           # POS ingredients and POS BOM
-│   ├── *data files*                # comida.csv, materia_prima_fixed.csv, plantilla_importacion.xlsx
-│   └── *import scripts*            # import_products_direct.py, import_comidas_direct.py, import_recipes_direct.py
+│   └── pos_product_bom/           # POS ingredients and POS BOM
+├── migracion/                      # Data files & import scripts
+│   ├── comida.csv
+│   ├── materia_prima_fixed.csv
+│   ├── plantilla_importacion.xlsx
+│   ├── import_products_direct.py
+│   ├── import_comidas_direct.py
+│   └── import_recipes_direct.py
 ├── init_prod_db.sh                 # Database initialization script (called by odoo_init_db_18)
 └── README.md                       # This documentation file
 ```

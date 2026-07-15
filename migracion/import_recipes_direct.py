@@ -21,7 +21,7 @@ def import_recipes():
         env = api.Environment(cr, SUPERUSER_ID, {})
         
         # Read Excel file
-        excel_path = '/mnt/extra-addons-customize/plantilla_importacion.xlsx'
+        excel_path = '/mnt/migracion/plantilla_importacion.xlsx'
         if not os.path.exists(excel_path):
             print(f"ERROR: File not found: {excel_path}")
             return False
