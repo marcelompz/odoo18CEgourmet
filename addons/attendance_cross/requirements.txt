@@ -1,0 +1,6 @@
+# Python dependencies for Biometric Attendance module
+# These need to be installed in the Odoo Python environment
+
+requests>=2.31.0
+openpyxl>=3.1.2  # For Excel report generation
+pyzk>=0.9.0      # For ZKTeco biometric device communication

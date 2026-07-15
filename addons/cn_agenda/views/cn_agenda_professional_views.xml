@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- FORM VIEW -->
+    <record id="view_cn_agenda_professional_form" model="ir.ui.view">
+        <field name="name">cn.agenda.professional.form</field>
+        <field name="model">cn.agenda.professional</field>
+        <field name="arch" type="xml">
+            <form string="Professional">
+                <sheet>
+                    <field name="image_1920" widget="image" class="oe_avatar" options="{'preview_image': 'image_128'}"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="partner_id" placeholder="Select Contact" options="{'no_create': True}"/>
+                        </h1>
+                        <h3>
+                            <field name="specialty" placeholder="Specialty"/>
+                        </h3>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="email"/>
+                            <field name="phone"/>
+                            <field name="mobile"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Working Schedule">
+                            <field name="schedule_ids"/>
+                        </page>
+                        <page string="Absences">
+                            <field name="absence_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- SCHEDULE TREE VIEW -->
+    <record id="view_cn_agenda_professional_schedule_tree" model="ir.ui.view">
+        <field name="name">cn.agenda.professional.schedule.tree</field>
+        <field name="model">cn.agenda.professional.schedule</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="day_of_week"/>
+                <field name="hour_start" widget="float_time"/>
+                <field name="hour_end" widget="float_time"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ABSENCE TREE VIEW -->
+    <record id="view_cn_agenda_professional_absence_tree" model="ir.ui.view">
+        <field name="name">cn.agenda.professional.absence.tree</field>
+        <field name="model">cn.agenda.professional.absence</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="reason"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- TREE VIEW -->
+    <record id="view_cn_agenda_professional_tree" model="ir.ui.view">
+        <field name="name">cn.agenda.professional.tree</field>
+        <field name="model">cn.agenda.professional</field>
+        <field name="arch" type="xml">
+            <list string="Professionals">
+                <field name="name"/>
+                <field name="specialty"/>
+                <field name="email"/>
+                <field name="phone"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ACTION -->
+    <record id="action_cn_agenda_professional" model="ir.actions.act_window">
+        <field name="name">Professionals</field>
+        <field name="res_model">cn.agenda.professional</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

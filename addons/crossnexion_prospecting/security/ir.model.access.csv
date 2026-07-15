@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_prospecting_campaign,prospecting.campaign,model_prospecting_campaign,base.group_user,1,1,1,1
+access_prospecting_lead,prospecting.lead,model_prospecting_lead,base.group_user,1,1,1,1

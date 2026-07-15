@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Plantilla Principal (sin cambios importantes) -->
+    <template id="commercial_report">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <t t-foreach="docs" t-as="doc">
+                        <!-- Encabezado del reporte -->
+                        <div class="row border-bottom" style="font-size:12px;">
+                            <div class="col-6 text-start"><span t-esc="env.company.name"/></div>
+                            <div class="col-6 text-end">Fecha de impresión: <span t-esc="datetime.datetime.now().strftime('%d-%m-%Y')"/></div>
+                        </div>
+                        <br/>
+                        <h4 t-if="doc.show_profitability" class="text-center">Reporte de Rentabilidad de Ventas</h4>
+                        <h4 t-if="not doc.show_profitability" class="text-center">Reporte de Ventas</h4>
+                        <div class="text-center">
+                            <span>
+                                Periodo:
+                                <strong t-field="doc.date_from"/> 
+                                al
+                                <strong t-field="doc.date_until"/>
+                            </span>
+                            <span t-if="doc.user_id">, Comercial: <strong t-field="doc.user_id.name"/></span>
+                        </div>
+
+                        <!-- Despachador de plantillas -->
+                        <div class="mt-4">
+                            <t t-if="doc.options == 'detail'">
+                                <t t-call="sales_profitability_reports_cross.commercial_report_details"/>
+                            </t>
+                            <t t-elif="doc.options == 'summary'">
+                                <t t-call="sales_profitability_reports_cross.commercial_report_summary"/>
+                            </t>
+                            <t t-elif="doc.options == 'partner' or doc.options == 'product'">
+                                <t t-call="sales_profitability_reports_cross.commercial_report_product_detail"/>
+                            </t>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <!-- ======================================================= -->
+    <!-- REPORTE POR PRODUCTO Y CLIENTE -->
+    <!-- ======================================================= -->
+    <template id="commercial_report_product_detail">
+        <!-- Título dinámico -->
+        <h5 t-if="doc.options == 'partner'">Detalle de Ventas para: <span t-field="doc.partner_id.name"/></h5>
+        <h5 t-else="">Detalle de Ventas por Producto</h5>
+
+        <table class="table table-sm" style="font-size:10px;">
+            <thead>
+                <tr class="table-secondary">
+                    <th class="text-start">Producto</th>
+                    <th class="text-start">Origen</th>
+                    <th class="text-end">Cantidad</th>
+                    <th t-if="doc.show_profitability" class="text-end">Costo Unit.</th>
+                    <th t-if="doc.show_profitability" class="text-end">Costo Total</th>
+                    <th t-if="doc.show_profitability" class="text-end">Precio Unit.</th>
+                    <th class="text-end">Precio Total</th>
+                    <th t-if="doc.show_profitability" class="text-end">Ganancia Bruta</th>
+                    <th t-if="doc.show_profitability" class="text-end">%M/S Venta</th>
+                    <th t-if="doc.show_profitability" class="text-end">%M/S Costo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- La lista ya viene pre-ordenada por el _order del modelo de línea si lo tienes -->
+                <tr t-foreach="doc.product_summary" t-as="line">
+                    <td class="text-start"><span t-field="line.product_id.display_name"/></td>
+                    <td class="text-start"><span t-field="line.source"/></td>
+                    <td class="text-end"><span t-field="line.quantity_sold"/></td>
+                    <td t-if="doc.show_profitability" class="text-end"><span t-field="line.average_cost"/></td>
+                    <td t-if="doc.show_profitability" class="text-end"><span t-field="line.total_cost"/></td>
+                    <td t-if="doc.show_profitability" class="text-end"><span t-field="line.unit_price"/></td>
+                    <td class="text-end"><span t-field="line.total_sales"/></td>
+                    <td t-if="doc.show_profitability" class="text-end"><span t-field="line.total_margin"/></td>
+                    <td t-if="doc.show_profitability" class="text-end"><span t-field="line.margin_percent" t-options="{'widget': 'percentage'}"/></td>
+                    <td t-if="doc.show_profitability" class="text-end"><span t-field="line.percentage_profit_cost" t-options="{'widget': 'percentage'}"/></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="table-secondary fw-bold">
+                    <td class="text-end" t-att-colspan="3 if doc.show_profitability else 3">Total General</td>
+                    <td t-if="doc.show_profitability" class="text-end">
+                        <span t-esc="sum(line.average_cost for line in doc.product_summary)" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                    </td>
+                    <td t-if="doc.show_profitability" class="text-end">
+                        <span t-esc="sum(line.total_cost for line in doc.product_summary)" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                    </td>
+                    <td t-if="doc.show_profitability" class="text-end">
+                        <span t-esc="sum(line.unit_price for line in doc.product_summary)" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                    </td>
+                    <td class="text-end">
+                        <span t-esc="sum(line.total_sales for line in doc.product_summary)" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                    </td>
+                    <td t-if="doc.show_profitability" class="text-end">
+                        <span t-esc="sum(line.total_margin for line in doc.product_summary)" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </template>
+
+    <!-- ======================================================= -->
+    <!-- REPORTE POR COMERCIAL (Resumen) -->
+    <!-- ======================================================= -->
+    <template id="commercial_report_summary">
+        <table class="table table-sm" style="font-size:10px;">
+            <thead>
+                <tr class="table-secondary">
+                    <th class="text-start">Comercial</th>
+                    <th class="text-start">Origen</th>
+                    <th class="text-end">Total Ventas</th>
+                    <th t-if="doc.show_profitability" class="text-end">Ganancia Bruta</th>
+                    <th t-if="doc.show_profitability" class="text-end">Margen %</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Se itera sobre las líneas calculadas 'sales_summary' -->
+                <tr t-foreach="doc.sales_summary" t-as="line">
+                    <td class="text-start"><span t-field="line.user_id.name"/></td>
+                    <td class="text-start"><span t-field="line.source"/></td>
+                    <td class="text-end">
+                        <span t-field="line.total_sales" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                    </td>
+                    <td t-if="doc.show_profitability" class="text-end">
+                        <span t-field="line.total_margin" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                    </td>
+                    <td t-if="doc.show_profitability" class="text-end">
+                        <span t-field="line.margin_percent" t-options="{'widget': 'percentage'}"/>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="table-secondary fw-bold">
+                    <td class="text-center" t-att-colspan="2">Total General</td>
+                    <td class="text-end">
+                        <span t-esc="sum(line.total_sales for line in doc.sales_summary)" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                    </td>
+                    <td t-if="doc.show_profitability" class="text-end">
+                        <span t-esc="sum(line.total_margin for line in doc.sales_summary)" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                    </td>
+                    <td t-if="doc.show_profitability" class="text-end"/>
+                </tr>
+            </tfoot>
+        </table>
+    </template>
+
+    <!-- ======================================================= -->
+    <!-- REPORTE DETALLADO -->
+    <!-- ======================================================= -->
+    <template id="commercial_report_details">
+        <table class="table table-sm" style="font-size:10px;">
+            <thead>
+                <tr class="table-secondary">
+                    <th class="text-start">Número</th>
+                    <th class="text-center">Fecha</th>
+                    <th class="text-start">Cliente</th>
+                    <th class="text-start" t-if="not doc.user_id">Comercial</th>
+                    <th class="text-end">Total Venta</th>
+                    <th t-if="doc.show_profitability" class="text-end">Total Costo</th>
+                    <th t-if="doc.show_profitability" class="text-end">Ganancia Bruta</th>
+                    <th t-if="doc.show_profitability" class="text-end">Margen %</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Iteramos directamente sobre las órdenes de venta que guardamos en 'sales_ids' -->
+                <tr t-foreach="doc.sales_ids" t-as="sale">
+                    <td class="text-start"><span t-field="sale.name"/></td>
+                    <td class="text-center"><span t-field="sale.date_order" t-options="{'format': 'dd/MM/yyyy'}"/></td>
+                    <td class="text-start"><span t-field="sale.partner_id.name"/></td>
+                    <td class="text-start" t-if="not doc.user_id"><span t-field="sale.user_id.name"/></td>
+                    <td class="text-end"><span t-field="sale.amount_untaxed"/></td>
+                    <td t-if="doc.show_profitability" class="text-end">
+                        <!-- El costo es la venta menos el margen -->
+                        <span t-esc="sale.amount_untaxed - sale.margin" t-options="{'widget': 'monetary', 'display_currency': sale.currency_id}"/>
+                    </td>
+                    <td t-if="doc.show_profitability" class="text-end">
+                        <span t-field="sale.margin"/>
+                    </td>
+                    <td t-if="doc.show_profitability" class="text-end">
+                        <span t-field="sale.margin_percent" t-options="{'widget': 'percentage'}"/>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                 <tr class="table-secondary fw-bold">
+                    <td t-att-colspan="4 if not doc.user_id else 3" class="text-end">Total General</td>
+                    <td class="text-end">
+                        <span t-esc="sum(sale.amount_untaxed for sale in doc.sales_ids)" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                    </td>
+                    <td t-if="doc.show_profitability" class="text-end">
+                        <span t-esc="sum((sale.amount_untaxed - sale.margin) for sale in doc.sales_ids)" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                    </td>
+                    <td t-if="doc.show_profitability" class="text-end">
+                        <span t-esc="sum(sale.margin for sale in doc.sales_ids)" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+                    </td>
+                    <td t-if="doc.show_profitability" class="text-end"/>
+                </tr>
+            </tfoot>
+        </table>
+    </template>
+
+    <!-- La acción del reporte no necesita cambios -->
+    <record id="action_commercial_report" model="ir.actions.report">
+        <field name="name">Reporte Comercial</field>
+        <field name="model">report.date.range.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sales_profitability_reports_cross.commercial_report</field>
+        <field name="report_file">sales_profitability_reports_cross.commercial_report</field>
+        <field name="print_report_name">'reporte_comercial_%s' % time.strftime('%d%m%Y%H%M')</field>
+        <field name="binding_model_id" eval="False"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="sales_profitability_reports_cross.A4_narrow_papelformat"/>
+    </record>
+
+</odoo>

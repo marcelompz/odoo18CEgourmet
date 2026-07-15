@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+    Create on 2025-10-07 17:32:37
+    @author: drojo
+-->
+<odoo>
+
+    <!-- Vista Formulario del Wizard para Cotizaciones -->
+    <record id="detailed_quotations_report_wizard_form_view" model="ir.ui.view">
+        <field name="name">detailed.quotations.report.wizard.form</field>
+        <field name="model">detailed.quotations.report.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="date_from"/>
+                    </group>
+                    <group>
+                        <field name="date_to"/>
+                    </group>
+                    <!-- <group><field name="user_id"/></group> -->
+                </group>
+                <footer>
+                    <button name="action_generate_xlsx_report" string="Generar Reporte Excel" type="object" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción de Ventana para Cotizaciones -->
+    <record id="action_detailed_quotations_report_wizard" model="ir.actions.act_window">
+        <field name="name">Reporte Detallado de Cotizaciones (Excel)</field>
+        <field name="res_model">detailed.quotations.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Menú para Cotizaciones -->
+    <menuitem id="menu_detailed_quotations_report"
+        name="Reporte Detallado de Cotizaciones"
+        parent="sale.menu_sale_report"
+        action="action_detailed_quotations_report_wizard"
+        sequence="110"
+    />
+    
+</odoo>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_unrealized_exchange_report_root"
+              name="Ganancias/Pérdidas no Realizadas"
+              parent="account.menu_finance_reports"
+              action="action_unrealized_exchange_wizard"
+              sequence="100"/>
+</odoo>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- CALENDAR VIEW -->
+    <record id="view_cn_agenda_appointment_calendar" model="ir.ui.view">
+        <field name="name">cn.agenda.appointment.calendar</field>
+        <field name="model">cn.agenda.appointment</field>
+        <field name="arch" type="xml">
+            <calendar string="Appointments" date_start="start_datetime" date_stop="stop_datetime" color="professional_id" event_open_popup="true" mode="week">
+                <field name="partner_id"/>
+                <field name="professional_id" filters="1"/>
+                <field name="room_id"/>
+                <field name="service_type"/>
+                <field name="state"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- FORM VIEW -->
+    <record id="view_cn_agenda_appointment_form" model="ir.ui.view">
+        <field name="name">cn.agenda.appointment.form</field>
+        <field name="model">cn.agenda.appointment</field>
+        <field name="arch" type="xml">
+            <form string="Appointment">
+                <header>
+                    <button name="action_confirm" string="Confirm" type="object" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_done" string="Mark as Done" type="object" class="btn-success" invisible="state != 'confirmed'"/>
+                    <button name="action_cancel" string="Cancel" type="object" invisible="state in ('done','cancel')"/>
+                    <button name="action_draft" string="Reset to Draft" type="object" invisible="state == 'draft'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="professional_id"/>
+                            <field name="room_id"/>
+                            <field name="service_type"/>
+                        </group>
+                        <group>
+                            <field name="start_datetime"/>
+                            <field name="duration" widget="float_time"/>
+                            <field name="stop_datetime"/>
+                            <field name="google_event_id" groups="base.group_no_one"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- TREE VIEW -->
+    <record id="view_cn_agenda_appointment_tree" model="ir.ui.view">
+        <field name="name">cn.agenda.appointment.tree</field>
+        <field name="model">cn.agenda.appointment</field>
+        <field name="arch" type="xml">
+            <list string="Appointments" decoration-info="state == 'draft'" decoration-success="state == 'done'" decoration-muted="state == 'cancel'">
+                <field name="name"/>
+                <field name="start_datetime"/>
+                <field name="partner_id"/>
+                <field name="professional_id"/>
+                <field name="room_id"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ACTION -->
+    <record id="action_cn_agenda_appointment" model="ir.actions.act_window">
+        <field name="name">Appointments</field>
+        <field name="res_model">cn.agenda.appointment</field>
+        <field name="view_mode">calendar,list,form</field>
+    </record>
+</odoo>

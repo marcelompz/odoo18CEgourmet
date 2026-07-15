@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Wizard form view -->
+        <record id="view_cleanup_wizard_form" model="ir.ui.view">
+            <field name="name">cleanup.wizard.form</field>
+            <field name="model">cleanup.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Execute Cleanup">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="config_id" widget="selection" options="{'no_create': True, 'no_open': True}"/>
+                            </group>
+                            <group>
+                                <field name="override_action"/>
+                                <field name="action_type"/>
+                            </group>
+                        </group>
+                        
+                        <group string="Preview">
+                            <group>
+                                <div class="o_form_label">Records to be processed:</div>
+                                <div class="alert alert-info">
+                                    <field name="stock_moves_count" widget="statinfo" string="Stock Moves"/>
+                                    <field name="purchase_orders_count" widget="statinfo" string="Purchase Orders"/>
+                                    <field name="account_moves_count" widget="statinfo" string="Account Moves"/>
+                                </div>
+                                <div class="alert alert-warning">
+                                    <strong>Warning:</strong> No records match the current criteria.
+                                </div>
+                            </group>
+                        </group>
+                        
+                        <footer>
+                            <button name="action_execute" type="object" string="Execute Cleanup" class="btn-primary"/>
+                            <button name="action_cancel" type="object" string="Cancel" class="btn-secondary"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Wizard action -->
+        <record id="action_cleanup_wizard" model="ir.actions.act_window">
+            <field name="name">Execute Cleanup</field>
+            <field name="res_model">cleanup.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="model_cleanup_config"/>
+            <field name="binding_type">action</field>
+        </record>
+    </data>
+</odoo>

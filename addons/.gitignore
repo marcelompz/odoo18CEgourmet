@@ -1,0 +1,7 @@
+docker18/
+.vscode/
+__pycache__/
+*.png
+!icon.png
+!currency.png
+!supplier-purchase.png

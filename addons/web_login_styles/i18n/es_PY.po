@@ -1,0 +1,240 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* web_login_styles
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0-20250807\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-08-16 22:03+0000\n"
+"PO-Revision-Date: 2025-08-16 19:08-0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_PY\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.2\n"
+
+#. module: web_login_styles
+#: model:ir.model,name:web_login_styles.model_ir_attachment
+msgid "Attachment"
+msgstr "Archivos adjuntos"
+
+#. module: web_login_styles
+#: model:ir.model.fields,field_description:web_login_styles.field_res_config_settings__background
+#: model_terms:ir.ui.view,arch_db:web_login_styles.res_config_settings_view_form
+#, fuzzy
+msgid "Background"
+msgstr "Fondo"
+
+#. module: web_login_styles
+#: model:ir.model.fields,help:web_login_styles.field_res_config_settings__background
+#, fuzzy
+msgid "Background of the login page"
+msgstr "Fondo de la página de inicio de sesión"
+
+#. module: web_login_styles
+#: model:ir.model.fields,field_description:web_login_styles.field_res_config_settings__color
+#: model_terms:ir.ui.view,arch_db:web_login_styles.res_config_settings_view_form
+#, fuzzy
+msgid "Color"
+msgstr "Color"
+
+#. module: web_login_styles
+#: model:ir.model.fields.selection,name:web_login_styles.selection__res_config_settings__background__color
+#, fuzzy
+msgid "Color Picker"
+msgstr "Selector de color"
+
+#. module: web_login_styles
+#: model:ir.model,name:web_login_styles.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de configuración"
+
+#. module: web_login_styles
+#: model_terms:ir.ui.view,arch_db:web_login_styles.res_config_settings_view_form
+#, fuzzy
+msgid "Customize the login page with change the position of login box and customize background"
+msgstr "Personalice la página de inicio de sesión cambiando la posición del cuadro de inicio de sesión y personalice el fondo."
+
+#. module: web_login_styles
+#: model_terms:ir.ui.view,arch_db:web_login_styles.login_template_left
+#: model_terms:ir.ui.view,arch_db:web_login_styles.login_template_middle
+#: model_terms:ir.ui.view,arch_db:web_login_styles.login_template_right
+#, fuzzy
+msgid "Database"
+msgstr "Base de datos"
+
+#. module: web_login_styles
+#: model:ir.model.fields.selection,name:web_login_styles.selection__res_config_settings__orientation__default
+#, fuzzy
+msgid "Default"
+msgstr "Por defecto"
+
+#. module: web_login_styles
+#: model_terms:ir.ui.view,arch_db:web_login_styles.login_template_left
+#: model_terms:ir.ui.view,arch_db:web_login_styles.login_template_middle
+#: model_terms:ir.ui.view,arch_db:web_login_styles.login_template_right
+msgid "Email"
+msgstr "Correo electrónico"
+
+#. module: web_login_styles
+#: model:ir.model.fields,field_description:web_login_styles.field_res_config_settings__image
+#: model:ir.model.fields.selection,name:web_login_styles.selection__res_config_settings__background__image
+#: model_terms:ir.ui.view,arch_db:web_login_styles.res_config_settings_view_form
+#, fuzzy
+msgid "Image"
+msgstr "Imagen"
+
+#. module: web_login_styles
+#: model:ir.model.fields,field_description:web_login_styles.field_ir_attachment__is_background
+#, fuzzy
+msgid "Is Background"
+msgstr "Es fondo"
+
+#. module: web_login_styles
+#: model:ir.model.fields.selection,name:web_login_styles.selection__res_config_settings__orientation__left
+#, fuzzy
+msgid "Left"
+msgstr "Izquierda"
+
+#. module: web_login_styles
+#: model_terms:ir.ui.view,arch_db:web_login_styles.login_template_left
+#: model_terms:ir.ui.view,arch_db:web_login_styles.login_template_middle
+#: model_terms:ir.ui.view,arch_db:web_login_styles.login_template_right
+msgid "Log in"
+msgstr "Iniciar sesión"
+
+#. module: web_login_styles
+#: model_terms:ir.ui.view,arch_db:web_login_styles.res_config_settings_view_form
+msgid "Login Page Set-Up"
+msgstr "Configuración de la página de inicio de sesión"
+
+#. module: web_login_styles
+#: model_terms:ir.ui.view,arch_db:web_login_styles.login_template_left
+#: model_terms:ir.ui.view,arch_db:web_login_styles.login_template_middle
+#: model_terms:ir.ui.view,arch_db:web_login_styles.login_template_right
+#, fuzzy
+msgid "Logo"
+msgstr "Logo"
+
+#. module: web_login_styles
+#: model:ir.model.fields.selection,name:web_login_styles.selection__res_config_settings__orientation__middle
+msgid "Middle"
+msgstr "Centro"
+
+#. module: web_login_styles
+#. odoo-python
+#: code:addons/web_login_styles/controllers/main.py:0
+msgid "Only employees can access this database. Please contact the administrator."
+msgstr "Solo los empleados pueden acceder a esta base de datos. Por favor, contacte al administrador."
+
+#. module: web_login_styles
+#: model:ir.model.fields,field_description:web_login_styles.field_res_config_settings__orientation
+#: model_terms:ir.ui.view,arch_db:web_login_styles.res_config_settings_view_form
+msgid "Orientation"
+msgstr "Orientación"
+
+#. module: web_login_styles
+#: model_terms:ir.ui.view,arch_db:web_login_styles.login_template_left
+#: model_terms:ir.ui.view,arch_db:web_login_styles.login_template_middle
+#: model_terms:ir.ui.view,arch_db:web_login_styles.login_template_right
+msgid "Password"
+msgstr "Contraseña"
+
+#. module: web_login_styles
+#: model_terms:ir.ui.view,arch_db:web_login_styles.login_template_left model_terms:ir.ui.view,arch_db:web_login_styles.login_template_right
+msgid ""
+"Powered by\n"
+"                                        <span>Crossnexion EAS</span>"
+msgstr ""
+
+#. module: web_login_styles
+#: model_terms:ir.ui.view,arch_db:web_login_styles.login_template_middle
+msgid ""
+"Powered by\n"
+"                                    <span>Crossnexion EAS</span>"
+msgstr ""
+
+#. module: web_login_styles
+#: model:ir.model.fields.selection,name:web_login_styles.selection__res_config_settings__orientation__right
+msgid "Right"
+msgstr "Derecha"
+
+#. module: web_login_styles
+#: model_terms:ir.ui.view,arch_db:web_login_styles.login_template_left model_terms:ir.ui.view,arch_db:web_login_styles.login_template_right
+msgid ""
+"Select\n"
+"                                                    <i class=\"fa fa-database\" role=\"img\" aria-label=\"Database\" title=\"Database\"/>"
+msgstr ""
+"Seleccinar\n"
+"                                                    <i class=\"fa fa-database\" role=\"img\" aria-label=\"Database\" title=\"Database\"/>"
+
+#. module: web_login_styles
+#: model_terms:ir.ui.view,arch_db:web_login_styles.login_template_middle
+msgid ""
+"Select\n"
+"                                                <i class=\"fa fa-database\" role=\"img\" aria-label=\"Database\" title=\"Database\"/>"
+msgstr ""
+"Seleccionar\n"
+"                                                <i class=\"fa fa-database\" role=\"img\" aria-label=\"Database\" title=\"Database\"/>"
+
+#. module: web_login_styles
+#: model_terms:ir.ui.view,arch_db:web_login_styles.res_config_settings_view_form
+msgid "Select a login background image from system."
+msgstr "Seleccione una imagen de fondo de inicio de sesión del sistema."
+
+#. module: web_login_styles
+#: model:ir.model.fields,help:web_login_styles.field_res_config_settings__url
+msgid "Select and url of image"
+msgstr "Seleccionar la URL de la imagen"
+
+#. module: web_login_styles
+#: model:ir.model.fields,help:web_login_styles.field_res_config_settings__image
+msgid "Select background image of login page"
+msgstr "Seleccionar la imagen de fondo de la página de inicio de sesión"
+
+#. module: web_login_styles
+#: model_terms:ir.ui.view,arch_db:web_login_styles.res_config_settings_view_form
+msgid "Select orientation of login box."
+msgstr "Seleccionar la orientación del cuadro de inicio de sesión."
+
+#. module: web_login_styles
+#: model:ir.model.fields,help:web_login_styles.field_res_config_settings__color
+msgid "Set a colour for background of login page"
+msgstr "Establecer un color para el fondo de la página de inicio de sesión"
+
+#. module: web_login_styles
+#: model_terms:ir.ui.view,arch_db:web_login_styles.res_config_settings_view_form
+msgid "Set a login background color."
+msgstr "Establecer un color de fondo de inicio de sesión."
+
+#. module: web_login_styles
+#: model_terms:ir.ui.view,arch_db:web_login_styles.res_config_settings_view_form
+msgid "Set a url of background image."
+msgstr "Establecer una URL de imagen de fondo."
+
+#. module: web_login_styles
+#: model:ir.model.fields,help:web_login_styles.field_ir_attachment__is_background
+msgid "To check is background option added"
+msgstr "Para comprobar si se agregó la opción de fondo"
+
+#. module: web_login_styles
+#: model:ir.model.fields,help:web_login_styles.field_res_config_settings__orientation
+msgid "Type of login page visibility"
+msgstr "Tipo de visibilidad de la página de inicio de sesión"
+
+#. module: web_login_styles
+#: model:ir.model.fields,field_description:web_login_styles.field_res_config_settings__url
+#: model:ir.model.fields.selection,name:web_login_styles.selection__res_config_settings__background__url
+#: model_terms:ir.ui.view,arch_db:web_login_styles.res_config_settings_view_form
+msgid "URL"
+msgstr "URL"
+
+#. module: web_login_styles
+#. odoo-python
+#: code:addons/web_login_styles/controllers/main.py:0
+msgid "Wrong login/password"
+msgstr "Nombre de usuario/contraseña incorrectos"

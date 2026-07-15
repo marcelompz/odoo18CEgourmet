@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_cn_agenda_root" name="Agenda" sequence="10"/>
+
+    <menuitem id="menu_cn_agenda_appointments"
+              name="Appointments"
+              parent="menu_cn_agenda_root"
+              action="action_cn_agenda_appointment"
+              sequence="10"/>
+
+    <menuitem id="menu_cn_agenda_professionals"
+              name="Professionals"
+              parent="menu_cn_agenda_root"
+              action="action_cn_agenda_professional"
+              sequence="20"/>
+
+    <menuitem id="menu_cn_agenda_rooms"
+              name="Rooms"
+              parent="menu_cn_agenda_root"
+              action="action_cn_agenda_room"
+              sequence="30"/>
+</odoo>

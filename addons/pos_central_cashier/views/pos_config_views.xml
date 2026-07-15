@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="pos_config_view_form_inherit_central_cashier" model="ir.ui.view">
+        <field name="name">pos.config.form.inherit.central.cashier</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='oe_title']" position="after">
+                <group string="Caja Principal y Mostrador" name="central_cashier_group">
+                    <group>
+                        <field name="is_counter_pos" string="PDV Mostrador" 
+                               help="Si está activo, este PDV puede marcar órdenes como pendiente de pago."/>
+                    </group>
+                    <group>
+                        <field name="is_central_cashier" string="PDV Caja Principal" 
+                               help="Si está activo, este PDV puede recuperar y cobrar órdenes pendientes."/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

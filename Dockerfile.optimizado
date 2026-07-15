@@ -1,0 +1,56 @@
+FROM odoo:18.0
+
+LABEL MAINTAINER Crossnexion EAS <contacto@crossnexion.com>
+
+# Cambiar a root para instalaciones
+USER root
+
+# Instalar herramientas de debugging y utilidades
+RUN apt-get update && apt-get install -y \
+    curl \
+    vim-tiny \
+    jq \
+    postgresql-client \
+    && rm -rf /var/lib/apt/lists/*
+
+# Instalar dependencias Python optimizadas
+RUN pip install --upgrade pip && \
+    pip install \
+    dropbox \
+    pyncclient \
+    nextcloud-api-wrapper \
+    boto3 \
+    paramiko \
+    tu-ruc-python-client \
+    openpyxl \
+    xlrd \
+    xlwt \
+    psycopg2-binary \
+    python-dateutil \
+    pytz \
+    redis \
+    requests \
+    gevent
+
+# Crear directorio para scripts personalizados
+RUN mkdir -p /custom-scripts && chown odoo:odoo /custom-scripts
+
+# Copiar entrypoint optimizado
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh && chown odoo:odoo /entrypoint.sh
+
+# Volver al usuario odoo
+USER odoo
+
+# Health check para Docker
+HEALTHCHECK --interval=30s --timeout=10s --retries=3 --start-period=60s \
+    CMD curl -f http://localhost:8069/web/health || exit 1
+
+# Puerto longpolling
+EXPOSE 8072
+
+# Directorio de trabajo
+WORKDIR /opt/odoo
+
+# Comando por defecto (será sobrescrito por entrypoint)
+CMD ["odoo"]

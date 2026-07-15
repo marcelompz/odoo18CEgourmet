@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="pos_multi_currency.PaymentScreen" t-inherit="point_of_sale.PaymentScreen" t-inherit-mode="extension">
+        <xpath expr="//div[contains(@class, 'payment-summary')]" position="inside">
+            <div class="pos-currency-display-widget shadow-sm">
+                
+                <!-- SECCIÓN COTIZACIÓN -->
+                <div class="currency-section exchange-rates-section">
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="fa fa-refresh text-muted me-2" style="font-size: 0.8rem;"/>
+                        <strong class="text-uppercase small fw-bold text-muted">Cotización</strong>
+                    </div>
+                    <div class="d-flex flex-wrap gap-1">
+                        <t t-foreach="exchangeRates" t-as="rate" t-key="rate.id">
+                            <span class="badge rounded-pill bg-light text-dark border">
+                                <t t-esc="rate.display"/>
+                            </span>
+                        </t>
+                    </div>
+                </div>
+
+                <!-- SECCIÓN PENDIENTES -->
+                <div class="currency-section bg-light-subtle">
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="fa fa-calculator text-danger me-2" style="font-size: 0.8rem;"/>
+                        <strong class="text-uppercase small fw-bold text-danger" style="letter-spacing: 0.5px;">Restantes</strong>
+                    </div>
+                    <t t-foreach="dueAmounts" t-as="amount" t-key="amount.currencyId">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <span class="text-muted small" t-esc="amount.currencyName"/>
+                            <span class="fw-bold text-danger" t-esc="amount.display"/>
+                        </div>
+                    </t>
+                </div>
+
+                <!-- SECCIÓN VUELTO (Solo si existe) -->
+                <div t-if="changeAmounts and changeAmounts.length" class="currency-section bg-success-subtle">
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="fa fa-money text-success me-2" style="font-size: 0.8rem;"/>
+                        <strong class="text-uppercase small fw-bold text-success" style="letter-spacing: 0.5px;">Vuelto</strong>
+                    </div>
+                    <t t-foreach="changeAmounts" t-as="change" t-key="change.currencyId">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <span class="text-success small fw-bold" t-esc="change.currencyName"/>
+                            <span class="fs-5 fw-bolder text-success" t-esc="change.display"/>
+                        </div>
+                    </t>
+                </div>
+
+            </div>
+        </xpath>
+    </t>
+
+</templates>

@@ -1,0 +1,7 @@
+{
+    "assets": {
+        "web.assets_backend": [
+            "accounting_reporte_cross/static/src/css/report_styles.css"
+        ]
+    }
+}

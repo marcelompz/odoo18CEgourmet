@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_stock_warehouse_stock_wizard_user,stock.warehouse.stock.wizard.user,model_stock_warehouse_stock_wizard,base.group_user,1,1,1,0
+access_stock_warehouse_stock_wizard_sales,stock.warehouse.stock.wizard.sales,model_stock_warehouse_stock_wizard,sales_team.group_sale_salesman,1,1,1,0
+access_stock_warehouse_stock_wizard_manager,stock.warehouse.stock.wizard.manager,model_stock_warehouse_stock_wizard,sales_team.group_sale_manager,1,1,1,1
+access_stock_warehouse_stock_line_user,stock.warehouse.stock.line.user,model_stock_warehouse_stock_line,base.group_user,1,0,0,0
+access_stock_warehouse_stock_line_sales,stock.warehouse.stock.line.sales,model_stock_warehouse_stock_line,sales_team.group_sale_salesman,1,1,1,0
+access_stock_warehouse_stock_line_manager,stock.warehouse.stock.line.manager,model_stock_warehouse_stock_line,sales_team.group_sale_manager,1,1,1,1

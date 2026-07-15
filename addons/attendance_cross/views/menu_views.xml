@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Main menu for Biometric Attendance -->
+        <menuitem id="menu_biometric_attendance_root" name="Attendance" sequence="10"/>
+        
+        <menuitem id="menu_biometric_devices" name="Biometric Devices" parent="menu_biometric_attendance_root" sequence="10" action="action_biometric_device"/>
+        
+        <menuitem id="menu_attendance_logs" name="Attendance Logs" parent="menu_biometric_attendance_root" sequence="20" action="action_attendance_log"/>
+        
+        <!-- Actions menu -->
+        <menuitem id="menu_biometric_actions" name="Actions" parent="menu_biometric_attendance_root" sequence="30"/>
+        
+        <menuitem id="menu_upload_employees" name="Upload Employees" parent="menu_biometric_actions" sequence="10" action="action_upload_employees_wizard"/>
+        
+        <menuitem id="menu_download_attendance" name="Download Attendance" parent="menu_biometric_actions" sequence="20" action="action_download_attendance_wizard"/>
+        
+        <menuitem id="menu_generate_report" name="Generate Report" parent="menu_biometric_actions" sequence="30" action="action_attendance_report_wizard"/>
+    </data>
+</odoo>

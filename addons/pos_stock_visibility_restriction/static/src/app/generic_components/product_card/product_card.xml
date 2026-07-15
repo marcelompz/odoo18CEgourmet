@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="pos_stock_visibility_restriction.ProductCard" t-inherit="point_of_sale.ProductCard" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('product-information-tag')]" position="after">
+            <div class="on-hand-qty-box position-absolute top-0 start-0 m-1">
+                <span class="badge rounded-pill text-bg-success fs-7" t-att-class="{'text-bg-warning': qtyAvailable.value &lt; 5, 'text-bg-danger': qtyAvailable.value === 0}">
+                    <i class="fa fa-cube me-1" aria-hidden="true"></i>
+                    <t t-esc="qtyAvailable.value"/>
+                </span>
+            </div>
+        </xpath>
+    </t>
+</templates>

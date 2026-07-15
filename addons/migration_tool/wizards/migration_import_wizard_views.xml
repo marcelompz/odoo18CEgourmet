@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_migration_import_wizard" model="ir.ui.view">
+        <field name="name">migration.import.wizard.form</field>
+        <field name="model">migration.import.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Import Transactions">
+                <group>
+                    <group>
+                        <field name="config_id"/>
+                    </group>
+                    <group>
+                        <field name="export_path" readonly="1"/>
+                    </group>
+                </group>
+                <group invisible="not result">
+                    <field name="result" readonly="1" widget="text" nolabel="1" height="300"/>
+                </group>
+                <footer>
+                    <button name="action_import" string="Import" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_migration_import_wizard" model="ir.actions.act_window">
+        <field name="name">Import Transactions</field>
+        <field name="res_model">migration.import.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

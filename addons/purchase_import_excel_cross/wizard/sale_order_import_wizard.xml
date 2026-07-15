@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+    Create on 2025-11-18 13:34:27
+    @author: drojo
+-->
+<odoo>
+
+    <!-- form view -->
+
+    <record id="sale_order_import_wizard_form_view" model="ir.ui.view">
+        <field name="name">sale.order.import.wizard.form</field>
+        <field name="model">sale.order.import.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Importar Líneas de Compra">
+                <group>
+                    <field name="sale_order_id" invisible="1"/>
+                    <field name="excel_file" filename="file_name"/>
+                    <field name="file_name" invisible="1"/>
+                    <field name="sheet_index" invisible="not excel_file"/>
+                    <field name="sheet_list_text" invisible="not excel_file"/>
+                </group>
+                <footer>
+                <div class="d-flex justify-content-between w-100">
+                    <div>
+                        <button name="action_import_lines" type="object" string="Importar" class="btn btn-primary"/>
+                        <button string="Cancelar" class="btn btn-secondary" special="cancel"/>
+                    </div>
+
+                    <div>
+                        <button name="action_download_template" type="object" string="Descargar plantilla"
+                            icon="fa-download" class="oe_link"/>
+                    </div>
+                </div>
+            </footer>
+
+            </form>
+        </field>
+    </record>
+
+</odoo>

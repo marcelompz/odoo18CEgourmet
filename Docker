@@ -1,0 +1,22 @@
+FROM odoo:18.0
+
+LABEL MAINTAINER Crossnexion EAS <contacto@crossnexion.com>
+
+# Cambiar al usuario odoo
+USER odoo
+
+# Instalar paquetes Python directamente
+RUN pip install --upgrade pip && \
+    pip install \
+    dropbox \
+    pyncclient \
+    nextcloud-api-wrapper \
+    boto3 \
+    paramiko \
+    tu-ruc-python-client \
+    openpyxl \
+    xlrd \
+    xlwt
+
+# Opcional: volver a root si necesitas hacer algo más
+# USER root

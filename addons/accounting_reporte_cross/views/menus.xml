@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_accounting_report_root"
+              name="Reportes (Cross)"
+              parent="account.menu_finance_reports"
+              sequence="100"/>
+
+    <menuitem id="menu_accounting_report_wizard"
+              name="Reportes Financieros"
+              parent="menu_accounting_report_root"
+              action="action_accounting_report_wizard"
+              sequence="10"/>
+
+    <menuitem id="menu_accounting_report_config_root"
+              name="Config. de Reportes"
+              parent="account.menu_finance_configuration"
+              sequence="100"/>
+
+    <menuitem id="menu_accounting_report_definition"
+              name="Definiciones de Reporte"
+              parent="menu_accounting_report_config_root"
+              action="action_accounting_report_definition"
+              sequence="10"/>
+
+    <menuitem id="menu_accounting_report_tag"
+              name="Etiquetas Regulatorias"
+              parent="menu_accounting_report_config_root"
+              action="action_accounting_report_tag"
+              sequence="20"/>
+</odoo>

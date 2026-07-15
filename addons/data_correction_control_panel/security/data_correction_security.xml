@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record model="ir.module.category" id="module_category_data_correction">
+            <field name="name">Corrección de Datos</field>
+            <field name="description">Permisos para el panel de corrección de datos e impuestos.</field>
+            <field name="sequence">100</field>
+        </record>
+
+        <record id="group_data_correction_manager" model="res.groups">
+            <field name="name">Gestor de Correcciones</field>
+            <field name="category_id" ref="module_category_data_correction"/>
+            <!-- Add root and admin to this group automatically on install -->
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+            <field name="comment">Los usuarios tendrán acceso completo al panel de control de corrección de datos.</field>
+        </record>
+    </data>
+</odoo>

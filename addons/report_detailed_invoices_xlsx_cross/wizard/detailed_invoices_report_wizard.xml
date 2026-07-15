@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+    Create on 2025-10-07 16:36:04
+    @author: drojo
+-->
+<odoo>
+
+    <!-- Vista Formulario del Wizard -->
+    <record id="detailed_invoices_report_wizard_form" model="ir.ui.view">
+        <field name="name">detailed.invoices.report.wizard.form</field>
+        <field name="model">detailed.invoices.report.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="date_from"/>
+                    </group>
+                    <group>
+                        <field name="date_to"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_generate_xlsx_report" string="Generar Reporte Excel" type="object" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción de Ventana -->
+    <record id="action_detailed_invoices_report_wizard" model="ir.actions.act_window">
+        <field name="name">Reporte Detallado de Facturas (Excel)</field>
+        <field name="res_model">detailed.invoices.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Menú -->
+    <menuitem id="menu_detailed_invoices_report"
+        name="Reporte Detallado de Facturas"
+        parent="account.menu_finance_reports"
+        action="action_detailed_invoices_report_wizard"
+        sequence="100"
+    />
+    
+</odoo>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- Default cleanup configuration -->
+        <record id="cleanup_config_default" model="cleanup.config">
+            <field name="name">Default Cleanup Configuration</field>
+            <field name="active">True</field>
+            <field name="cleanup_stock_moves">True</field>
+            <field name="cleanup_purchase_orders">True</field>
+            <field name="cleanup_account_moves">True</field>
+            <field name="stock_move_states">both</field>
+            <field name="purchase_order_states">both</field>
+            <field name="account_move_states">both</field>
+            <field name="cleanup_type">all</field>
+            <field name="cleanup_pos_taxes">True</field>
+            <field name="pos_tax_correction_type">both</field>
+            <field name="pos_tax_action">report</field>
+            <field name="enable_logging">True</field>
+            <field name="enable_revert">True</field>
+            <field name="action_type">cancel</field>
+        </record>
+    </data>
+</odoo>

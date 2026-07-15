@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Vista de formulario de venta con información de stock -->
+    <record id="view_sale_order_form_stock" model="ir.ui.view">
+        <field name="name">sale.order.form.stock</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <!-- Agregar campos de stock en las líneas de pedido -->
+            <xpath expr="//field[@name='order_line']/list/field[@name='price_subtotal']" position="after">
+                <field name="has_stock_info" column_invisible="1"/>
+                <field name="stock_summary" 
+                        string="Stock" 
+                        readonly="1"
+                        optional="show"/>
+                <!-- <button name="action_view_stock_details" 
+                        type="object" 
+                        title="Ver Stock Detallado"
+                        class="btn btn-sm btn-link"
+                        invisible="not has_stock_info"
+                        icon="fa-warehouse"/> -->
+            </xpath>
+        </field>
+    </record>
+
+</odoo> 

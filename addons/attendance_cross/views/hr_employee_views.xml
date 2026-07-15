@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Add biometric fields to employee form -->
+        <record id="view_employee_form_inherit_biometric" model="ir.ui.view">
+            <field name="name">hr.employee.form.inherit.biometric</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='personal_information']" position="inside">
+                    <group string="Biometric Integration">
+                        <field name="biometric_id"/>
+                        <field name="biometric_device_id"/>
+                        <field name="biometric_uploaded" readonly="1"/>
+                    </group>
+                </xpath>
+                <xpath expr="//header" position="inside">
+                    <button name="action_upload_to_device" type="object" string="Upload to Device" class="btn-secondary" invisible="biometric_uploaded == True"/>
+                    <button name="action_view_attendance_logs" type="object" string="View Attendance Logs" class="btn-secondary"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <!-- Add biometric fields to employee tree view -->
+        <record id="view_employee_tree_inherit_biometric" model="ir.ui.view">
+            <field name="name">hr.employee.tree.inherit.biometric</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='department_id']" position="after">
+                    <field name="biometric_id"/>
+                    <field name="biometric_uploaded" widget="boolean"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

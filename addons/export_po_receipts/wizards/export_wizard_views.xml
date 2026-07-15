@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_export_po_receipt_wizard_form" model="ir.ui.view">
+        <field name="name">export.po.receipt.wizard.form</field>
+        <field name="model">export.po.receipt.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Exportar Datos de Recepción">
+                <p invisible="file_data">
+                    Esta acción exportará los datos de las compras seleccionadas, incluyendo sus recepciones, lotes, fechas de caducidad y precios de compra.
+                </p>
+                <group invisible="not file_data">
+                    <field name="file_name" invisible="1"/>
+                    <field name="file_data" filename="file_name" readonly="1" widget="binary"/>
+                </group>
+                <footer>
+                    <button name="action_export" string="Generar Exportación" type="object" class="btn-primary" invisible="file_data"/>
+                    <button string="Cerrar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_export_po_receipt_wizard" model="ir.actions.act_window">
+        <field name="name">Exportar Lotes y Recepciones</field>
+        <field name="res_model">export.po.receipt.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+</odoo>

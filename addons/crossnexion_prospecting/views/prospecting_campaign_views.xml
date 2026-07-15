@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- FORM VIEW -->
+    <record id="view_prospecting_campaign_form" model="ir.ui.view">
+        <field name="name">prospecting.campaign.form</field>
+        <field name="model">prospecting.campaign</field>
+        <field name="arch" type="xml">
+            <form string="Campaign">
+                <header>
+                    <button name="action_search_places" string="Search Businesses" type="object" class="btn-primary" invisible="state == 'done'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_leads" type="object" class="oe_stat_button" icon="fa-users">
+                            <field name="lead_count" widget="statinfo" string="Leads"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Campaign Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="keyword"/>
+                            <field name="location_query"/>
+                        </group>
+                        <group>
+                            <field name="radius"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- TREE VIEW -->
+    <record id="view_prospecting_campaign_tree" model="ir.ui.view">
+        <field name="name">prospecting.campaign.tree</field>
+        <field name="model">prospecting.campaign</field>
+        <field name="arch" type="xml">
+            <list string="Campaigns">
+                <field name="name"/>
+                <field name="keyword"/>
+                <field name="location_query"/>
+                <field name="lead_count"/>
+                <field name="state" widget="badge" decoration-info="state == 'draft'" decoration-success="state == 'done'"/>
+            </list>
+        </field>
+    </record>
+
+</odoo>

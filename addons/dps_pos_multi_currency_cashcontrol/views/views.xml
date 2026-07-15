@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+	<record id="view_pos_session_form_inherit" model="ir.ui.view">
+		<field name="name">pos.session.form.inherit</field>
+		<field name="model">pos.session</field>
+		<field name="inherit_id" ref="point_of_sale.view_pos_session_form"/>
+		<field name="arch" type="xml">
+			<field name="start_at" position="after">
+				<field name="currency_rates_display" />
+				<field name="oc_opening_cash_details" invisible="1"/>
+				<field name="oc_opening_bal_ids" readonly="1">
+					<list>
+						<field name="currency_id"/>
+						<field name="opening_total"/>
+						<field name="symbol"/>
+					</list>
+				</field>
+			</field>
+		</field>
+	</record>
+
+	<record id="pos_bills_view_tree_inherit" model="ir.ui.view">
+		<field name="name">pos.bill.tree.inherit</field>
+		<field name="model">pos.bill</field>
+		<field name="inherit_id" ref="point_of_sale.view_pos_bill_tree"/>
+		<field name="arch" type="xml">
+			<field name="pos_config_ids" position="after">
+				<field name="currency_id"/>
+			</field>
+		</field>
+	</record>
+
+
+
+</odoo>

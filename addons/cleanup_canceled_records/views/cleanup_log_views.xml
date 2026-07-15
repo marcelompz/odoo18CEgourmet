@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Tree view for cleanup.log -->
+        <record id="view_cleanup_log_tree" model="ir.ui.view">
+            <field name="name">cleanup.log.tree</field>
+            <field name="model">cleanup.log</field>
+            <field name="arch" type="xml">
+                <list string="Cleanup Logs" decoration-danger="status=='failed'" decoration-warning="status=='running'">
+                    <field name="name" string="Reference"/>
+                    <field name="execution_date" string="Date"/>
+                    <field name="executed_by" string="Executed By"/>
+                    <field name="cleanup_type" string="Type"/>
+                    <field name="status" string="Status"/>
+                    <field name="total_processed" string="Processed"/>
+                    <field name="total_corrected" string="Corrected"/>
+                    <field name="reverted" string="Reverted" invisible="1"/>
+                </list>
+            </field>
+        </record>
+        
+        <!-- Form view for cleanup.log -->
+        <record id="view_cleanup_log_form" model="ir.ui.view">
+            <field name="name">cleanup.log.form</field>
+            <field name="model">cleanup.log</field>
+            <field name="arch" type="xml">
+                <form string="Cleanup Log">
+                    <header>
+                        <button name="action_view_log_lines" type="object" string="View Details" class="btn-primary"/>
+                        <button name="action_revert" type="object" string="Revert" class="btn-secondary"/>
+                        <field name="status" widget="statusbar" statusbar_visible="draft,running,completed,failed,reverted"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_log_lines" type="object" class="oe_stat_button" icon="fa-list">
+                                <div class="o_stat_info">
+                                    <field name="total_processed" widget="statinfo" string="Processed"/>
+                                </div>
+                            </button>
+                            <button name="action_view_log_lines" type="object" class="oe_stat_button" icon="fa-check">
+                                <div class="o_stat_info">
+                                    <field name="total_corrected" widget="statinfo" string="Corrected"/>
+                                </div>
+                            </button>
+                            <button name="action_revert" type="object" class="oe_stat_button" icon="fa-undo">
+                                <div class="o_stat_info">
+                                    <field name="reverted" widget="statinfo" string="Reverted"/>
+                                    <span class="o_stat_text">Revert</span>
+                                </div>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name" string="Reference" readonly="1"/>
+                                <field name="execution_date" string="Execution Date" readonly="1"/>
+                                <field name="executed_by" string="Executed By" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="config_id" string="Configuration" readonly="1"/>
+                                <field name="cleanup_type" string="Cleanup Type" readonly="1"/>
+                                <field name="status" string="Status" readonly="1"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Results Summary">
+                                <group>
+                                    <group>
+                                        <field name="stock_moves_processed" string="Stock Moves" readonly="1"/>
+                                        <field name="purchase_orders_processed" string="Purchase Orders" readonly="1"/>
+                                        <field name="account_moves_processed" string="Account Moves" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="pos_orders_processed" string="POS Orders" readonly="1"/>
+                                        <field name="pos_lines_processed" string="POS Lines" readonly="1"/>
+                                        <field name="pos_lines_corrected" string="POS Corrected" readonly="1"/>
+                                    </group>
+                                </group>
+                            </page>
+                            
+                            <page string="Log Details">
+                                <field name="log_line_ids" nolabel="1">
+                                     <list editable="bottom">
+                                        <field name="model_name" string="Model"/>
+                                        <field name="record_name" string="Record"/>
+                                        <field name="action_type" string="Action"/>
+                                        <field name="discrepancy_type" string="Issue Type"/>
+                                        <field name="price_total_before" string="Total Before" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                        <field name="price_total_after" string="Total After" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                        <field name="status" string="Status"/>
+                                        <field name="original_user_id" string="Original User"/>
+                </list>
+                                </field>
+                            </page>
+                            
+                            <page string="Errors &amp; Warnings">
+                                <group>
+                                    <group string="Errors">
+                                        <field name="error_log" nolabel="1" readonly="1" widget="text"/>
+                                    </group>
+                                    <group string="Warnings">
+                                        <field name="warning_log" nolabel="1" readonly="1" widget="text"/>
+                                    </group>
+                                </group>
+                            </page>
+                            
+                            <page string="Revert Info">
+                                <group>
+                                    <group>
+                                        <field name="reverted_by" string="Reverted By" readonly="1"/>
+                                        <field name="revert_date" string="Revert Date" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="revert_reason" string="Revert Reason" readonly="1"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Tree view for cleanup.log.line -->
+        <record id="view_cleanup_log_line_tree" model="ir.ui.view">
+            <field name="name">cleanup.log.line.tree</field>
+            <field name="model">cleanup.log.line</field>
+            <field name="arch" type="xml">
+                 <list string="Log Lines">
+                    <field name="model_name" string="Model"/>
+                    <field name="record_name" string="Record"/>
+                    <field name="action_type" string="Action"/>
+                    <field name="discrepancy_type" string="Issue Type"/>
+                    <field name="product_id" string="Product"/>
+                    <field name="original_user_id" string="Original User"/>
+                    <field name="status" string="Status"/>
+                </list>
+            </field>
+        </record>
+        
+        <!-- Form view for cleanup.log.line -->
+        <record id="view_cleanup_log_line_form" model="ir.ui.view">
+            <field name="name">cleanup.log.line.form</field>
+            <field name="model">cleanup.log.line</field>
+            <field name="arch" type="xml">
+                <form string="Log Line">
+                    <header>
+                        <button name="action_view_record" type="object" string="Open Record" class="btn-primary"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="log_id" string="Log" readonly="1"/>
+                                <field name="execution_date" string="Execution Date" readonly="1"/>
+                                <field name="model_name" string="Model" readonly="1"/>
+                                <field name="record_id" string="Record ID" readonly="1"/>
+                                <field name="record_name" string="Record Name" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="action_type" string="Action Type" readonly="1"/>
+                                <field name="discrepancy_type" string="Discrepancy Type" readonly="1"/>
+                                <field name="status" string="Status" readonly="1"/>
+                                <field name="original_user_id" string="Original User" readonly="1"/>
+                                <field name="original_create_date" string="Original Create Date" readonly="1"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Financial Details">
+                                <group>
+                                    <group>
+                                        <field name="price_subtotal_before" string="Subtotal Before" readonly="1"/>
+                                        <field name="price_subtotal_after" string="Subtotal After" readonly="1"/>
+                                        <field name="tax_amount_before" string="Tax Before" readonly="1"/>
+                                        <field name="tax_amount_after" string="Tax After" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="price_total_before" string="Total Before" readonly="1"/>
+                                        <field name="price_total_after" string="Total After" readonly="1"/>
+                                        <field name="product_id" string="Product" readonly="1"/>
+                                        <field name="pos_order_id" string="POS Order" readonly="1"/>
+                                    </group>
+                                </group>
+                            </page>
+                            
+                            <page string="Tax Details">
+                                <group>
+                                    <group string="Expected Taxes">
+                                        <field name="expected_tax_ids" widget="many2many_tags" readonly="1"/>
+                                    </group>
+                                    <group string="Applied Taxes (Before)">
+                                        <field name="applied_tax_ids" widget="many2many_tags" readonly="1"/>
+                                    </group>
+                                </group>
+                            </page>
+                            
+                            <page string="Values Comparison">
+                                <group>
+                                    <group string="Old Values">
+                                        <field name="old_values" nolabel="1" readonly="1" widget="json_widget"/>
+                                    </group>
+                                    <group string="New Values">
+                                        <field name="new_values" nolabel="1" readonly="1" widget="json_widget"/>
+                                    </group>
+                                </group>
+                            </page>
+                            
+                            <page string="Error Info">
+                                <group>
+                                    <field name="error_message" nolabel="1" readonly="1" widget="text"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Action for cleanup.log -->
+        <record id="action_cleanup_log" model="ir.actions.act_window">
+            <field name="name">Cleanup Logs</field>
+            <field name="res_model">cleanup.log</field>
+             <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    View audit log of cleanup operations
+                </p>
+            </field>
+        </record>
+        
+        <!-- Menu items -->
+        <menuitem id="menu_cleanup_log" name="Cleanup Logs" parent="menu_cleanup_root" action="action_cleanup_log" sequence="20"/>
+    </data>
+</odoo>

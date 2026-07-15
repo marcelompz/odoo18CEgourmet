@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+    Create on 2025-08-05 17:02:47
+    @author: drojo
+-->
+<odoo>
+
+    <!-- paper format A4 with margin narrow -->
+
+    <record id="A4_narrow_papelformat" model="report.paperformat">
+        <field name="name">A4 Narrow Profitability</field>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">90</field>
+    </record>
+
+</odoo>

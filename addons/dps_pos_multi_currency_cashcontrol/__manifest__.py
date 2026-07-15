@@ -1,0 +1,38 @@
+{
+    'name': 'POS Multi Currency Cash Control | Multi Currency Cash Control',
+    'summary': 'Using this apps you can add cash control in multi currency in POS.',
+    'description': """Using this apps you can add cash control in multi currency in POS.""",
+    'version': '18.0.6.5.4',
+    'category': 'Point Of Sale', 
+    'author': 'Dotsprime System',
+    'sequence': 1,
+    'email': 'dotsprime@gmail.com',
+    'support': 'sales@dotsprime.com',
+    "website":'https://dotsprime.com/',
+    "price": 350,
+    "currency": "USD",
+    'license': 'OPL-1',
+    "depends": ["base","point_of_sale"],
+    "data": [
+        'security/ir.model.access.csv',
+        "views/views.xml",
+    ],
+    'assets': {
+        'point_of_sale._assets_pos': [
+            'dps_pos_multi_currency_cashcontrol/static/src/css/pos.css',
+            'dps_pos_multi_currency_cashcontrol/static/src/js/models.js',
+            'dps_pos_multi_currency_cashcontrol/static/src/js/MoneyDetailsPopup.js',
+            'dps_pos_multi_currency_cashcontrol/static/src/js/OpeningControlPopup.js',
+            'dps_pos_multi_currency_cashcontrol/static/src/js/CashMovePopup.js',
+            'dps_pos_multi_currency_cashcontrol/static/src/js/ClosePosPopup.js',
+            'dps_pos_multi_currency_cashcontrol/static/src/xml/pos_money_control.xml',
+        ],
+    },
+    'demo': [],
+    "live_test_url" : "",    
+    "images": ['static/description/main_screenshot.png'],  
+    'installable': True,
+    'auto_install': False,
+    'application': True,
+}
+

@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_data_correction_inconsistency,data.correction.inconsistency,model_data_correction_inconsistency,base.group_user,1,1,1,1
+access_data_correction_history,data.correction.history,model_data_correction_history,base.group_user,1,1,1,1
+access_data_correction_dashboard,data.correction.dashboard,model_data_correction_dashboard,base.group_user,1,1,1,1
+access_data_correction_mass_tax_update,data.correction.mass.tax.update,model_data_correction_mass_tax_update,base.group_user,1,1,1,1
+access_data_correction_mass_history_tax_clear,data.correction.mass.history.tax.clear,model_data_correction_mass_history_tax_clear,base.group_user,1,1,1,1
+access_data_correction_force_draft_wizard,data.correction.force.draft.wizard,model_data_correction_force_draft_wizard,base.group_user,1,1,1,1

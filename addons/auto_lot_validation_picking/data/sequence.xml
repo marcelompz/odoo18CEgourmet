@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_stock_negative_record" model="ir.sequence">
+        <field name="name">Negative Stock Record Tracker</field>
+        <field name="code">stock.negative.record</field>
+        <field name="prefix">NEG/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>

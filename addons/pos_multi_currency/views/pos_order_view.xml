@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pos_pos_form_inherit_multi_currency" model="ir.ui.view">
+        <field name="name">pos.order.form.multicurrency</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='payments']//field[@name='payment_ids']//list//field[@name='amount']" position="after">
+                <field name="payment_currency_display_id" optional="show"/>
+                <field name="amount_converted_display" widget="monetary" optional="show" options="{'currency_field': 'payment_currency_display_id'}"/>
+                <field name="conversion_rate_display" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Multi-Currency Configuration in POS Config Form -->
+    <record id="view_pos_config_form_multi_currency" model="ir.ui.view">
+        <field name="name">pos.config.form.multicurrency</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+            <!-- Add as a group after the title, always visible -->
+            <xpath expr="//div[@id='title']" position="after">
+                <group string="Multi-Currency Display Settings" name="multi_currency_group">
+                    <group>
+                        <field name="min_change_threshold"/>
+                        <field name="cash_currency_ids" widget="many2many_tags" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="excluded_currency_ids" widget="many2many_tags"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+

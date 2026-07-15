@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_mass_history_tax_clear_wizard_form" model="ir.ui.view">
+            <field name="name">data.correction.mass.history.tax.clear.form</field>
+            <field name="model">data.correction.mass.history.tax.clear</field>
+            <field name="arch" type="xml">
+                <form string="Borrar Impuestos y Asientos Históricos">
+                    <p class="text-danger">
+                        Esta acción borrará los impuestos de las líneas históricas del módulo seleccionado y desvinculará/eliminará sus asientos y facturas asociadas. ¡Usa esto si operaste sin impuestos y requieres limpiar el historial pasado! (Nota: El costo real de inventario en Compras no puede reescribirse automáticamente).
+                    </p>
+                    <group>
+                        <field name="module_to_clean"/>
+                        <field name="action_type" widget="radio"/>
+                        <field name="tax_id" invisible="action_type != 'replace'" required="action_type == 'replace'"/>
+                        <field name="category_id"/>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                    <footer>
+                        <button name="action_clear_taxes" type="object" string="Eliminar Impuestos Históricos" class="btn-danger"/>
+                        <button special="cancel" string="Cancelar" class="btn-secondary"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_mass_history_tax_clear_wizard" model="ir.actions.act_window">
+            <field name="name">Limpiar Historial de Transacciones</field>
+            <field name="res_model">data.correction.mass.history.tax.clear</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

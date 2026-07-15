@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Menú Raíz del Módulo (Puede ir dentro de Contabilidad o Inventario, lo definimos independiente para facilitar su acceso) -->
+        <menuitem id="menu_data_correction_root"
+                  name="Corrección de Datos e Impuestos"
+                  web_icon="data_correction_control_panel,static/description/icon.png"
+                  sequence="100"/>
+
+        <!-- Submenús Principales -->
+        <menuitem id="menu_data_correction_dashboard"
+                  name="Panel de Control"
+                  parent="menu_data_correction_root"
+                  action="action_data_correction_dashboard"
+                  sequence="10"/>
+
+        <menuitem id="menu_data_correction_inconsistencies"
+                  name="Inconsistencias Detectadas"
+                  parent="menu_data_correction_root"
+                  action="action_data_correction_inconsistency"
+                  sequence="20"/>
+
+        <menuitem id="menu_data_correction_history_main"
+                  name="Historial y Reportes"
+                  parent="menu_data_correction_root"
+                  sequence="30"/>
+
+        <!-- Acciones en Historial y Reportes -->
+        <menuitem id="menu_data_correction_history"
+                  name="Historial de Correcciones"
+                  parent="menu_data_correction_history_main"
+                  action="action_data_correction_history"
+                  sequence="10"/>
+
+        <menuitem id="menu_data_correction_report"
+                  name="Informe de Correcciones"
+                  parent="menu_data_correction_history_main"
+                  action="action_data_correction_report"
+                  sequence="20"/>
+    </data>
+</odoo>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+    Create on 2025-08-05 17:03:11
+    @author: drojo
+-->
+<odoo>
+
+    <!-- form view -->
+
+    <record id="report_date_range_wizard_form" model="ir.ui.view">
+        <field name="name">report.date.range.wizard.form</field>
+        <field name="model">report.date.range.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="date_from" required="1" widget="date"/>
+                        </group>
+                        <group>
+                            <field name="date_until" required="1" widget="date"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="options" widget="radio" options="{'horizontal': true}"/>
+                        </group>
+                        <group>
+                            <field name="show_profitability" groups="sales_team.group_sale_manager"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="user_id" options="{'no_create': 1, 'no_open': 1}" 
+                            invisible="options == 'partner'"/>
+                        <field name="partner_id" options="{'no_create': 1, 'no_open': 1}" 
+                            invisible="options != 'partner'" required="options == 'partner'"/>
+                    </group>
+                    <div class="text-muted text-end" invisible="options == 'partner'">
+                        * Deje el campo `Comercial` en blanco para mostrar de todos.
+                    </div>
+                    <group string="Reporte desde">
+                        <group>
+                            <field name="sale_report"/>
+                        </group>
+                        <group>
+                            <field name="pos_report"/>
+                        </group>
+                        <group>
+                            <field name="currency_id" options="{'no_create': 1, 'no_create': 1}"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <!-- <button string=" Imprimir PDF" type="object" class="oe_highlight" icon="fa-print" name="open_query_result"/> -->
+                    <button string=" Generar XLSX" type="object" class="oe_highlight" icon="fa-file-excel-o" name="action_generate_xlsx_report"/>
+                    <button string="Cancelar" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- action view -->
+
+    <record id="report_date_range_wizard_action" model="ir.actions.act_window">
+        <field name="name">Reporte de ventas y rentabilidad</field>
+        <field name="res_model">report.date.range.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- menu -->
+
+    <menuitem
+        id="report_date_range_wizard_menu"
+        name="Reporte de ventas y rentabilidad"
+        action="sales_profitability_reports_cross.report_date_range_wizard_action"
+        parent="sale.menu_sale_report"
+        sequence="60"
+    />
+
+</odoo>

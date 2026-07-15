@@ -1,0 +1,19 @@
+.o_account_report_ce_container {
+    background: #fff;
+    min-height: 100vh;
+}
+
+.o_account_report_table_ce th,
+.o_account_report_table_ce td {
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.o_account_report_table_ce thead th {
+    font-weight: bold;
+    color: #495057;
+    background-color: #f8f9fa;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}

@@ -1,0 +1,12 @@
+dropbox
+pyncclient
+nextcloud-api-wrapper
+boto3
+paramiko
+tu-ruc-python-client
+openpyxl
+xlrd
+xlwt
+pandas
+packaging
+pyopenssl

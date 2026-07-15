@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="sale_line_stock_improved.StockInfoWidget" owl="1">
+        <div class="stock_info_widget">
+            <!-- Estado de carga -->
+            <div t-if="state.loading" class="stock_loading">
+                <i class="fa fa-spinner fa-spin"/> Cargando información de stock...
+            </div>
+            
+            <!-- Error -->
+            <div t-if="state.error" class="stock_error text-danger">
+                <i class="fa fa-exclamation-triangle"/> <t t-esc="state.error"/>
+            </div>
+            
+            <!-- Información de stock -->
+            <div t-if="state.stockData and state.stockData.length > 0" class="stock_info">
+                <!-- Resumen -->
+                <div class="stock_summary">
+                    <span class="stock_total">
+                        <strong>Stock Total:</strong> 
+                        <span class="text-primary">
+                            <t t-esc="formatQuantity(state.stockData.reduce((sum, w) => sum + w.total_available, 0))"/>
+                        </span>
+                    </span>
+                    <span class="stock_warehouses">
+                        <strong>Almacenes:</strong> 
+                        <span class="text-info">
+                            <t t-esc="state.stockData.length"/>
+                        </span>
+                    </span>
+                </div>
+                
+                <!-- Botón para expandir/contraer -->
+                <button t-on-click="toggleExpanded" 
+                        class="btn btn-sm btn-outline-secondary stock_toggle_btn">
+                    <i t-attf-class="fa #{state.expanded ? 'fa-chevron-up' : 'fa-chevron-down'}"/>
+                    <t t-esc="state.expanded ? 'Ocultar' : 'Ver'"/> Detalles
+                </button>
+                
+                <!-- Detalles expandidos -->
+                <div t-if="state.expanded" class="stock_details">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-borderless">
+                            <thead>
+                                <tr>
+                                    <th>Almacén</th>
+                                    <th>Stock Total</th>
+                                    <th>Disponible</th>
+                                    <th>Reservado</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="state.stockData" t-as="warehouse" t-key="warehouse.warehouse_id">
+                                    <tr>
+                                        <td>
+                                            <strong><t t-esc="warehouse.warehouse_name"/></strong>
+                                            <br/>
+                                            <small class="text-muted">
+                                                <t t-esc="warehouse.warehouse_code"/>
+                                            </small>
+                                        </td>
+                                        <td>
+                                            <span class="text-primary">
+                                                <t t-esc="formatQuantity(warehouse.total_quantity)"/>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span t-att-class="getStockStatusClass(warehouse.total_available, warehouse.total_reserved)">
+                                                <t t-esc="formatQuantity(warehouse.total_available)"/>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="text-warning">
+                                                <t t-esc="formatQuantity(warehouse.total_reserved)"/>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span t-att-class="getStockStatusClass(warehouse.total_available, warehouse.total_reserved)">
+                                                <t t-if="warehouse.total_available &lt;= 0">Sin Stock</t>
+                                                <t t-elif="warehouse.total_reserved &gt; warehouse.total_available * 0.8">Reservado</t>
+                                                <t t-elif="warehouse.total_available &lt; 10">Stock Bajo</t>
+                                                <t t-else="">Disponible</t>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sin información de stock -->
+            <div t-elif="state.stockData and state.stockData.length === 0" class="stock_no_data">
+                <span class="text-muted">
+                    <i class="fa fa-info-circle"/> Sin stock disponible
+                </span>
+            </div>
+        </div>
+    </t>
+</templates> 

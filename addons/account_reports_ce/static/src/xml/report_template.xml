@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="account_reports_ce.AccountReportAction">
+        <div class="o_action_manager">
+            <div class="o_content o_account_report_ce_container p-3">
+                <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
+                    <h1 class="text-primary"><t t-esc="props.action.name"/></h1>
+                    <div>
+                        <button class="btn btn-secondary me-2" t-on-click="goBack"><i class="fa fa-arrow-left"/> Volver</button>
+                        <button class="btn btn-primary"><i class="fa fa-print"/> Imprimir PDF</button>
+                    </div>
+                </div>
+                
+                <div t-if="state.loading" class="text-center p-5">
+                    <i class="fa fa-spin fa-circle-o-notch fa-3x text-muted"></i>
+                    <p class="mt-2 text-muted">Cargando datos contables...</p>
+                </div>
+                
+                <div t-if="!state.loading">
+                    <table class="table table-sm table-hover o_account_report_table_ce">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th class="text-end">Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="state.reportData" t-as="line" t-key="line.id">
+                                <tr>
+                                    <td><t t-esc="line.name"/></td>
+                                    <td class="text-end"><t t-esc="line.amount"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

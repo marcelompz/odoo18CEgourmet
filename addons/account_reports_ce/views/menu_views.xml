@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Categorías directas bajo Reportes -->
+    <menuitem id="menu_account_reports_financial" 
+              name="Reportes Financieros (CE)" 
+              parent="account.menu_finance_reports" 
+              sequence="110"/>
+
+    <menuitem id="menu_account_reports_management" 
+              name="Gestión / Análisis (CE)" 
+              parent="account.menu_finance_reports" 
+              sequence="120"/>
+              
+    <menuitem id="menu_account_reports_audit" 
+              name="Auditoría (CE)" 
+              parent="account.menu_finance_reports" 
+              sequence="130"/>
+
+    <menuitem id="menu_account_reports_config" 
+              name="Configuración Reportes CE" 
+              parent="account.menu_finance_configuration" 
+              sequence="90"/>
+</odoo>

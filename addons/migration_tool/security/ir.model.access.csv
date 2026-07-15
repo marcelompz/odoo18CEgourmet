@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_migration_config_user,migration.config.user,model_migration_config,base.group_user,1,1,1,0
+access_migration_clone_wizard_user,migration.clone.wizard.user,model_migration_clone_wizard,base.group_user,1,1,1,1
+access_migration_export_wizard_user,migration.export.wizard.user,model_migration_export_wizard,base.group_user,1,1,1,1
+access_migration_import_wizard_user,migration.import.wizard.user,model_migration_import_wizard,base.group_user,1,1,1,1
+access_migration_validate_wizard_user,migration.validate.wizard.user,model_migration_validate_wizard,base.group_user,1,1,1,1

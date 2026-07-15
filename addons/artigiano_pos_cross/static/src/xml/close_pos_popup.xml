@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="pos_session.ClosePosPopup" t-inherit="point_of_sale.ClosePosPopup" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('modal-footer-right')]" position="attributes">
+            <attribute name="t-if">pos.config.closing_session_extra_fields</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('modal-footer-right')]" position="inside">
+            <button class="button icon btn btn-lg btn-secondary"
+                    t-if="pos.config.report_sale_summary"
+                    t-on-click="printZReport">
+                Z-Report
+            </button>
+        </xpath>
+        <xpath expr="//div[hasclass('total-orders')]" position="attributes">
+            <attribute name="t-if">!pos.user.is_standard_cashier</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('total-orders')]" position="replace">
+            <!-- Ocultar el total de órdenes y el monto de esas órdenes -->
+            <div style="display: none;"></div>
+        </xpath>
+        <!-- Ocultar el encabezado de la columna "Expected" -->
+        <xpath expr="//div[contains(@class, 'payment-methods-overview')]//table//thead//tr//th[2]" position="replace">
+            <th style="display: none;"></th>
+        </xpath>
+        <!-- Ocultar el encabezado de la columna "Counted" -->
+        <xpath expr="//div[contains(@class, 'payment-methods-overview')]//table//thead//tr//th[3]" position="replace">
+            <th style="display: none;"></th>
+        </xpath>
+        <!-- Ocultar el encabezado de la columna "Difference" -->
+        <xpath expr="//div[contains(@class, 'payment-methods-overview')]//table//thead//tr//th[4]" position="replace">
+            <th style="display: none;"></th>
+        </xpath>
+        <xpath expr="//t[@t-if='pos.config.cash_control']//tbody[1]//tr//td[2]" position="attributes">
+            <attribute name="t-if">!pos.user.is_standard_cashier</attribute>
+        </xpath>
+        <xpath expr="//t[@t-if='pos.config.cash_control']//tbody[1]//tr//td[4]" position="attributes">
+            <attribute name="t-if">!pos.user.is_standard_cashier</attribute>
+        </xpath>
+        <xpath expr="//t[@t-if='pos.config.cash_control']//tbody[2]" position="attributes">
+            <attribute name="t-if">pos.config.cash_control and !pos.user.is_standard_cashier</attribute>
+        </xpath>
+        <xpath expr="//tbody[@t-if='props.other_payment_methods.length > 0']" position="attributes">
+            <attribute name="t-if">props.other_payment_methods.length > 0 and !pos.user.is_standard_cashier</attribute>
+        </xpath>
+        <!-- Ocultar el segundo td en cada tbody -->
+        <xpath expr="//tbody//tr/td[2]" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <!-- Ocultar el cuarto td en cada tbody -->
+        <xpath expr="//tbody//tr/td[4]" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <!-- Ocultar el segundo tbody -->
+        <xpath expr="//t[@t-if='pos.config.cash_control']//tbody[2]" position="replace">
+            <tbody style="display: none;"></tbody>
+        </xpath>
+        <!-- Ocultar nombre y monto esperado para otros metodos de pago -->
+        <xpath expr="(//div[contains(@class, 'payment-methods-overview')]//table//tbody)[3]//tr//td[2]" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+
+        <xpath expr="(//div[contains(@class, 'payment-methods-overview')]//table//tbody)[3]//tr//td[4]" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+
+       
+    </t>
+
+</templates>

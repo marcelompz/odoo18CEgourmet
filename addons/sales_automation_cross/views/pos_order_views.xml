@@ -1,0 +1,22 @@
+<odoo>
+    <data>
+        <record id="pos_order_action_confirm_invoice_pay_deliver" model="ir.actions.server">
+            <field name="name">Confirmar, Facturar, Pagar y Entregar (POS)</field>
+            <field name="model_id" ref="point_of_sale.model_pos_order"/>
+            <field name="binding_model_id" ref="point_of_sale.model_pos_order"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = records.action_confirm_invoice_pay_deliver_pos()
+            </field>
+        </record>
+
+        <record id="pos_order_action_confirm_invoice_pay_deliver_menu" model="ir.actions.act_window">
+            <field name="name">Confirmar, Facturar, Pagar y Entregar</field>
+            <field name="res_model">pos.order</field>
+            <field name="binding_model_id" ref="point_of_sale.model_pos_order"/>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state', '=', 'draft')]</field>
+            <field name="context">{'default_state': 'draft'}</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_accounting_report_tag_cross,accounting.report.tag.cross,model_accounting_report_tag_cross,account.group_account_user,1,1,1,1
+access_accounting_report_cross,accounting.report.cross,model_accounting_report_cross,account.group_account_user,1,1,1,1
+access_accounting_report_line_cross,accounting.report.line.cross,model_accounting_report_line_cross,account.group_account_user,1,1,1,1
+access_accounting_report_result_cross,accounting.report.result.cross,model_accounting_report_result_cross,account.group_account_user,1,1,1,1
+access_accounting_report_result_line_cross,accounting.report.result.line.cross,model_accounting_report_result_line_cross,account.group_account_user,1,1,1,1
+access_accounting_report_wizard,accounting.report.wizard,model_accounting_report_wizard,account.group_account_user,1,1,1,1

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Wizard form view -->
+        <record id="view_cleanup_tax_assignment_wizard_form" model="ir.ui.view">
+            <field name="name">cleanup.tax.assignment.wizard.form</field>
+            <field name="model">cleanup.tax.assignment.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Tax Assignment by Category" class="o_cleanup_wizard">
+                    <sheet>
+                        <div invisible="[('state', '!=', 'config')]" class="oe_cleanup_config_step">
+                            <group string="Configuration">
+                                <group>
+                                    <field name="config_id" widget="selection" options="{'no_create': True, 'no_open': True}" required="1"/>
+                                </group>
+                                <group string="Product Categories">
+                                    <div class="text-muted" style="margin-bottom: 10px;">
+                                        Select one or more product categories. Taxes will be applied to all products in these categories.
+                                    </div>
+                                    <field name="category_ids" widget="many2many_tags" string="Categories" help="Select product categories to assign taxes to all products in those categories" placeholder="Select categories..."/>
+                                </group>
+                                <group>
+                                    <field name="sale_tax_ids" widget="many2many_tags" string="Sale Taxes"/>
+                                    <field name="purchase_tax_ids" widget="many2many_tags" string="Purchase Taxes"/>
+                                </group>
+                                <group>
+                                    <field name="apply_to_all_products"/>
+                                    <field name="override_existing_taxes"/>
+                                    <field name="also_update_variants"/>
+                                </group>
+                            </group>
+                            
+                            <footer>
+                                <button name="action_detect_products" type="object" string="Detect Products" class="btn-primary"/>
+                                <button name="action_cancel" type="object" string="Cancel" class="btn-secondary"/>
+                            </footer>
+                        </div>
+                        
+                        <div invisible="[('state', '!=', 'validation')]" class="oe_cleanup_validation_step">
+                            <group string="Detection Results">
+                                <group>
+                                    <div class="alert alert-info">
+                                        <strong>Total Products Detected:</strong>
+                                        <field name="total_products_detected" widget="statinfo"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div class="alert alert-warning">
+                                        <strong>Products with Sale Taxes:</strong>
+                                        <field name="products_with_sale_taxes" widget="statinfo"/>
+                                    </div>
+                                    <div class="alert alert-warning">
+                                        <strong>Products with Purchase Taxes:</strong>
+                                        <field name="products_with_purchase_taxes" widget="statinfo"/>
+                                    </div>
+                                </group>
+                            </group>
+                            
+                            <group string="Validation Actions">
+                                <div class="oe_button_box">
+                                    <button name="action_select_all" type="object" string="Select All" class="btn-secondary"/>
+                                    <button name="action_deselect_all" type="object" string="Deselect All" class="btn-secondary"/>
+                                    <button name="action_calculate_impact" type="object" string="Calculate Impact" class="btn-secondary"/>
+                                </div>
+                            </group>
+                            
+                            <group string="Products to Update">
+                                <field name="validation_line_ids" nolabel="1">
+                                    <list editable="bottom" string="Validation Lines">
+                                        <field name="selected" invisible="1"/>
+                                        <field name="product_tmpl_id" string="Product" readonly="1"/>
+                                        <field name="product_category_id" string="Category" readonly="1"/>
+                                        <field name="current_sale_tax_ids" widget="many2many_tags" string="Current Sale Taxes" readonly="1"/>
+                                        <field name="current_purchase_tax_ids" widget="many2many_tags" string="Current Purchase Taxes" readonly="1"/>
+                                        <field name="new_sale_tax_ids" widget="many2many_tags" string="New Sale Taxes" readonly="1"/>
+                                        <field name="new_purchase_tax_ids" widget="many2many_tags" string="New Purchase Taxes" readonly="1"/>
+                                        <field name="override_existing" string="Override" invisible="1"/>
+                                        <field name="action" string="Action"/>
+                                        <field name="status" string="Status" invisible="1"/>
+                                        <button name="action_view_product" type="object" string="View" class="btn-link"/>
+                                        <button name="action_view_category" type="object" string="Category" class="btn-link"/>
+                                    </list>
+                                </field>
+                            </group>
+                            
+                            <footer>
+                                <button name="action_execute_assignment" type="object" string="Execute Tax Assignment" class="btn-primary"/>
+                                <button name="action_back_to_config" type="object" string="Back" class="btn-secondary"/>
+                                <button name="action_cancel" type="object" string="Cancel" class="btn-secondary"/>
+                            </footer>
+                        </div>
+                        
+                        <div invisible="[('state', '!=', 'results')]" class="oe_cleanup_results_step">
+                            <group string="Execution Results">
+                                <group>
+                                    <div class="alert alert-success">
+                                        <strong>Products Processed:</strong>
+                                        <field name="products_processed" widget="statinfo"/>
+                                    </div>
+                                    <div class="alert alert-success">
+                                        <strong>Products Updated:</strong>
+                                        <field name="products_updated" widget="statinfo"/>
+                                    </div>
+                                    <div class="alert alert-danger">
+                                        <strong>Products Failed:</strong>
+                                        <field name="products_failed" widget="statinfo"/>
+                                    </div>
+                                </group>
+                            </group>
+                            
+                            <group string="Error Log">
+                                <field name="error_log" nolabel="1" readonly="1" widget="text"/>
+                            </group>
+                            
+                            <footer>
+                                <button name="action_view_log" type="object" string="View Log" class="btn-primary"/>
+                                <button name="action_correct_pos_taxes" type="object" string="Correct POS Taxes" class="btn-secondary"/>
+                                <button name="action_back_to_config" type="object" string="New Assignment" class="btn-secondary"/>
+                                <button name="action_cancel" type="object" string="Close" class="btn-secondary"/>
+                            </footer>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Wizard action -->
+        <record id="action_cleanup_tax_assignment_wizard" model="ir.actions.act_window">
+            <field name="name">Assign Taxes by Category</field>
+            <field name="res_model">cleanup.tax.assignment.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="model_cleanup_config"/>
+            <field name="binding_type">action</field>
+        </record>
+    </data>
+</odoo>

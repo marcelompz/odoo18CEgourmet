@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+    Create on 2026-01-29 17:46:52
+    @author: drojo
+-->
+<odoo>
+
+    <!-- list view -->
+    <record id="sale_report_inherit_tree" model="ir.ui.view">
+        <field name="name">sale.report.inherit.tree</field>
+        <field name="model">sale.report</field>
+        <field name="inherit_id" ref="sale.sale_report_view_tree" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='product_uom_qty']" position="after">
+                <field name="product_uom" options="{'no_create': 1, 'no_open': 1}" optional="show"/>
+            </xpath>
+        
+        </field>
+    </record>
+
+</odoo>

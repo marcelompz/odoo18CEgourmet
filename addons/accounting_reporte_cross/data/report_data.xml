@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Etiquetas Regulatorias de Ejemplo -->
+    <record id="tag_taxable" model="accounting.report.tag.cross">
+        <field name="name">Ingreso Gravable</field>
+        <field name="code">GRAVABLE</field>
+    </record>
+    <record id="tag_non_deductible" model="accounting.report.tag.cross">
+        <field name="name">Gasto No Deducible</field>
+        <field name="code">NO_DED</field>
+    </record>
+
+    <!-- Estructura Estándar de Estado de Resultados -->
+    <record id="report_pl" model="accounting.report.cross">
+        <field name="name">Estado de Resultados</field>
+    </record>
+
+    <!-- Ingresos Operativos -->
+    <record id="line_inc" model="accounting.report.line.cross">
+        <field name="name">Ingresos Operativos</field>
+        <field name="code">ING</field>
+        <field name="report_id" ref="report_pl"/>
+        <field name="type">accounts</field>
+        <field name="account_type">income</field>
+        <field name="sequence">10</field>
+        <field name="is_negative">True</field>
+    </record>
+
+    <!-- Costo de Ventas -->
+    <record id="line_cogs" model="accounting.report.line.cross">
+        <field name="name">Costo de Ventas</field>
+        <field name="code">COSTOS</field>
+        <field name="report_id" ref="report_pl"/>
+        <field name="type">accounts</field>
+        <field name="account_type">expense_direct_cost</field>
+        <field name="sequence">20</field>
+    </record>
+
+    <!-- Utilidad Bruta -->
+    <record id="line_gross" model="accounting.report.line.cross">
+        <field name="name">Utilidad Bruta</field>
+        <field name="code">BRUTA</field>
+        <field name="report_id" ref="report_pl"/>
+        <field name="type">formula</field>
+        <field name="sequence">30</field>
+        <field name="formula">#ING - #COSTOS</field>
+    </record>
+
+    <!-- Gastos Operativos -->
+    <record id="line_exp" model="accounting.report.line.cross">
+        <field name="name">Gastos Operativos</field>
+        <field name="code">GASTOS</field>
+        <field name="report_id" ref="report_pl"/>
+        <field name="type">accounts</field>
+        <field name="account_type">expense</field>
+        <field name="sequence">40</field>
+    </record>
+
+    <!-- Utilidad Neta -->
+    <record id="line_net" model="accounting.report.line.cross">
+        <field name="name">Utilidad Neta</field>
+        <field name="code">NETA</field>
+        <field name="report_id" ref="report_pl"/>
+        <field name="type">formula</field>
+        <field name="sequence">100</field>
+        <field name="formula">#BRUTA - #GASTOS</field>
+    </record>
+</odoo>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+    Create on 2025-09-25 12:46:28
+    @author: drojo
+-->
+<odoo>
+
+    <!-- form view -->
+
+    <record id="pos_currency_rate_warning_wizard_form" model="ir.ui.view">
+        <field name="name">pos.currency.rate.warning.wizard.form</field>
+        <field name="model">pos.currency.rate.warning.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <div class="alert alert-danger" role="alert">
+                  <h4 class="alert-heading">¡Atención! Faltan Tasas de Cambio</h4>
+                  <p>No se puede abrir la caja porque las siguientes monedas no tienen una tasa de cambio registrada para la fecha de hoy:</p>
+                  <hr/>
+                  <p class="mb-0"><field name="missing_currencies_text"/></p>
+                </div>
+                <footer>
+                    <button name="action_open_currency_rates" string="Ir a Tasas de Cambio" type="object" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    
+</odoo>

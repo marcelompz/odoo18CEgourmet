@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Wizard -->
+    <record id="view_accounting_report_wizard_form" model="ir.ui.view">
+        <field name="name">accounting.report.wizard.form</field>
+        <field name="model">accounting.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Generar Reporte">
+                <group>
+                    <group>
+                        <field name="report_id"/>
+                        <field name="tag_ids" widget="many2many_tags"/>
+                    </group>
+                    <group>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_generate_report" string="Generar" type="object" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_accounting_report_wizard" model="ir.actions.act_window">
+        <field name="name">Reportes Financieros</field>
+        <field name="res_model">accounting.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Execution Result Form (Narrow Card Style) -->
+    <record id="view_accounting_report_result_form" model="ir.ui.view">
+        <field name="name">accounting.report.result.cross.form</field>
+        <field name="model">accounting.report.result.cross</field>
+        <field name="arch" type="xml">
+            <form string="Reporte" create="false" edit="false" delete="false" class="o_accounting_report_card">
+                <header>
+                    <button name="action_print_pdf" string="PDF" type="object" class="btn-primary"/>
+                    <button name="action_export_xlsx" string="XLSX" type="object" class="btn-secondary"/>
+                </header>
+                <sheet>
+                    <div class="text-center mb-4">
+                        <field name="report_id" readonly="1" options="{'no_open': True}" class="fs-1 fw-bold d-block"/>
+                        <div class="text-muted">
+                            Desde: <field name="date_from" readonly="1"/> Hasta: <field name="date_to" readonly="1"/>
+                        </div>
+                    </div>
+                    <field name="line_ids" readonly="1">
+                        <list create="false" edit="false" delete="false" 
+                              class="o_report_result_list"
+                              decoration-bf="is_title" 
+                              decoration-muted="balance == 0">
+                            <field name="display_name_indented" string="Descripción"/>
+                            <field name="balance" string="Saldo" decoration-info="is_total"/>
+                            <field name="is_title" column_invisible="True"/>
+                            <field name="is_total" column_invisible="True"/>
+                            <button name="action_drill_down" type="object" icon="fa-list" invisible="not is_title" class="btn-link"/>
+                        </list>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Execution Result List -->
+    <record id="view_accounting_report_result_line_tree" model="ir.ui.view">
+        <field name="name">accounting.report.result.line.cross.list</field>
+        <field name="model">accounting.report.result.line.cross</field>
+        <field name="arch" type="xml">
+            <list string="Reporte" create="false" edit="false" delete="false" 
+                  class="o_report_result_list"
+                  decoration-bf="is_title" 
+                  decoration-muted="balance == 0">
+                <field name="display_name_indented" string="Descripción"/>
+                <field name="balance" string="Saldo" sum="Total"/>
+                <field name="level" column_invisible="True"/>
+                <field name="is_title" column_invisible="True"/>
+                <button name="action_drill_down" string="Ver" type="object" 
+                        icon="fa-arrow-right" invisible="not is_title" class="btn-link"/>
+            </list>
+        </field>
+    </record>
+</odoo>

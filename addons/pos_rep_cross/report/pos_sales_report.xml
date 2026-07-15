@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_pdf" model="ir.actions.report">
+        <field name="name">Detalle de Ventas POS (PDF)</field>
+        <field name="model">pos.sales.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pos_rep_cross.report_pdf_template</field>
+        <field name="report_file">pos_rep_cross.report_pdf_template</field>
+        <field name="print_report_name">'Detalle de Ventas - %s' % (object.date_from.strftime('%Y-%m-%d'))</field>
+        <field name="binding_model_id" eval="False"/>
+    </record>
+
+    <template id="report_pdf_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="text-center">
+                            <h2>Detalle de Ventas POS</h2>
+                            <p>
+                                <strong>Periodo:</strong> 
+                                <span t-field="o.date_from"/> al <span t-field="o.date_to"/>
+                            </p>
+                        </div>
+
+                        <table class="table table-sm o_main_table mt32">
+                            <thead>
+                                <tr class="bg-light">
+                                    <th>Fecha</th>
+                                    <th>Orden</th>
+                                    <th>Cliente</th>
+                                    <th>Cajero</th>
+                                    <th class="text-end">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="grand_total" t-value="0"/>
+                                <t t-foreach="o._get_report_data()" t-as="order">
+                                    <tr style="border-top: 1px solid black; font-weight: bold;">
+                                        <td><span t-esc="order['date']" t-options='{"widget": "datetime"}'/></td>
+                                        <td><span t-esc="order['name']"/> (<span t-esc="order['pos_ref']"/>)</td>
+                                        <td><span t-esc="order['partner']"/></td>
+                                        <td><span t-esc="order['user']"/></td>
+                                        <td class="text-end"><span t-esc="order['amount_total']" t-options='{"widget": "monetary", "display_currency": env.company.currency_id}'/></td>
+                                    </tr>
+                                    <t t-set="grand_total" t-value="grand_total + order['amount_total']"/>
+                                    
+                                    <!-- Order Lines -->
+                                    <tr>
+                                        <td colspan="5">
+                                            <table class="table table-sm ml32" style="font-size: 0.9em; color: #555;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Categoría</th>
+                                                        <th>Ref. Interna</th>
+                                                        <th>Barra</th>
+                                                        <th>Producto</th>
+                                                        <th>Lote/Serie</th>
+                                                        <th class="text-end">Cant.</th>
+                                                        <th class="text-end">Precio</th>
+                                                        <th class="text-end">Subtotal</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <t t-foreach="order['lines']" t-as="line">
+                                                        <tr>
+                                                            <td><span t-esc="line['category']"/></td>
+                                                            <td><span t-esc="line['default_code']"/></td>
+                                                            <td><span t-esc="line['barcode']"/></td>
+                                                            <td><span t-esc="line['product']"/></td>
+                                                            <td><span t-esc="line['lots']"/></td>
+                                                            <td class="text-end"><span t-esc="line['qty']"/> <span t-esc="line['uom']"/></td>
+                                                            <td class="text-end"><span t-esc="line['price_unit']"/></td>
+                                                            <td class="text-end"><span t-esc="line['price_total']" t-options='{"widget": "monetary", "display_currency": env.company.currency_id}'/></td>
+                                                        </tr>
+                                                    </t>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    
+                                    <!-- Payments -->
+                                    <tr>
+                                        <td colspan="3"></td>
+                                        <td colspan="2">
+                                            <table class="table table-sm" style="font-size: 0.85em; border-top: 1px dotted #ccc;">
+                                                <t t-foreach="order['payments']" t-as="p">
+                                                    <tr>
+                                                        <td><span t-esc="p['method']"/></td>
+                                                        <td class="text-end"><span t-esc="p['amount']" t-options='{"widget": "monetary", "display_currency": env.company.currency_id}'/></td>
+                                                    </tr>
+                                                </t>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        
+                        <div class="row justify-content-end">
+                            <div class="col-4">
+                                <table class="table table-sm">
+                                    <tr class="border-black o_total">
+                                        <td><strong>TOTAL GENERAL</strong></td>
+                                        <td class="text-end">
+                                            <strong t-esc="grand_total" t-options='{"widget": "monetary", "display_currency": env.company.currency_id}'/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

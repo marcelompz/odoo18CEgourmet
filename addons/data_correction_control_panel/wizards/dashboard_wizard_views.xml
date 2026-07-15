@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_data_correction_dashboard_form" model="ir.ui.view">
+            <field name="name">data.correction.dashboard.form</field>
+            <field name="model">data.correction.dashboard</field>
+            <field name="arch" type="xml">
+                <form string="Panel de Control de Correcciones" create="false" edit="false">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>Panel de Control de Correcciones de Datos e Impuestos</h1>
+                        </div>
+                        <div class="row mt-4 text-center">
+                            <div class="col-md-4">
+                                <img src="/purchase/static/description/icon.png" alt="Compras" style="width: 64px; height: 64px; margin-bottom: 8px;" class="img-fluid"/>
+                                <br/>
+                                <button name="action_detect_purchase" type="object" string="Detectar en Compras" class="btn-primary w-100 mb-2" icon="fa-shopping-cart"/>
+                            </div>
+                            <div class="col-md-4">
+                                <img src="/point_of_sale/static/description/icon.png" alt="Punto de Venta" style="width: 64px; height: 64px; margin-bottom: 8px;" class="img-fluid"/>
+                                <br/>
+                                <button name="action_detect_pos" type="object" string="Detectar en Ventas (PdV)" class="btn-info w-100 mb-2" icon="fa-desktop"/>
+                            </div>
+                            <div class="col-md-4">
+                                <!-- En Odoo, el ícono de ventas puede estar en 'sale' o 'sale_management' -->
+                                <img src="/sale_management/static/description/icon.png" onerror="this.src='/sale/static/description/icon.png'" alt="Ventas" style="width: 64px; height: 64px; margin-bottom: 8px;" class="img-fluid"/>
+                                <br/>
+                                <button name="action_detect_sale" type="object" string="Detectar en Ventas (Módulo)" class="btn-warning w-100 mb-2" icon="fa-line-chart"/>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-2 text-center">
+                            <div class="col-md-12">
+                                <button name="action_detect_zero_cost" type="object" string="Detectar Ventas a Pérdida o Sin Costo" class="btn-outline-warning w-50 mb-2" icon="fa-search-minus"/>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-4">
+                            <div class="col-md-4">
+                                <button name="action_view_inconsistencies" type="object" string="Ver Inconsistencias Detectadas" class="btn-outline-primary w-100 mb-2" icon="fa-exclamation-triangle"/>
+                            </div>
+                            <div class="col-md-4">
+                                <button name="action_clear_all_inconsistencies" type="object" string="Limpiar Alertas" class="btn-outline-danger w-100 mb-2" icon="fa-eraser"/>
+                            </div>
+                            <div class="col-md-4">
+                                <button name="data_correction_control_panel.action_data_correction_history" type="action" string="Ver Historial de Correcciones" class="btn-outline-secondary w-100 mb-2" icon="fa-history"/>
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                <button name="data_correction_control_panel.action_data_correction_report" type="action" string="Generar Informe de Correcciones" class="btn-success w-100 pt-3 pb-3" icon="fa-file-pdf-o"/>
+                            </div>
+                        </div>
+                        <p class="text-muted mt-4 text-center">
+                            <strong>1. Herramientas Auxiliares:</strong> Modifica masivamente los impuestos de los Ítems Maestros antes de buscar inconsistencias.
+                        </p>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <button name="data_correction_control_panel.action_mass_tax_update_wizard" type="action" string="Vaciar Ítems Maestros" class="btn-dark w-100 mb-2" icon="fa-cogs"/>
+                            </div>
+                            <div class="col-md-4">
+                                <button name="data_correction_control_panel.action_force_draft_wizard" type="action" string="Forzar a Borrador" class="btn-warning w-100 mb-2" icon="fa-unlock"/>
+                            </div>
+                            <div class="col-md-4">
+                                <button name="data_correction_control_panel.action_mass_history_tax_clear_wizard" type="action" string="Limpiar Historial (C/V/P)" class="btn-danger w-100 mb-2" icon="fa-trash"/>
+                            </div>
+                        </div>
+
+                        <p class="text-muted mt-4 text-center">
+                            <strong>2. Análisis y Corrección:</strong> Detecta discrepancias de ventas/compras pasadas y audita sus registros.
+                        </p>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_data_correction_dashboard" model="ir.actions.act_window">
+            <field name="name">Panel de Control</field>
+            <field name="res_model">data.correction.dashboard</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+    </data>
+</odoo>

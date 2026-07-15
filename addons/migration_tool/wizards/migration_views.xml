@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_migration_config_form" model="ir.ui.view">
+        <field name="name">migration.config.form</field>
+        <field name="model">migration.config</field>
+        <field name="arch" type="xml">
+            <form string="Migration Configuration">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. Production Migration"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="deployment_type"/>
+                            <field name="source_db"/>
+                            <field name="export_path"/>
+                        </group>
+                        <group>
+                            <field name="active"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </group>
+                    </group>
+                    
+                    <notebook>
+                        <!-- Docker Tab -->
+                        <page string="Docker Settings" invisible="deployment_type != 'docker'">
+                            <group>
+                                <group>
+                                    <field name="db_container"/>
+                                </group>
+                                <group>
+                                    <field name="odoo_container"/>
+                                </group>
+                            </group>
+                        </page>
+                        
+                        <!-- Bare Metal Tab -->
+                        <page string="Database Connection" invisible="deployment_type != 'bare_metal'">
+                            <group>
+                                <group>
+                                    <field name="db_host"/>
+                                    <field name="db_user"/>
+                                    <field name="db_password"/>
+                                </group>
+                                <group>
+                                    <field name="db_port"/>
+                                    <field name="psql_path"/>
+                                    <field name="pg_dump_path"/>
+                                </group>
+                            </group>
+                            <group string="Database Tools" colspan="4">
+                                <group>
+                                    <field name="createdb_path"/>
+                                </group>
+                                <group>
+                                    <field name="dropdb_path"/>
+                                </group>
+                            </group>
+                        </page>
+                        
+                        <!-- Source Tab -->
+                        <page string="Source Database">
+                            <group>
+                                <group>
+                                    <field name="source_url"/>
+                                    <field name="source_user"/>
+                                </group>
+                                <group>
+                                    <field name="source_password" password="True"/>
+                                </group>
+                            </group>
+                        </page>
+                        
+                        <!-- Target Tab -->
+                        <page string="Target Database">
+                            <group>
+                                <group>
+                                    <field name="target_db"/>
+                                    <field name="target_user"/>
+                                </group>
+                                <group>
+                                    <field name="target_url"/>
+                                    <field name="target_password" password="True"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_migration_config_list" model="ir.ui.view">
+        <field name="name">migration.config.list</field>
+        <field name="model">migration.config</field>
+        <field name="arch" type="xml">
+            <list string="Migration Configurations">
+                <field name="name"/>
+                <field name="deployment_type"/>
+                <field name="source_db"/>
+                <field name="target_db"/>
+                <field name="source_url"/>
+                <field name="active" invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_migration_config" model="ir.actions.act_window">
+        <field name="name">Migration Configurations</field>
+        <field name="res_model">migration.config</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menu Structure -->
+    <menuitem id="menu_migration_tool_root"
+              name="Migration Tool"
+              web_icon="migration_tool,static/description/icon.png"
+              sequence="100"/>
+    
+    <menuitem id="menu_migration_config"
+              name="Configurations"
+              parent="menu_migration_tool_root"
+              action="action_migration_config"
+              sequence="1"/>
+    
+    <menuitem id="menu_migration_clone"
+              name="Clone &amp; Clean"
+              parent="menu_migration_tool_root"
+              action="action_migration_clone_wizard"
+              sequence="10"/>
+    
+    <menuitem id="menu_migration_export"
+              name="Export"
+              parent="menu_migration_tool_root"
+              action="action_migration_export_wizard"
+              sequence="20"/>
+    
+    <menuitem id="menu_migration_import"
+              name="Import"
+              parent="menu_migration_tool_root"
+              action="action_migration_import_wizard"
+              sequence="30"/>
+    
+    <menuitem id="menu_migration_validate"
+              name="Validate"
+              parent="menu_migration_tool_root"
+              action="action_migration_validate_wizard"
+              sequence="40"/>
+</odoo>

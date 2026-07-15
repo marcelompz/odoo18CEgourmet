@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ACTIONS -->
+    <record id="action_prospecting_campaign" model="ir.actions.act_window">
+        <field name="name">Campaigns</field>
+        <field name="res_model">prospecting.campaign</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a new Prospecting Campaign
+          </p>
+        </field>
+    </record>
+
+    <record id="action_prospecting_lead" model="ir.actions.act_window">
+        <field name="name">Leads</field>
+        <field name="res_model">prospecting.lead</field>
+        <field name="view_mode">list,form,search</field>
+    </record>
+
+    <!-- MENUS -->
+    <menuitem id="menu_crossnexion_prospecting_root" 
+              name="Prospecting" 
+              web_icon="crossnexion_prospecting,static/description/icon.png"
+              sequence="10"/>
+
+    <menuitem id="menu_prospecting_campaign" 
+              name="Campaigns" 
+              parent="menu_crossnexion_prospecting_root" 
+              action="action_prospecting_campaign" 
+              sequence="1"/>
+
+    <menuitem id="menu_prospecting_lead" 
+              name="Leads" 
+              parent="menu_crossnexion_prospecting_root" 
+              action="action_prospecting_lead" 
+              sequence="2"/>
+    
+    <menuitem id="menu_prospecting_config"
+              name="Configuration"
+              parent="menu_crossnexion_prospecting_root"
+              sequence="100"/>
+
+    <menuitem id="menu_prospecting_settings"
+              name="Settings"
+              parent="menu_prospecting_config"
+              action="action_prospecting_config_settings"
+              sequence="1"/>
+
+</odoo>

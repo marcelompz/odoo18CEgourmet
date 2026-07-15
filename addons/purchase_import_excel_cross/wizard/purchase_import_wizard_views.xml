@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         WIZARD: purchase.import.excel.wizard
+         ═══════════════════════════════════════════════════════════════ -->
+
+    <record id="view_purchase_import_excel_wizard_form" model="ir.ui.view">
+        <field name="name">purchase.import.excel.wizard.form</field>
+        <field name="model">purchase.import.excel.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Importar Compras desde Excel">
+
+                <!-- PASO 1: Cargar archivo -->
+                <div class="alert alert-info mb-3" role="alert"
+                     invisible="state != 'upload'">
+                    <h5 class="alert-heading mb-1">
+                        <i class="fa fa-file-excel-o me-1"/>
+                        Importar Órdenes de Compra desde Excel
+                    </h5>
+                    <p class="mb-1">
+                        Cargue un archivo <strong>.xlsx</strong> con los datos de la compra.
+                        Las columnas se detectan automáticamente por el nombre del encabezado.
+                    </p>
+                    <hr class="my-2"/>
+                    <small>
+                        <strong>Columnas reconocidas:</strong>
+                        Proveedor, Fecha Compra, Código Producto, Producto, Cantidad,
+                        Costo Unitario, Impuesto %, Margen %, N° Lote / Serie,
+                        Fecha Caducidad, Unidad de Medida.
+                    </small>
+                </div>
+
+                <group invisible="state != 'upload'">
+                    <group string="Modo de importación">
+                        <field name="import_mode" widget="radio"/>
+                        <field name="purchase_order_id"
+                               invisible="import_mode != 'existing'"
+                               required="import_mode == 'existing'"/>
+                    </group>
+                    <group string="Archivo Excel">
+                        <field name="excel_file"
+                               widget="binary"
+                               filename="excel_filename"/>
+                        <field name="excel_filename" invisible="1"/>
+                    </group>
+                </group>
+
+                <!-- PASO 2 y 3: Errores -->
+                <div invisible="not import_errors or state == 'upload'">
+                    <div class="alert alert-warning" role="alert">
+                        <strong>⚠ Advertencias durante la lectura:</strong>
+                        <field name="import_errors" readonly="1" nolabel="1"/>
+                    </div>
+                </div>
+
+                <!-- PASO 2: Vista previa -->
+                <notebook invisible="state == 'upload'">
+                    <page string="Vista previa de líneas" name="preview_lines">
+                        <field name="preview_line_ids"
+                               nolabel="1"
+                               readonly="state == 'done'">
+                            <list string="Líneas a importar"
+                                   editable="bottom"
+                                   decoration-danger="import_status == 'error'"
+                                   decoration-warning="import_status == 'warning'"
+                                   decoration-muted="import_status == 'skip'"
+                                   decoration-success="import_status == 'ok'">
+                                <field name="import_status" optional="show" string="Estado" readonly="1"/>
+                                <field name="partner_id" optional="show" string="Proveedor"/>
+                                <field name="partner_name" optional="hide" string="Proveedor (texto)" readonly="1"/>
+                                <field name="date_order" optional="show" string="Fecha"/>
+                                <field name="product_id" optional="show" string="Producto"/>
+                                <field name="product_name" optional="hide" string="Producto (texto)" readonly="1"/>
+                                <field name="product_qty" optional="show" string="Cantidad"/>
+                                <field name="product_uom_id" optional="show" string="Unidad"/>
+                                <field name="price_unit" optional="show" string="Costo Unit."/>
+                                <field name="tax_id" optional="show" string="Impuesto"/>
+                                <field name="tax_name" optional="hide" string="Impuesto (texto)" readonly="1"/>
+                                <field name="margin_percent" optional="show" string="Margen %"/>
+                                <field name="sale_price_computed" optional="show" string="P. Venta" readonly="1"/>
+                                <field name="lot_number" optional="show" string="N° Lote/Serie"/>
+                                <field name="expiry_date" optional="show" string="F. Caducidad"/>
+                                <field name="import_notes" optional="show" string="Notas" readonly="1"/>
+                                <button name="action_skip"
+                                        type="object"
+                                        string="Omitir"
+                                        class="btn-sm btn-warning"
+                                        invisible="import_status == 'skip'"/>
+                                <button name="action_include"
+                                        type="object"
+                                        string="Incluir"
+                                        class="btn-sm btn-success"
+                                        invisible="import_status != 'skip'"/>
+                            </list>
+                        </field>
+                    </page>
+                </notebook>
+
+                <!-- PASO 3: Resultado -->
+                <div class="alert alert-success mt-3" role="alert"
+                     invisible="state != 'done'">
+                    <h5 class="alert-heading">
+                        <i class="fa fa-check-circle me-1"/> ¡Importación completada!
+                    </h5>
+                    <field name="result_summary" readonly="1" nolabel="1"/>
+                </div>
+
+                <footer>
+                    <!-- Estado: upload -->
+                    <button name="action_download_template"
+                            type="object"
+                            string="📥 Descargar Plantilla"
+                            class="btn btn-secondary"
+                            invisible="state != 'upload'"/>
+                    <button name="action_preview"
+                            type="object"
+                            string="📋 Vista Previa →"
+                            class="btn btn-primary"
+                            invisible="state != 'upload'"/>
+                    <button name="action_close"
+                            type="object"
+                            string="Cancelar"
+                            class="btn btn-default"
+                            invisible="state != 'upload'"/>
+
+                    <!-- Estado: preview -->
+                    <button name="action_import"
+                            type="object"
+                            string="✅ Importar Ahora"
+                            class="btn btn-primary"
+                            invisible="state != 'preview'"/>
+                    <button name="action_preview"
+                            type="object"
+                            string="🔄 Recargar"
+                            class="btn btn-secondary"
+                            invisible="state != 'preview'"/>
+                    <button name="action_close"
+                            type="object"
+                            string="Cancelar"
+                            class="btn btn-default"
+                            invisible="state != 'preview'"/>
+
+                    <!-- Estado: done -->
+                    <button name="action_view_orders"
+                            type="object"
+                            string="📦 Ver Órdenes de Compra"
+                            class="btn btn-primary"
+                            invisible="state != 'done'"/>
+                    <button name="action_close"
+                            type="object"
+                            string="Cerrar"
+                            class="btn btn-default"
+                            invisible="state != 'done'"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción standalone del wizard -->
+    <record id="action_purchase_import_excel_wizard" model="ir.actions.act_window">
+        <field name="name">Importar Compras desde Excel</field>
+        <field name="res_model">purchase.import.excel.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Entrada de menú en Compras → Pedidos -->
+    <menuitem
+        id="menu_purchase_import_excel"
+        name="Importar desde Excel"
+        parent="purchase.menu_procurement_management"
+        action="action_purchase_import_excel_wizard"
+        sequence="20"
+        groups="purchase.group_purchase_user"/>
+
+</odoo>

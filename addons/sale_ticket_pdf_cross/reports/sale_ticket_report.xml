@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+    Create on 2025-11-22 09:13:10
+    @author: drojo
+-->
+<odoo>
+
+    <!-- ticket report document -->
+    <template id="report_sale_ticket">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.basic_layout">
+                    <div class="page" style="font-family: 'Courier New', Courier, monospace; font-size: 13px; color: #000;">
+                        
+                        <!-- CABECERA -->
+                        <div style="width: 100%; text-align: center; margin: 0 auto;">
+                            <t t-if="doc.company_id.logo">
+                                <img t-att-src="image_data_uri(doc.company_id.logo)" 
+                                    style="max-height: 45px; margin-bottom: 5px; margin-left: auto; margin-right: auto; display: block;" 
+                                    alt="Logo"/>
+                            </t>
+                            <!-- <br/> -->
+                            <t t-set="company_street" t-value="(doc.company_id.street or '') + ' ' + (doc.company_id.street2 or '')"/>
+                            <t t-set="company_phones" t-value="(doc.company_id.mobile or '') + ' ' + (doc.company_id.phone or '')"/>
+                            <div style="display: block; font-size:10px;">
+                                <t t-if="doc.company_id.name"><strong t-field="doc.company_id.name"/><br/></t>
+                                <t t-if="doc.company_id.street or doc.company_id.street2"><span t-esc="company_street"/><br/></t>
+                                <t t-if="doc.company_id.mobile or doc.company_id.phone"><span t-esc="company_phones"/></t>
+                                
+                            </div>
+                        </div>
+
+                        <div style="border-bottom: 1px dashed #000; margin: 5px 0;"/>
+
+                        <!-- DATOS PEDIDO -->
+                        <div style="margin-top: 5px;">
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <tr>
+                                    <td style="text-align: left; width: 50%; vertical-align: top;">
+                                        <strong>Ref: </strong> <span t-field="doc.name"/>
+                                    </td>
+                                    <td style="text-align: right; width: 50%; vertical-align: top;">
+                                        <strong>Fecha: </strong> <span t-field="doc.date_order" t-options='{"format": "dd/MM/yyyy HH:mm"}'/>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Cliente -->
+                            <div style="margin-top: 2px;">
+                                <strong>Cliente: </strong> <span t-field="doc.partner_id.name"/>
+                            </div>
+                        </div>
+
+                        <div style="border-bottom: 1px dashed #000; margin: 5px 0;"/>
+
+                        <!-- LINEAS (Formato 2 Filas: Producto arriba / Cálculos abajo) -->
+                        <table style="width: 100%; font-size: 12px; margin-top: 10px;">
+                            <!-- Encabezado simple opcional -->
+                            <tr style="border-bottom: 1px solid #000;">
+                                <td colspan="2" style="font-weight: bold; padding-bottom: 4px;">DETALLE PRODUCTOS</td>
+                            </tr>
+
+                            <t t-foreach="doc.order_line" t-as="line" t-if="not line.display_type">
+                                
+                                <!-- FILA 1: Nombre del Producto (Ancho Total) -->
+                                <tr>
+                                    <td colspan="2" style="padding-top: 8px; text-align: left;">
+                                        <span t-field="line.product_id.name"/>
+                                        <!-- Variantes (si las hay) -->
+                                        <t t-if="line.product_template_attribute_value_ids">
+                                            <br/><i style="font-size: 10px;" t-out="', '.join(line.product_template_attribute_value_ids.mapped('name'))"/>
+                                        </t>
+                                    </td>
+                                </tr>
+                                
+                                <!-- FILA 2: Cálculos (Cant x Precio ...... Total) -->
+                                <!-- Agregamos un borde punteado abajo para separar visualmente cada item completo -->
+                                <tr style="border-bottom: 1px dashed #ccc;"> 
+                                    
+                                    <!-- Izquierda: Cantidad x Precio -->
+                                    <td style="font-size: 11px; color: #333; padding-bottom: 6px; vertical-align: top;">
+                                        <!-- Cantidad (sin decimales si es entero) -->
+                                        <span t-out="int(line.product_uom_qty) if line.product_uom_qty.is_integer() else line.product_uom_qty"/>
+                                        
+                                        <!-- La "x" separadora -->
+                                        <span style="margin: 0 3px;"> x </span>
+                                        
+                                        <!-- Precio Unitario -->
+                                        <span t-field="line.price_unit"/>
+                                    </td>
+
+                                    <!-- Derecha: Subtotal (Alineado a la derecha para que coincida la columna de dinero) -->
+                                    <td style="text-align: right; padding-bottom: 6px; vertical-align: top;">
+                                        <!-- Truco visual: Ponemos el '=' pequeño y gris antes del monto -->
+                                        <span style="color: #777; font-size: 10px; margin-right: 2px;">=</span>
+                                        <span t-field="line.price_total" 
+                                            t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </table>
+
+                        <div style="border-bottom: 1px dashed #000; margin: 5px 0;"/>
+
+                        <!-- TOTALES -->
+                        <table style="width: 100%; text-align: right; margin: 0 auto;">
+                            <tr>
+                                <td class="text-end"><strong>Total:</strong></td>
+                                <td class="text-end">
+                                    <strong t-field="doc.amount_total" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div style="font-size: 11px; text-align: center;">
+                            <p>¡Gracias por su preferencia!</p>
+                            <!-- Código de barras -->
+                            <div t-if="doc.name" style="text-align: center; margin-top: 10px;">
+                                <img t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', doc.name, 600, 150)" 
+                                    style="width: 100%; max-width: 250px; height: 50px;" 
+                                    alt="Barcode"/>
+                                <br/>
+                                <span t-field="doc.name" style="font-size: 11px; letter-spacing: 1px;"/>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!-- report action -->
+    <record id="action_report_sale_ticket" model="ir.actions.report">
+        <field name="name">Ticket Cotización (80mm)</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sale_ticket_pdf_cross.report_sale_ticket</field>
+        <field name="report_file">sale_ticket_pdf_cross.report_sale_ticket</field>
+        <field name="print_report_name">'Ticket - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="sale_ticket_pdf_cross.paperformat_ticket_80mm"/>
+    </record>
+
+</odoo>

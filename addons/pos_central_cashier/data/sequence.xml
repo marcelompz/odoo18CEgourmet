@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="seq_pos_central_cashier" model="ir.sequence">
+            <field name="name">Referencia Precuenta</field>
+            <field name="code">pos.central.cashier.precuenta</field>
+            <field name="prefix">PREC-</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

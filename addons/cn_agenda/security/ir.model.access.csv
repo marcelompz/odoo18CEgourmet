@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cn_agenda_professional,cn.agenda.professional,model_cn_agenda_professional,base.group_user,1,1,1,1
+access_cn_agenda_professional_schedule,cn.agenda.professional.schedule,model_cn_agenda_professional_schedule,base.group_user,1,1,1,1
+access_cn_agenda_professional_absence,cn.agenda.professional.absence,model_cn_agenda_professional_absence,base.group_user,1,1,1,1
+access_cn_agenda_room,cn.agenda.room,model_cn_agenda_room,base.group_user,1,1,1,1
+access_cn_agenda_appointment,cn.agenda.appointment,model_cn_agenda_appointment,base.group_user,1,1,1,1

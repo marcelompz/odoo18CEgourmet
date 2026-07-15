@@ -1,0 +1,153 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* pos_receipt_extend
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0-20250819\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-05 19:33+0000\n"
+"PO-Revision-Date: 2026-01-05 16:37-0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_PY\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.8\n"
+
+#. module: pos_receipt_extend
+#: model:ir.model.fields,field_description:pos_receipt_extend.field_pos_config__customer_address
+#: model:ir.model.fields,field_description:pos_receipt_extend.field_res_config_settings__customer_address
+msgid " Customer Address"
+msgstr " Dirección del cliente"
+
+#. module: pos_receipt_extend
+#: model:ir.model.fields,field_description:pos_receipt_extend.field_pos_config__customer_details
+#: model:ir.model.fields,field_description:pos_receipt_extend.field_res_config_settings__customer_details
+msgid " Customer Details"
+msgstr " Detalles del cliente"
+
+#. module: pos_receipt_extend
+#: model:ir.model.fields,field_description:pos_receipt_extend.field_pos_config__customer_email
+#: model:ir.model.fields,field_description:pos_receipt_extend.field_res_config_settings__customer_email
+msgid " Customer Email"
+msgstr " Correo electrónico del cliente"
+
+#. module: pos_receipt_extend
+#: model:ir.model.fields,field_description:pos_receipt_extend.field_pos_config__customer_mobile
+#: model:ir.model.fields,field_description:pos_receipt_extend.field_res_config_settings__customer_mobile
+msgid " Customer Mobile"
+msgstr " Cliente Móvil"
+
+#. module: pos_receipt_extend
+#: model:ir.model.fields,field_description:pos_receipt_extend.field_pos_config__customer_name
+#: model:ir.model.fields,field_description:pos_receipt_extend.field_res_config_settings__customer_name
+msgid " Customer Name"
+msgstr " Nombre del cliente"
+
+#. module: pos_receipt_extend
+#: model:ir.model.fields,field_description:pos_receipt_extend.field_pos_config__customer_phone
+#: model:ir.model.fields,field_description:pos_receipt_extend.field_res_config_settings__customer_phone
+msgid " Customer Phone"
+msgstr " Teléfono del cliente"
+
+#. module: pos_receipt_extend
+#: model:ir.model.fields,field_description:pos_receipt_extend.field_pos_config__customer_vat
+#: model:ir.model.fields,field_description:pos_receipt_extend.field_res_config_settings__customer_vat
+msgid " Customer Vat"
+msgstr " IVA del cliente"
+
+#. module: pos_receipt_extend
+#: model:ir.model.fields,help:pos_receipt_extend.field_pos_config__customer_address
+#: model:ir.model.fields,help:pos_receipt_extend.field_res_config_settings__customer_address
+msgid "By Enabling the customer Address in pos receipt"
+msgstr "Habilitando la Dirección del Cliente en el Recibo Pos"
+
+#. module: pos_receipt_extend
+#: model:ir.model.fields,help:pos_receipt_extend.field_pos_config__customer_details
+#: model:ir.model.fields,help:pos_receipt_extend.field_res_config_settings__customer_details
+msgid "By Enabling the customer details in pos receipt"
+msgstr "Habilitando los datos del cliente en el recibo del punto de venta"
+
+#. module: pos_receipt_extend
+#: model:ir.model.fields,help:pos_receipt_extend.field_pos_config__customer_email
+#: model:ir.model.fields,help:pos_receipt_extend.field_res_config_settings__customer_email
+msgid "By Enabling the customer email in pos receipt"
+msgstr "Habilitando el correo electrónico del cliente en el recibo del punto de venta"
+
+#. module: pos_receipt_extend
+#: model:ir.model.fields,help:pos_receipt_extend.field_pos_config__customer_mobile
+#: model:ir.model.fields,help:pos_receipt_extend.field_res_config_settings__customer_mobile
+msgid "By Enabling the customer mobile in pos receipt"
+msgstr "Al habilitar el móvil del cliente en el recibo del punto de venta"
+
+#. module: pos_receipt_extend
+#: model:ir.model.fields,help:pos_receipt_extend.field_pos_config__customer_name
+#: model:ir.model.fields,help:pos_receipt_extend.field_res_config_settings__customer_name
+msgid "By Enabling the customer name in pos receipt"
+msgstr "Habilitando el nombre del cliente en el recibo pos"
+
+#. module: pos_receipt_extend
+#: model:ir.model.fields,help:pos_receipt_extend.field_pos_config__customer_phone
+#: model:ir.model.fields,help:pos_receipt_extend.field_res_config_settings__customer_phone
+msgid "By Enabling the customer phone in pos receipt"
+msgstr "Al habilitar el teléfono del cliente en el recibo del punto de venta"
+
+#. module: pos_receipt_extend
+#: model:ir.model.fields,help:pos_receipt_extend.field_pos_config__customer_vat
+#: model:ir.model.fields,help:pos_receipt_extend.field_res_config_settings__customer_vat
+msgid "By Enabling the customer vat details in pos receipt"
+msgstr "Al habilitar los detalles del IVA del cliente en el recibo del punto de venta"
+
+#. module: pos_receipt_extend
+#. odoo-javascript
+#: code:addons/pos_receipt_extend/static/src/xml/OrderReceipt.xml:0
+msgid "Cliente:"
+msgstr ""
+
+#. module: pos_receipt_extend
+#: model:ir.model,name:pos_receipt_extend.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de configuración"
+
+#. module: pos_receipt_extend
+#. odoo-javascript
+#: code:addons/pos_receipt_extend/static/src/xml/OrderReceipt.xml:0
+msgid "Dirección:"
+msgstr ""
+
+#. module: pos_receipt_extend
+#. odoo-javascript
+#: code:addons/pos_receipt_extend/static/src/xml/OrderReceipt.xml:0
+msgid "Email:"
+msgstr ""
+
+#. module: pos_receipt_extend
+#: model_terms:ir.ui.view,arch_db:pos_receipt_extend.res_config_settings_view_form
+msgid "Enable to show customer details on receipt"
+msgstr "Habilitar para mostrar los detalles del cliente en el recibo"
+
+#. module: pos_receipt_extend
+#. odoo-javascript
+#: code:addons/pos_receipt_extend/static/src/xml/OrderReceipt.xml:0
+msgid "Móbil:"
+msgstr ""
+
+#. module: pos_receipt_extend
+#: model:ir.model,name:pos_receipt_extend.model_pos_config
+msgid "Point of Sale Configuration"
+msgstr "Configuración del punto de venta"
+
+#. module: pos_receipt_extend
+#. odoo-javascript
+#: code:addons/pos_receipt_extend/static/src/xml/OrderReceipt.xml:0
+msgid "RUC/CI:"
+msgstr ""
+
+#. module: pos_receipt_extend
+#. odoo-javascript
+#: code:addons/pos_receipt_extend/static/src/xml/OrderReceipt.xml:0
+msgid "Teléfono:"
+msgstr ""

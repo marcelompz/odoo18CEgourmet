@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vista del wizard de stock por almacén -->
+        <record id="view_stock_warehouse_stock_wizard_form" model="ir.ui.view">
+            <field name="name">stock.warehouse.stock.wizard.form</field>
+            <field name="model">stock.warehouse.stock.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Stock por Almacén">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="product_id" readonly="1"/>
+                            </h1>
+                        </div>
+                        
+                        <group>
+                            <group string="Resumen General">
+                                <field name="total_available" 
+                                       string="Stock Total Disponible" 
+                                       readonly="1"
+                                       widget="float_time"/>
+                                <field name="total_quantity" 
+                                       string="Stock Total" 
+                                       readonly="1"
+                                       widget="float_time"/>
+                                <field name="total_reserved" 
+                                       string="Stock Total Reservado" 
+                                       readonly="1"
+                                       widget="float_time"/>
+                            </group>
+                            
+                            <group string="Acciones">
+                                <button name="action_refresh_stock" 
+                                        type="object" 
+                                        string="Actualizar Stock"
+                                        class="btn btn-primary"
+                                        icon="fa-refresh"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Stock por Almacén y Sucursal" name="warehouse_stock">
+                                <field name="warehouse_stock_lines" readonly="1">
+                                    <list>
+                                        <field name="warehouse_name" string="Almacén"/>
+                                        <field name="warehouse_code" string="Código"/>
+                                        <field name="company_name" string="Sucursal/Compañía" optional="show"/>
+                                        <field name="quantity" string="Stock Total" widget="float_time"/>
+                                        <field name="available_quantity" string="Disponible" widget="float_time"/>
+                                        <field name="reserved_quantity" string="Reservado" widget="float_time"/>
+                                        <field name="variants_count" string="Variantes" optional="hide"/>
+                                        <field name="stock_status" string="Estado" widget="badge" 
+                                               decoration-success="stock_status == 'available'"
+                                               decoration-warning="stock_status == 'low'"
+                                               decoration-danger="stock_status == 'out'"
+                                               decoration-info="stock_status == 'reserved'"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    
+                    <footer>
+                        <button string="Cerrar" class="btn btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista de lista del wizard (para casos especiales) -->
+        <record id="view_stock_warehouse_stock_wizard_list" model="ir.ui.view">
+            <field name="name">stock.warehouse.stock.wizard.list</field>
+            <field name="model">stock.warehouse.stock.wizard</field>
+            <field name="arch" type="xml">
+                <list string="Stock por Almacén">
+                    <field name="product_id"/>
+                    <field name="total_available" string="Stock Disponible"/>
+                    <field name="total_quantity" string="Stock Total"/>
+                    <field name="total_reserved" string="Stock Reservado"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Acción del wizard -->
+        <record id="action_stock_warehouse_stock_wizard" model="ir.actions.act_window">
+            <field name="name">Stock por Almacén</field>
+            <field name="res_model">stock.warehouse.stock.wizard</field>
+            <field name="view_mode">form,list</field>
+            <field name="target">new</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Selecciona un producto para ver su stock por almacén
+                </p>
+            </field>
+        </record>
+
+        <!-- Menú para acceder al wizard -->
+        <!-- COMENTADO: stock.menu_stock_report no existe en Odoo 18 -->
+        <!-- El wizard se accede desde los botones en las líneas de pedido -->
+        <!--
+        <menuitem id="menu_stock_warehouse_stock_wizard"
+                  name="Stock por Almacén"
+                  parent="stock.menu_stock_report"
+                  action="action_stock_warehouse_stock_wizard"
+                  sequence="100"/>
+        -->
+    </data>
+</odoo> 

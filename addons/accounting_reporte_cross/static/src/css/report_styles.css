@@ -1,0 +1,36 @@
+.o_accounting_report_card {
+    background-color: #f8f9fa !important;
+}
+
+.o_accounting_report_card .o_form_sheet_bg {
+    background-color: #f8f9fa !important;
+}
+
+.o_accounting_report_card .o_form_sheet {
+    max-width: 900px !important;
+    min-width: 900px !important;
+    margin: 20px auto !important;
+    padding: 40px !important;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05) !important;
+    border: 1px solid #dee2e6 !important;
+    border-radius: 8px !important;
+}
+
+.o_report_result_list .decoration-info {
+    background-color: #f8f9fa !important;
+    font-weight: bold;
+}
+
+.o_report_result_list .decoration-bf {
+    font-weight: bold;
+}
+
+.o_report_result_list td[name="display_name_indented"] {
+    white-space: pre !important;
+}
+
+/* Hide some standard form elements to look like a report */
+.o_accounting_report_card .o_form_statusbar {
+    background-color: white !important;
+    border-bottom: 1px solid #dee2e6 !important;
+}

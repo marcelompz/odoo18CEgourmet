@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+    Create on 2025-11-23 20:22:54
+    @author: drojo
+-->
+<odoo>
+
+    <!-- form view -->
+    <record id="sale_order_inherit_form" model="ir.ui.view">
+        <field name="name">sale.order.inherit.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//header" position="inside">
+                <button name="action_delivery_and_create_invoice"
+                        string="Entregar y Crear Factura"
+                        type="object"
+                        class="oe_highlight"
+                        invisible="state not in ['draft', 'sent', 'sale']"/>
+            </xpath>
+        
+        </field>
+    </record>
+
+</odoo>

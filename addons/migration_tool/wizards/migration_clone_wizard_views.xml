@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_migration_clone_wizard" model="ir.ui.view">
+        <field name="name">migration.clone.wizard.form</field>
+        <field name="model">migration.clone.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Clone and Clean Database">
+                <group>
+                    <group>
+                        <field name="config_id"/>
+                        <field name="source_db"/>
+                        <field name="target_db"/>
+                    </group>
+                </group>
+                <group invisible="not result">
+                    <field name="result" readonly="1" widget="text" nolabel="1" height="300"/>
+                </group>
+                <footer>
+                    <button name="action_clone_and_clean" string="Clone &amp; Clean" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_migration_clone_wizard" model="ir.actions.act_window">
+        <field name="name">Clone and Clean Database</field>
+        <field name="res_model">migration.clone.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

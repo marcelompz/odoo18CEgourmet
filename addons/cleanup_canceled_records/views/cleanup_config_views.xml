@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Tree view for cleanup.config -->
+        <record id="view_cleanup_config_tree" model="ir.ui.view">
+            <field name="name">cleanup.config.tree</field>
+            <field name="model">cleanup.config</field>
+            <field name="arch" type="xml">
+                <list string="Cleanup Configurations">
+                    <field name="name"/>
+                    <field name="active"/>
+                    <field name="last_execution"/>
+                    <field name="stock_moves_processed"/>
+                    <field name="purchase_orders_processed"/>
+                    <field name="account_moves_processed"/>
+                    <field name="pos_lines_corrected"/>
+                </list>
+            </field>
+        </record>
+        
+        <!-- Form view for cleanup.config -->
+        <record id="view_cleanup_config_form" model="ir.ui.view">
+            <field name="name">cleanup.config.form</field>
+            <field name="model">cleanup.config</field>
+            <field name="arch" type="xml">
+                <form string="Cleanup Configuration">
+                    <header>
+                        <button name="action_open_wizard" type="object" string="Execute Cleanup" class="btn-primary"/>
+                        <button name="execute_cleanup" type="object" string="Execute Now" class="btn-secondary"/>
+                    </header>
+                     <sheet>
+                         <div class="oe_button_box" name="button_box">
+                             <button name="action_open_wizard" type="object" class="oe_stat_button" icon="fa-cogs">
+                                 <div class="o_stat_info">
+                                     <field name="stock_moves_processed" widget="statinfo" string="Stock Moves"/>
+                                 </div>
+                             </button>
+                             <button name="action_open_wizard" type="object" class="oe_stat_button" icon="fa-shopping-cart">
+                                 <div class="o_stat_info">
+                                     <field name="purchase_orders_processed" widget="statinfo" string="Purchase Orders"/>
+                                 </div>
+                             </button>
+                             <button name="action_open_wizard" type="object" class="oe_stat_button" icon="fa-file-invoice">
+                                 <div class="o_stat_info">
+                                     <field name="account_moves_processed" widget="statinfo" string="Account Moves"/>
+                                 </div>
+                             </button>
+                              <button name="action_open_pos_tax_wizard" type="object" class="oe_stat_button" icon="fa-calculator">
+                                  <div class="o_stat_info">
+                                      <field name="pos_lines_corrected" widget="statinfo" string="POS Corrections"/>
+                                  </div>
+                              </button>
+                              <button name="action_open_tax_assignment_wizard" type="object" class="oe_stat_button" icon="fa-tags">
+                                  <div class="o_stat_info">
+                                      <span class="o_stat_text">Tax Assignment</span>
+                                  </div>
+                              </button>
+                         </div>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="active"/>
+                            </group>
+                            <group>
+                                <field name="last_execution" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                             <page string="Models to Cleanup">
+                                 <group>
+                                     <group>
+                                         <field name="cleanup_type"/>
+                                        <field name="cleanup_stock_moves"/>
+                                        <field name="cleanup_purchase_orders"/>
+                                        <field name="cleanup_account_moves"/>
+                                     </group>
+                                     <group>
+                                         <field name="action_type"/>
+                                     </group>
+                                 </group>
+                             </page>
+                            <page string="States Selection">
+                                <group>
+                                    <group>
+                                        <field name="stock_move_states"/>
+                                        <field name="purchase_order_states"/>
+                                        <field name="account_move_states"/>
+                                    </group>
+                                </group>
+                            </page>
+                             <page string="Date Range">
+                                 <group>
+                                     <group>
+                                         <field name="date_from"/>
+                                         <field name="date_to"/>
+                                     </group>
+                                 </group>
+                             </page>
+                             <page string="POS Tax Correction">
+                                 <group>
+                                     <group>
+                                         <field name="cleanup_pos_taxes"/>
+                                         <field name="pos_tax_correction_type"/>
+                                         <field name="pos_tax_action"/>
+                                     </group>
+                                     <group>
+                                         <field name="pos_default_tax_id"/>
+                                         <field name="pos_date_from"/>
+                                         <field name="pos_date_to"/>
+                                     </group>
+                                 </group>
+                             </page>
+                             <page string="Logging &amp; Audit">
+                                 <group>
+                                     <group>
+                                         <field name="enable_logging"/>
+                                         <field name="enable_revert"/>
+                                     </group>
+                                     <group>
+                                         <field name="cleanup_type"/>
+                                     </group>
+                                 </group>
+                             </page>
+                             <page string="Results">
+                                 <group>
+                                     <group>
+                                         <field name="stock_moves_processed" readonly="1"/>
+                                         <field name="purchase_orders_processed" readonly="1"/>
+                                         <field name="account_moves_processed" readonly="1"/>
+                                     </group>
+                                     <group>
+                                         <field name="pos_orders_processed" readonly="1"/>
+                                         <field name="pos_lines_processed" readonly="1"/>
+                                         <field name="pos_lines_corrected" readonly="1"/>
+                                     </group>
+                                 </group>
+                             </page>
+                         </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Action for cleanup.config -->
+        <record id="action_cleanup_config" model="ir.actions.act_window">
+            <field name="name">Cleanup Configurations</field>
+            <field name="res_model">cleanup.config</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Configure cleanup rules for canceled or blocked records
+                </p>
+            </field>
+        </record>
+        
+        <!-- Menu item -->
+        <menuitem id="menu_cleanup_root" name="Cleanup" sequence="10"/>
+        <menuitem id="menu_cleanup_config" name="Configurations" parent="menu_cleanup_root" action="action_cleanup_config" sequence="10"/>
+    </data>
+</odoo>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Tree view for attendance logs -->
+        <record id="view_attendance_log_tree" model="ir.ui.view">
+            <field name="name">attendance.log.tree</field>
+            <field name="model">attendance.log</field>
+            <field name="arch" type="xml">
+                <list string="Attendance Logs" decoration-muted="processed == True" decoration-bf="processed == False">
+                    <field name="check_time"/>
+                    <field name="employee_id"/>
+                    <field name="biometric_id"/>
+                    <field name="check_type" widget="badge"/>
+                    <field name="device_id"/>
+                    <field name="department_id"/>
+                    <field name="processed" widget="boolean"/>
+                </list>
+            </field>
+        </record>
+        
+        <!-- Form view for attendance logs -->
+        <record id="view_attendance_log_form" model="ir.ui.view">
+            <field name="name">attendance.log.form</field>
+            <field name="model">attendance.log</field>
+            <field name="arch" type="xml">
+                <form string="Attendance Log">
+                    <header>
+                        <button name="process_attendance" type="object" string="Process" class="btn-primary" invisible="processed == True"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="employee_id"/>
+                                <field name="biometric_id" readonly="1"/>
+                                <field name="department_id" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="device_id"/>
+                                <field name="check_time"/>
+                                <field name="check_type"/>
+                                <field name="processed" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Details">
+                                <field name="notes" nolabel="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Search view for attendance logs -->
+        <record id="view_attendance_log_search" model="ir.ui.view">
+            <field name="name">attendance.log.search</field>
+            <field name="model">attendance.log</field>
+            <field name="arch" type="xml">
+                <search string="Attendance Logs">
+                    <field name="employee_id"/>
+                    <field name="device_id"/>
+                    <field name="check_type"/>
+                    <field name="check_time"/>
+                    <filter name="processed" string="Processed" domain="[('processed','=',True)]"/>
+                    <filter name="unprocessed" string="Unprocessed" domain="[('processed','=',False)]"/>
+                    <filter name="today" string="Today" domain="[('check_time','>=', context_today().strftime('%Y-%m-%d 00:00:00'))]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_employee" string="Employee" context="{'group_by': 'employee_id'}"/>
+                        <filter name="group_device" string="Device" context="{'group_by': 'device_id'}"/>
+                        <filter name="group_department" string="Department" context="{'group_by': 'department_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- Action for attendance logs -->
+        <record id="action_attendance_log" model="ir.actions.act_window">
+            <field name="name">Attendance Logs</field>
+            <field name="res_model">attendance.log</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_attendance_log_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No attendance logs found.
+                </p>
+                <p>
+                    Attendance logs are downloaded from Biometric devices. Use the "Download Attendance" action on device forms.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Server action to process all attendance logs -->
+        <record id="action_process_all_attendance_logs" model="ir.actions.server">
+            <field name="name">Process All Attendance Logs</field>
+            <field name="model_id" ref="model_attendance_log"/>
+            <field name="state">code</field>
+            <field name="code">
+records = model.search([('processed', '=', False)])
+if records:
+    records.process_all()
+            </field>
+        </record>
+    </data>
+</odoo>

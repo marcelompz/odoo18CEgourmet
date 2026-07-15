@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.pos_stock_visibility_restriction</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="point_of_sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='pos_interface_section']" position="inside">
+                <setting id="pos_hide_zero_stock_items" help="Hide zero stock products based on 'On Hand Quantity'">
+                    <field name="pos_hide_zero_stock" />
+                </setting>
+                <setting id="pos_restrict_zero_stock_items" help="Restrict zero stock products based on 'On Hand Quantity'">
+                    <field name="pos_restrict_zero_stock" />
+                </setting>
+            </xpath>
+        </field>
+    </record>
+  </data>
+</odoo>

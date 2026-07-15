@@ -1,0 +1,195 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* bi_multi_product_selection
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0-20251222\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-23 17:13+0000\n"
+"PO-Revision-Date: 2026-01-23 14:17-0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_PY\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.8\n"
+
+#. module: bi_multi_product_selection
+#: model_terms:ir.ui.view,arch_db:bi_multi_product_selection.multiple_product_invoice_inherit_view
+#: model_terms:ir.ui.view,arch_db:bi_multi_product_selection.multiple_product_purchase_order_inherit_view
+#: model_terms:ir.ui.view,arch_db:bi_multi_product_selection.multiple_product_sale_order_inherit_view
+#: model_terms:ir.ui.view,arch_db:bi_multi_product_selection.multiple_product_stock_picking_inherit_view
+msgid "ADD MULTIPLE PRODUCTS"
+msgstr "AGREGAR MÚLTIPLES PRODUCTOS"
+
+#. module: bi_multi_product_selection
+#: model:ir.model,name:bi_multi_product_selection.model_account_move_wizard
+msgid "Account Move Wizard"
+msgstr "Asistente para mover cuentas"
+
+#. module: bi_multi_product_selection
+#: model_terms:ir.ui.view,arch_db:bi_multi_product_selection.invoice_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:bi_multi_product_selection.purchase_order_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:bi_multi_product_selection.sale_order_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:bi_multi_product_selection.stock_picking_wizard_view_form
+#, fuzzy
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: bi_multi_product_selection
+#: model_terms:ir.ui.view,arch_db:bi_multi_product_selection.invoice_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:bi_multi_product_selection.purchase_order_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:bi_multi_product_selection.sale_order_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:bi_multi_product_selection.stock_picking_wizard_view_form
+#, fuzzy
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: bi_multi_product_selection
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_account_move_wizard__create_uid
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_purchase_order_wizard__create_uid
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_sale_order_wizard__create_uid
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_stock_picking_wizard__create_uid
+#, fuzzy
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: bi_multi_product_selection
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_account_move_wizard__create_date
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_purchase_order_wizard__create_date
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_sale_order_wizard__create_date
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_stock_picking_wizard__create_date
+#, fuzzy
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: bi_multi_product_selection
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_account_move__partner_id
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_purchase_order__partner_id
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_sale_order__partner_id
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_stock_picking__partner_id
+msgid "Customer"
+msgstr "Contacto"
+
+#. module: bi_multi_product_selection
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_account_move_wizard__display_name
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_purchase_order_wizard__display_name
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_sale_order_wizard__display_name
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_stock_picking_wizard__display_name
+#, fuzzy
+msgid "Display Name"
+msgstr "Nombre para mostrar"
+
+#. module: bi_multi_product_selection
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_account_move_wizard__id
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_purchase_order_wizard__id
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_sale_order_wizard__id
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_stock_picking_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: bi_multi_product_selection
+#: model:ir.actions.act_window,name:bi_multi_product_selection.invoice_wizard_action
+msgid "Invoice Wizard"
+msgstr "Asistente de facturas"
+
+#. module: bi_multi_product_selection
+#: model:ir.model,name:bi_multi_product_selection.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: bi_multi_product_selection
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_account_move_wizard__write_uid
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_purchase_order_wizard__write_uid
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_sale_order_wizard__write_uid
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_stock_picking_wizard__write_uid
+#, fuzzy
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: bi_multi_product_selection
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_account_move_wizard__write_date
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_purchase_order_wizard__write_date
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_sale_order_wizard__write_date
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_stock_picking_wizard__write_date
+#, fuzzy
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: bi_multi_product_selection
+#: model:ir.model,name:bi_multi_product_selection.model_purchase_order_wizard
+msgid "Purcahse Order Wizard"
+msgstr "Asistente de órdenes de compra"
+
+#. module: bi_multi_product_selection
+#: model:ir.model,name:bi_multi_product_selection.model_purchase_order
+msgid "Purchase Order"
+msgstr "Orden de compra"
+
+#. module: bi_multi_product_selection
+#: model:ir.actions.act_window,name:bi_multi_product_selection.purchase_order_wizard_action
+msgid "Purchase Order Wizard"
+msgstr "Asistente de órdenes de compra"
+
+#. module: bi_multi_product_selection
+#: model:ir.actions.act_window,name:bi_multi_product_selection.sale_order_wizard_action
+#: model:ir.model,name:bi_multi_product_selection.model_sale_order_wizard
+msgid "Sale Order Wizard"
+msgstr "Asistente de órdenes de venta"
+
+#. module: bi_multi_product_selection
+#: model:ir.model,name:bi_multi_product_selection.model_sale_order
+msgid "Sales Order"
+msgstr "Orden de venta"
+
+#. module: bi_multi_product_selection
+#. odoo-python
+#: code:addons/bi_multi_product_selection/models/multi_product_selection.py:0
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_account_bank_statement_line__product_ids
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_account_move__product_ids
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_purchase_order__product_ids
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_sale_order__product_ids
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_stock_picking__product_ids
+msgid "Select Product"
+msgstr "Seleccionar producto"
+
+#. module: bi_multi_product_selection
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_account_move_wizard__product_ids
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_purchase_order_wizard__product_ids
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_sale_order_wizard__product_ids
+#: model:ir.model.fields,field_description:bi_multi_product_selection.field_stock_picking_wizard__product_ids
+msgid "Select Products"
+msgstr "Seleccionar productos"
+
+#. module: bi_multi_product_selection
+#: model:ir.model,name:bi_multi_product_selection.model_stock_picking_wizard
+msgid "Stock Move Wizard"
+msgstr "Asistente de movimiento de existencias"
+
+#. module: bi_multi_product_selection
+#: model_terms:ir.ui.view,arch_db:bi_multi_product_selection.invoice_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:bi_multi_product_selection.purchase_order_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:bi_multi_product_selection.sale_order_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:bi_multi_product_selection.stock_picking_wizard_view_form
+msgid "Test"
+msgstr "Prueba"
+
+#. module: bi_multi_product_selection
+#: model:ir.model,name:bi_multi_product_selection.model_stock_picking
+msgid "Transfer"
+msgstr "Transferir"
+
+#. module: bi_multi_product_selection
+#: model:ir.actions.act_window,name:bi_multi_product_selection.stock_picking_wizard_action
+msgid "Transfer Wizard"
+msgstr "Asistente de transferencia"
+
+#. module: bi_multi_product_selection
+#: model:ir.model.fields,help:bi_multi_product_selection.field_purchase_order__partner_id
+msgid "You can find a vendor by its Name, TIN, Email or Internal Reference."
+msgstr ""
+"Puede encontrar un proveedor por su nombre, RUC, correo electrónico o "
+"referencia interna."

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vista Formulario para Inconsistencias -->
+        <record id="view_data_correction_inconsistency_form" model="ir.ui.view">
+            <field name="name">data.correction.inconsistency.form</field>
+            <field name="model">data.correction.inconsistency</field>
+            <field name="arch" type="xml">
+                <form string="Corrección de Registro">
+                    <header>
+                        <button name="action_apply_correction" type="object" string="Aplicar Corrección" class="btn-primary" invisible="state != 'draft'"/>
+                        <button name="action_undo_correction" type="object" string="Deshacer Corrección" class="btn-warning" invisible="state != 'corrected'"/>
+                        <button name="action_ignore" type="object" string="Ignorar/Cancelar" class="btn-secondary" invisible="state != 'draft'"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,corrected,ignored"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h2>
+                                <span>Revisión de Inconsistencia en </span>
+                                <field name="source_model" readonly="1" class="text-info"/>
+                            </h2>
+                        </div>
+                        <group name="inconsistency_details" string="Detalles de Inconsistencia">
+                            <group>
+                                <field name="item_id" readonly="1" options="{'no_open': True}"/>
+                                <field name="source_record_id" readonly="1"/>
+                                <field name="source_record_name" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="field_to_correct" readonly="1"/>
+                                <field name="precio_venta" readonly="1" invisible="field_to_correct != 'Costo'"/>
+                                <field name="old_value" string="Valor de costo anterior" readonly="1"/>
+                                <field name="new_value" readonly="state != 'draft'"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista Lista para Inconsistencias -->
+        <record id="view_data_correction_inconsistency_tree" model="ir.ui.view">
+            <field name="name">data.correction.inconsistency.list</field>
+            <field name="model">data.correction.inconsistency</field>
+            <field name="arch" type="xml">
+                <list string="Inconsistencias y Correcciones" decoration-danger="state == 'draft'" decoration-success="state == 'corrected'" decoration-muted="state == 'ignored'">
+                    <field name="item_id"/>
+                    <field name="source_model"/>
+                    <field name="source_record_id"/>
+                    <field name="field_to_correct"/>
+                    <field name="precio_venta"/>
+                    <field name="old_value" string="Valor de costo anterior"/>
+                    <field name="new_value" string="Sugerencia Nuevo Valor"/>
+                    <field name="state" widget="badge"/>
+                    <button name="action_apply_correction" type="object" string="Aplicar" icon="fa-check text-success" invisible="state != 'draft'"/>
+                    <button name="action_undo_correction" type="object" string="Deshacer" icon="fa-undo text-warning" invisible="state != 'corrected'"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Vista de Búsqueda -->
+        <record id="view_data_correction_inconsistency_search" model="ir.ui.view">
+            <field name="name">data.correction.inconsistency.search</field>
+            <field name="model">data.correction.inconsistency</field>
+            <field name="arch" type="xml">
+                <search string="Buscar Inconsistencias">
+                    <field name="item_id"/>
+                    <field name="source_model"/>
+                    <filter string="Pendientes" name="draft_filter" domain="[('state', '=', 'draft')]"/>
+                    <filter string="Corregidos" name="corrected_filter" domain="[('state', '=', 'corrected')]"/>
+                    
+                    <group expand="0" string="Agrupar Por">
+                        <filter string="Ítem (Maestro)" name="group_item" context="{'group_by':'item_id'}"/>
+                        <filter string="Origen" name="group_source" context="{'group_by':'source_model'}"/>
+                        <filter string="Estado" name="group_state" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Acción de Menú -->
+        <record id="action_data_correction_inconsistency" model="ir.actions.act_window">
+            <field name="name">Inconsistencias Detectadas</field>
+            <field name="res_model">data.correction.inconsistency</field>
+            <field name="view_mode">list,form</field>
+            <field name="context">{'search_default_draft_filter': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No hay inconsistencias pendientes.
+                </p>
+                <p>
+                    Utiliza el Panel de Control para detectar errores y revisar este listado.
+                </p>
+            </field>
+        </record>
+
+        <!-- Server action for mass apply -->
+        <record id="action_mass_apply_correction" model="ir.actions.server">
+            <field name="name">Aplicar Corrección Masivamente</field>
+            <field name="model_id" ref="model_data_correction_inconsistency"/>
+            <field name="binding_model_id" ref="model_data_correction_inconsistency"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                    records.action_apply_correction()
+            </field>
+        </record>
+
+        <!-- Server action for mass undo -->
+        <record id="action_mass_undo_correction" model="ir.actions.server">
+            <field name="name">Deshacer Corrección Masivamente</field>
+            <field name="model_id" ref="model_data_correction_inconsistency"/>
+            <field name="binding_model_id" ref="model_data_correction_inconsistency"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                    records.action_undo_correction()
+            </field>
+        </record>
+    </data>
+</odoo>

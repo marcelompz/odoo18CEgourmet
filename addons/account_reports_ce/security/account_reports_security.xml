@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Multi-compañía -->
+        <record id="account_financial_report_ce_comp_rule" model="ir.rule">
+            <field name="name">Financial Report Multi-company</field>
+            <field name="model_id" ref="model_account_financial_report_ce"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+    </data>
+</odoo>

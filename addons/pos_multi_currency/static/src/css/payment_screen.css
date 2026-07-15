@@ -1,0 +1,50 @@
+/* Contenedor principal */
+.payment-screen .payment-summary {
+    display: grid !important;
+    /* Aumentamos el carril izquierdo a 650px para que se vea más ancho */
+    grid-template-columns: 650px 300px !important;
+    justify-content: center !important;
+    align-items: start !important;
+    /* Reducimos el primer valor (vertical) de 20px a 5px */
+    gap: 5px 40px !important; 
+    padding: 30px !important;
+}
+
+/* Forzamos a los elementos de Odoo a ocupar todo su carril y quitamos márgenes */
+.payment-summary > div:not(.pos-currency-display-widget) {
+    grid-column: 1 !important;
+    width: 100% !important;
+    max-width: 650px !important; /* Igualamos al ancho del carril */
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* Específicamente el bloque verde/rojo de Restantes */
+.payment-summary .total-remaining {
+    margin-bottom: 2px !important; /* Espacio mínimo con lo de abajo */
+}
+
+/* Específicamente el contenedor de las líneas de pago */
+.payment-summary .paymentlines-container {
+    margin-top: 0 !important;
+}
+
+/* Tu Widget de la derecha */
+.pos-currency-display-widget {
+    grid-column: 2 !important;
+    grid-row: 1 / span 15 !important;
+    width: 300px !important;
+    background: #ffffff;
+    border: 1px solid #e0e0e0 !important;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    align-self: start;
+}
+
+/* Ajustes de estilo para las secciones del widget para que sea más compacto */
+.currency-section {
+    padding: 10px 15px;
+    border-bottom: 1px solid #f1f1f1;
+}

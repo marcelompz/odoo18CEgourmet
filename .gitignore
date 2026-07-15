@@ -1,0 +1,21 @@
+# Odoo local files
+db-data/
+web-data/
+.env
+
+# Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Backups
+*.backup
+.git.backup/
+*.bak
+
+# OS files
+.DS_Store
+Thumbs.db

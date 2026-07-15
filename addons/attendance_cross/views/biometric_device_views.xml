@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Tree view for Biometric devices -->
+        <record id="view_biometric_device_tree" model="ir.ui.view">
+            <field name="name">biometric.device.tree</field>
+            <field name="model">biometric.device</field>
+            <field name="arch" type="xml">
+                <list string="Biometric Devices" decoration-muted="active == False">
+                    <field name="name"/>
+                    <field name="brand"/>
+                    <field name="display_name"/>
+                    <field name="ip_address"/>
+                    <field name="port"/>
+                    <field name="connection_status" widget="badge"/>
+                    <field name="last_connection_test"/>
+                    <field name="active" invisible="1"/>
+                </list>
+            </field>
+        </record>
+        
+        <!-- Form view for Biometric devices -->
+        <record id="view_biometric_device_form" model="ir.ui.view">
+            <field name="name">biometric.device.form</field>
+            <field name="model">biometric.device</field>
+            <field name="arch" type="xml">
+                <form string="Biometric Device">
+                    <header>
+                        <button name="test_connection" type="object" string="Test Connection" class="btn-primary"/>
+                        <button name="upload_all_employees" type="object" string="Upload All Employees" class="btn-secondary"/>
+                        <field name="connection_status" widget="badge" class="ml-3"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Device Name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="brand"/>
+                                <field name="ip_address"/>
+                                <field name="port"/>
+                            </group>
+                            <group>
+                                <field name="username"/>
+                                <field name="password" password="True"/>
+                            </group>
+                            <group>
+                                <field name="last_connection_test" readonly="1"/>
+                                <field name="active"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Assigned Employees">
+                                <field name="employee_ids">
+                                    <list string="Employees">
+                                        <field name="name"/>
+                                        <field name="department_id"/>
+                                        <field name="biometric_id"/>
+                                        <field name="biometric_uploaded" widget="boolean"/>
+                                    </list>
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field name="name"/>
+                                                <field name="biometric_id"/>
+                                            </group>
+                                            <group>
+                                                <field name="department_id"/>
+                                                <field name="biometric_uploaded"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                            <page string="Attendance Logs">
+                                <field name="attendance_log_ids">
+                                    <list string="Attendance Logs">
+                                        <field name="employee_id"/>
+                                        <field name="check_time"/>
+                                        <field name="check_type"/>
+                                        <field name="processed" widget="boolean"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Action for Biometric devices -->
+        <record id="action_biometric_device" model="ir.actions.act_window">
+            <field name="name">Biometric Devices</field>
+            <field name="res_model">biometric.device</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Biometric devices configured yet.
+                </p>
+                <p>
+                    Configure your Biometric biometric devices to sync employees and attendance records.
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

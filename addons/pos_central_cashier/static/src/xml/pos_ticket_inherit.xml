@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="pos_central_cashier.OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('before-footer')]" position="before">
+            <t t-if="props.data.is_pending_payment">
+                <div class="pos-receipt-center-align" style="font-weight: bold; font-size: 1.2em; margin-top: 10px; border: 2px dashed black; padding: 8px;">
+                    PRECUENTA - PENDIENTE DE PAGO<br/>
+                    REF: <t t-esc="props.data.precuenta_ref" />
+                </div>
+                <br/>
+            </t>
+        </xpath>
+    </t>
+</templates>

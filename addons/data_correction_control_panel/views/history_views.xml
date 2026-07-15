@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vista Formulario del Historial -->
+        <record id="view_data_correction_history_form" model="ir.ui.view">
+            <field name="name">data.correction.history.form</field>
+            <field name="model">data.correction.history</field>
+            <field name="arch" type="xml">
+                <form string="Registro de Corrección" create="false" edit="false">
+                    <header>
+                        <button name="action_undo" type="object" string="Deshacer Cambio" class="btn-warning" confirm="¿Está seguro de deshacer este cambio?"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="fecha_correccion"/>
+                                <field name="usuario_id"/>
+                                <field name="tipo_correccion"/>
+                            </group>
+                            <group>
+                                <field name="tabla_afectada"/>
+                                <field name="id_registro_afectado"/>
+                                <field name="campo_modificado"/>
+                            </group>
+                            <group>
+                                <field name="valor_anterior"/>
+                                <field name="valor_nuevo"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista Lista/Tabla del Historial -->
+        <record id="view_data_correction_history_tree" model="ir.ui.view">
+            <field name="name">data.correction.history.list</field>
+            <field name="model">data.correction.history</field>
+            <field name="arch" type="xml">
+                <list string="Historial de Correcciones" create="false" edit="false" decoration-warning="1">
+                    <field name="fecha_correccion"/>
+                    <field name="usuario_id"/>
+                    <field name="tipo_correccion"/>
+                    <field name="tabla_afectada"/>
+                    <field name="id_registro_afectado"/>
+                    <field name="campo_modificado"/>
+                    <field name="valor_anterior"/>
+                    <field name="valor_nuevo"/>
+                    <button name="action_undo" type="object" string="Deshacer" class="btn-sm btn-outline-danger" confirm="¿Deshacer?"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Vista de Búsqueda y Filtros para Informes -->
+        <record id="view_data_correction_history_search" model="ir.ui.view">
+            <field name="name">data.correction.history.search</field>
+            <field name="model">data.correction.history</field>
+            <field name="arch" type="xml">
+                <search string="Buscar Historial">
+                    <field name="usuario_id"/>
+                    <field name="tipo_correccion"/>
+                    <field name="tabla_afectada"/>
+                    <filter string="Hoy" name="today" domain="[('fecha_correccion', '&gt;=', context_today().strftime('%Y-%m-%d'))]"/>
+                    <filter string="Última Semana" name="last_week" domain="[('fecha_correccion', '&gt;=', (context_today() - datetime.timedelta(days=7)).strftime('%Y-%m-%d'))]"/>
+                    
+                    <group expand="0" string="Agrupar Por">
+                        <filter string="Usuario" name="group_user" context="{'group_by':'usuario_id'}"/>
+                        <filter string="Tabla Afectada" name="group_table" context="{'group_by':'tabla_afectada'}"/>
+                        <filter string="Tipo de Corrección" name="group_type" context="{'group_by':'tipo_correccion'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Acción Historial -->
+        <record id="action_data_correction_history" model="ir.actions.act_window">
+            <field name="name">Historial de Correcciones</field>
+            <field name="res_model">data.correction.history</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Aún no hay correcciones en el historial.
+                </p>
+                <p>
+                    El historial se llenará a medida que se apliquen correcciones usando el Panel de Control.
+                </p>
+            </field>
+        </record>
+
+        <!-- Acción Informe (Mismo modelo, pero con pivot o filtro predeterminado) -->
+        <record id="action_data_correction_report" model="ir.actions.act_window">
+            <field name="name">Informe de Correcciones</field>
+            <field name="res_model">data.correction.history</field>
+            <field name="view_mode">list,form,pivot</field>
+            <field name="context">{'search_default_group_table': 1, 'search_default_group_user': 1}</field>
+        </record>
+    </data>
+</odoo>

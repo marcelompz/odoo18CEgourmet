@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+    Create on 2025-06-02 08:10:04
+    @author: drojo
+-->
+<odoo>
+
+    <!-- form view -->
+
+    <record id="purchase_order_inherit_form" model="ir.ui.view">
+        <field name="name">purchase.order.inherit.form</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//notebook/page/field[@name='order_line']" position="before">
+                <button name="action_open_import_wizard" type="object" string="IMPORTAR DESDE EXCEL" class="oe_highlight oe_right"
+                    help="Importa líneas de pedido de compra desde un archivo Excel." invisible ="state != 'draft'"/>
+            </xpath>
+        
+        </field>
+    </record>
+
+</odoo>

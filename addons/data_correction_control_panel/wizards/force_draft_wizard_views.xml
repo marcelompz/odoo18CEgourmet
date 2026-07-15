@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_force_draft_wizard_form" model="ir.ui.view">
+            <field name="name">data.correction.force.draft.wizard.form</field>
+            <field name="model">data.correction.force.draft.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Forzar a Borrador (Modo Edición)">
+                    <p class="text-danger">
+                        Usa esta herramienta cuando necesites modificar manualmente un asiento o transacción en su aplicación original. Esto regresará la orden a estado borrador y eliminará sus facturas o asientos en estado para que puedas editarla a tu gusto.
+                    </p>
+                    <group>
+                        <field name="module_type" widget="radio"/>
+                        <field name="purchase_id" invisible="module_type != 'purchase'" required="module_type == 'purchase'"/>
+                        <field name="sale_id" invisible="module_type != 'sale'" required="module_type == 'sale'"/>
+                        <field name="pos_id" invisible="module_type != 'pos'" required="module_type == 'pos'"/>
+                    </group>
+                    <footer>
+                        <button name="action_force_draft" type="object" string="Habilitar Modo Edición" class="btn-warning"/>
+                        <button special="cancel" string="Cancelar" class="btn-secondary"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_force_draft_wizard" model="ir.actions.act_window">
+            <field name="name">Forzar Orden a Borrador</field>
+            <field name="res_model">data.correction.force.draft.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

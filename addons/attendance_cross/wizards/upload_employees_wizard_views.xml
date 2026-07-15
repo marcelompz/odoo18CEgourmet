@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Wizard form for uploading employees -->
+        <record id="view_upload_employees_wizard_form" model="ir.ui.view">
+            <field name="name">upload.employees.wizard.form</field>
+            <field name="model">upload.employees.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Upload Employees to Device">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="device_id" required="1"/>
+                                <field name="upload_all"/>
+                            </group>
+                            <group invisible="upload_all == True">
+                                <field name="employee_ids" widget="many2many_tags" domain="[('biometric_device_id', '=', device_id)]"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="action_upload" string="Upload" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Action to open upload wizard -->
+        <record id="action_upload_employees_wizard" model="ir.actions.act_window">
+            <field name="name">Upload Employees to Device</field>
+            <field name="res_model">upload.employees.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="model_biometric_device"/>
+            <field name="binding_view_types">form</field>
+        </record>
+    </data>
+</odoo>

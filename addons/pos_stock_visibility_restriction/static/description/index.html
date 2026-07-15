@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Visibility & Restrictions for POS</title>
+
+    <!-- Use Odoo's built-in font instead of Google Fonts -->
+    <link rel="stylesheet" href="/web/static/lib/fontawesome/css/font-awesome.css" />
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- Hero Section -->
+        <section class="bg-gradient-primary text-primary py-5 mb-0">
+            <div class="container text-center">
+                <span class="badge bg-white-20 text-primary mb-3 py-2 px-3 rounded-pill">Version 18.0.1.0.0</span>
+                <h1 class="display-4 fw-bold mb-3">Stock Visibility & Restrictions</h1>
+                <p class="lead mx-auto" style="max-width: 600px;">
+                    Enhance your Point of Sale system with real-time stock visibility and intelligent restriction of out-of-stock products
+                </p>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <div class="bg-white rounded-top-3 shadow-lg pt-5">
+            <div class="container">
+
+                <!-- Module Information -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 d-flex align-items-center mb-4">
+                            <span class="bg-gradient-primary text-primary rounded-2 p-2 me-3">
+                                <i class="fa fa-info-circle"></i>
+                            </span>
+                            Module Information
+                        </h3>
+                        <div class="row">
+                            <div class="col-md-3 col-6 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body text-center">
+                                        <div class="h4 text-primary">17.0+</div>
+                                        <small class="text-muted text-uppercase">Odoo Version</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body text-center">
+                                        <div class="h4 text-primary">Point of Sale</div>
+                                        <small class="text-muted text-uppercase">Category</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body text-center">
+                                        <div class="h4 text-primary">LGPL-3</div>
+                                        <small class="text-muted text-uppercase">License</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body text-center">
+                                        <div class="h4 text-primary">Free</div>
+                                        <small class="text-muted text-uppercase">Price</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Features Section -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 d-flex align-items-center mb-4">
+                            <span class="bg-gradient-primary text-primary rounded-2 p-2 me-3">
+                                <i class="fa fa-star"></i>
+                            </span>
+                            Key Features
+                        </h3>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <div class="bg-gradient-primary text-primary rounded-2 p-2 mb-3 d-inline-flex">
+                                            <i class="fa fa-eye"></i>
+                                        </div>
+                                        <h5 class="h6 fw-bold">Real-time Stock Visibility</h5>
+                                        <p class="text-muted small">
+                                            Displays current stock levels for all products in the POS interface, updated dynamically as transactions occur.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <div class="bg-gradient-primary text-primary rounded-2 p-2 mb-3 d-inline-flex">
+                                            <i class="fa fa-ban"></i>
+                                        </div>
+                                        <h5 class="h6 fw-bold">Out-of-Stock Restrictions</h5>
+                                        <p class="text-muted small">
+                                            Prevents sales of unavailable products by automatically restricting them based on current inventory levels.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <div class="bg-gradient-primary text-primary rounded-2 p-2 mb-3 d-inline-flex">
+                                            <i class="fa fa-eye-slash"></i>
+                                        </div>
+                                        <h5 class="h6 fw-bold">Hide Unavailable Products</h5>
+                                        <p class="text-muted small">
+                                            Option to completely hide out-of-stock products from the POS interface for a cleaner user experience.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Installation Section -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 d-flex align-items-center mb-4">
+                            <span class="bg-gradient-primary text-primary rounded-2 p-2 me-3">
+                                <i class="fa fa-download"></i>
+                            </span>
+                            Installation
+                        </h3>
+                        <div class="row">
+                            <div class="col-md-3 col-6 mb-3">
+                                <div class="card h-100 border-start border-primary border-3">
+                                    <div class="card-body">
+                                        <div class="bg-gradient-primary text-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 30px; height: 30px;">1</div>
+                                        <h5 class="h6 fw-bold">Download Module</h5>
+                                        <p class="text-muted small">
+                                            Download from Odoo Apps Store or extract from zip file
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6 mb-3">
+                                <div class="card h-100 border-start border-primary border-3">
+                                    <div class="card-body">
+                                        <div class="bg-gradient-primary text-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 30px; height: 30px;">2</div>
+                                        <h5 class="h6 fw-bold">Copy to Addons</h5>
+                                        <p class="text-muted small">
+                                            Place the module folder in your Odoo addons directory
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6 mb-3">
+                                <div class="card h-100 border-start border-primary border-3">
+                                    <div class="card-body">
+                                        <div class="bg-gradient-primary text-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 30px; height: 30px;">3</div>
+                                        <h5 class="h6 fw-bold">Update Apps List</h5>
+                                        <p class="text-muted small">
+                                            Refresh the apps list from the Odoo Apps menu
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6 mb-3">
+                                <div class="card h-100 border-start border-primary border-3">
+                                    <div class="card-body">
+                                        <div class="bg-gradient-primary text-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 30px; height: 30px;">4</div>
+                                        <h5 class="h6 fw-bold">Install & Configure</h5>
+                                        <p class="text-muted small">
+                                            Install the module and configure POS settings
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Requirements Section -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 d-flex align-items-center mb-4">
+                            <span class="bg-gradient-primary text-primary rounded-2 p-2 me-3">
+                                <i class="fa fa-list-check"></i>
+                            </span>
+                            Requirements
+                        </h3>
+                        <div class="list-group list-group-flush">
+                            <div class="list-group-item d-flex align-items-center py-3">
+                                <span class="bg-success text-primary rounded-circle d-inline-flex align-items-center justify-content-center me-3" style="width: 24px; height: 24px;">
+                                    <i class="fa fa-check small"></i>
+                                </span>
+                                Odoo 17.0 or higher
+                            </div>
+                            <div class="list-group-item d-flex align-items-center py-3">
+                                <span class="bg-success text-primary rounded-circle d-inline-flex align-items-center justify-content-center me-3" style="width: 24px; height: 24px;">
+                                    <i class="fa fa-check small"></i>
+                                </span>
+                                Point of Sale module installed and configured
+                            </div>
+                            <div class="list-group-item d-flex align-items-center py-3">
+                                <span class="bg-success text-primary rounded-circle d-inline-flex align-items-center justify-content-center me-3" style="width: 24px; height: 24px;">
+                                    <i class="fa fa-check small"></i>
+                                </span>
+                                Inventory module for stock tracking
+                            </div>
+                            <div class="list-group-item d-flex align-items-center py-3">
+                                <span class="bg-success text-primary rounded-circle d-inline-flex align-items-center justify-content-center me-3" style="width: 24px; height: 24px;">
+                                    <i class="fa fa-check small"></i>
+                                </span>
+                                Products with stock tracking enabled
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Screenshots Section -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 d-flex align-items-center mb-4">
+                            <span class="bg-gradient-primary text-primary rounded-2 p-2 me-3">
+                                <i class="fa fa-image"></i>
+                            </span>
+                            Screenshots
+                        </h3>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="card">
+                                    <img src="/assets/screenshots/screenshot1.png" class="card-img-top" alt="POS with Stock Visibility">
+                                    <div class="card-body text-center">
+                                        <h5 class="h6 fw-bold">Real-time Stock Display</h5>
+                                        <p class="text-muted small">
+                                            Stock levels shown next to product names in POS interface
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="card">
+                                    <img src="/assets/screenshots/screenshot2.png" class="card-img-top" alt="POS with Out-of-Stock Restriction">
+                                    <div class="card-body text-center">
+                                        <h5 class="h6 fw-bold">Out-of-Stock Management</h5>
+                                        <p class="text-muted small">
+                                            Unavailable products are hidden or disabled automatically
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Configuration Section -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 d-flex align-items-center mb-4">
+                            <span class="bg-gradient-primary text-primary rounded-2 p-2 me-3">
+                                <i class="fa fa-cog"></i>
+                            </span>
+                            Configuration
+                        </h3>
+                        <p class="mb-3">Configure the module through Point of Sale settings:</p>
+                        <ul class="list-unstyled">
+                            <li class="mb-2 d-flex align-items-center">
+                                <i class="fa fa-arrow-right text-primary me-2"></i>
+                                Navigate to &nbsp;<strong>Point of Sale → Configuration → Settings</strong>
+                            </li>
+                            <li class="mb-2 d-flex align-items-center">
+                                <i class="fa fa-arrow-right text-primary me-2"></i>
+                                Enable &nbsp;<strong>"Hide Zero Stock"</strong>&nbsp; option
+                            </li>
+                            <li class="mb-2 d-flex align-items-center">
+                                <i class="fa fa-arrow-right text-primary me-2"></i>
+                                Enable &nbsp;<strong>"Restrict Zero Stock"</strong>&nbsp; option
+                            </li>
+                            <li class="d-flex align-items-center">
+                                <i class="fa fa-arrow-right text-primary me-2"></i>
+                                Save configuration and restart POS sessions or just refresh the POS page
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Support Section -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 d-flex align-items-center mb-4">
+                            <span class="bg-gradient-primary text-primary rounded-2 p-2 me-3">
+                                <i class="fa fa-life-ring"></i>
+                            </span>
+                            Support
+                        </h3>
+                        <p class="mb-3">Get help and support for this module:</p>
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="h6 fw-bold d-flex align-items-center">
+                                            <i class="fa fa-bug text-primary me-2"></i>
+                                            Bug Reports
+                                        </h5>
+                                        <p class="text-muted small mb-2">
+                                            Report issues or bugs you encounter
+                                        </p>
+                                        Shahid Khan <a href="mailto:shahiddev91@gmail.com" class="text-primary">shahiddev91@gmail.com</a>
+                                    </div>
+                                </div>
+                            </div>
+<!--                            <div class="col-md-6 mb-3">-->
+<!--                                <div class="card h-100">-->
+<!--                                    <div class="card-body">-->
+<!--                                        <h5 class="h6 fw-bold d-flex align-items-center">-->
+<!--                                            <i class="fa fa-question-circle text-primary me-2"></i>-->
+<!--                                            Documentation-->
+<!--                                        </h5>-->
+<!--                                        <p class="text-muted small mb-2">-->
+<!--                                            Access detailed documentation and guides-->
+<!--                                        </p>-->
+<!--                                        <a href="#" class="text-primary">View Documentation</a>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

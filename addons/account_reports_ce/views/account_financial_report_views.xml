@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vistas de Configuración de Reportes -->
+    <record id="view_account_financial_report_ce_tree" model="ir.ui.view">
+        <field name="name">account.financial.report.ce.list</field>
+        <field name="model">account.financial.report.ce</field>
+        <field name="arch" type="xml">
+            <list string="Reportes Financieros">
+                <field name="name"/>
+                <field name="type"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_account_financial_report_ce_form" model="ir.ui.view">
+        <field name="name">account.financial.report.ce.form</field>
+        <field name="model">account.financial.report.ce</field>
+        <field name="arch" type="xml">
+            <form string="Reporte Financiero">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Nombre..."/></h1>
+                    </div>
+                    <group>
+                        <field name="type"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+                    <notebook>
+                        <page string="Líneas">
+                            <field name="line_ids">
+                                <list string="Líneas" editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="code"/>
+                                    <field name="parent_id"/>
+                                    <field name="formula"/>
+                                    <field name="domain"/>
+                                    <field name="sign"/>
+                                    <field name="level"/>
+                                    <field name="is_title"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_account_financial_report_ce" model="ir.actions.act_window">
+        <field name="name">Estructuras de Reportes</field>
+        <field name="res_model">account.financial.report.ce</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_config_account_reports"
+              name="Estructura de Reportes Financieros"
+              parent="menu_account_reports_config"
+              action="action_account_financial_report_ce"
+              sequence="10"/>
+
+    <!-- Wizard Genérico de Reporte -->
+    <record id="view_financial_report_wizard_ce_form" model="ir.ui.view">
+        <field name="name">financial.report.wizard.ce.form</field>
+        <field name="model">financial.report.wizard.ce</field>
+        <field name="arch" type="xml">
+            <form string="Opciones de Reporte">
+                <group>
+                    <group>
+                        <field name="report_id" required="1"/>
+                        <field name="target_move"/>
+                    </group>
+                    <group>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+                </group>
+                <footer>
+                    <button string="Generar" name="action_generate_report" type="object" class="btn-primary" data-hotkey="q"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acciones directas para reportes base que luego crearemos -->
+    <record id="action_account_report_balance_ce" model="ir.actions.act_window">
+        <field name="name">Balance General</field>
+        <field name="res_model">financial.report.wizard.ce</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_report_id_domain': [('type','=','balance')]}</field>
+    </record>
+
+    <record id="action_account_report_pnl_ce" model="ir.actions.act_window">
+        <field name="name">Ganancias y Pérdidas</field>
+        <field name="res_model">financial.report.wizard.ce</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_report_id_domain': [('type','=','pnl')]}</field>
+    </record>
+
+    <record id="action_account_report_cashflow_ce" model="ir.actions.act_window">
+        <field name="name">Flujo de Efectivo</field>
+        <field name="res_model">financial.report.wizard.ce</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_report_id_domain': [('type','=','cashflow')]}</field>
+    </record>
+
+    <menuitem id="menu_report_balance" name="Balance General" action="action_account_report_balance_ce" parent="account.menu_finance_reports" sequence="101"/>
+    <menuitem id="menu_report_pnl" name="Estado de Resultados" action="action_account_report_pnl_ce" parent="account.menu_finance_reports" sequence="102"/>
+    <menuitem id="menu_report_cf" name="Flujo de Efectivo" action="action_account_report_cashflow_ce" parent="account.menu_finance_reports" sequence="103"/>
+
+</odoo>
