@@ -56,12 +56,12 @@ services:
       - ./init_prod_db.sh:/init_prod_db.sh:ro
     environment:
       - DB_NAME=${DB_NAME}
-      - DB_HOST=db5771
+      - DB_HOST=${DB_HOST}
       - DB_PORT=5432
       - DB_USER=${DB_USER}
       - DB_PASSWD=${DB_PASSWD}
-      - ADMIN_EMAIL=soporte@crossnexion.com
-      - ADMIN_PASSWORD=Cross1983_
+      - ADMIN_EMAIL=${ADMIN_EMAIL}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
     command: >
       bash -c "
         pip3 install --break-system-packages tu-ruc-python-client &&
