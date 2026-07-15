@@ -1,0 +1,33 @@
+[
+  {
+    "name": "Administrador Provecchio",
+    "login": "admin@provecchio.com.py",
+    "password": "ProvecchioAdmin2026!",
+    "groups": [
+      "base.group_system",
+      "point_of_sale.group_pos_manager",
+      "stock.group_stock_manager",
+      "mrp.group_mrp_manager",
+      "purchase.group_purchase_manager",
+      "sales_team.group_sale_salesman_all_leads",
+      "account.group_account_invoice"
+    ]
+  },
+  {
+    "name": "Encargado Inventario y Producción",
+    "login": "produccion@provecchio.com.py",
+    "password": "ProvecchioProd2026!",
+    "groups": [
+      "stock.group_stock_manager",
+      "mrp.group_mrp_manager"
+    ]
+  },
+  {
+    "name": "Cajero POS 1",
+    "login": "pos1@provecchio.com.py",
+    "password": "ProvecchioPos2026!",
+    "groups": [
+      "point_of_sale.group_pos_user"
+    ]
+  }
+]

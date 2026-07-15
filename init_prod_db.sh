@@ -173,7 +173,8 @@ echo "=== Importando Datos Maestros (Materias Primas, Comidas, Recetas) ==="
 python3 /mnt/migracion/import_products_direct.py
 python3 /mnt/migracion/import_comidas_direct.py
 python3 /mnt/migracion/import_recipes_direct.py
-echo "✓ Datos maestros importados"
+python3 /mnt/migracion/import_company_users.py
+echo "✓ Datos maestros y configuración de empresa/usuarios importados"
 echo ""
 echo "============================================================"
 echo "✓ Inicialización completada"
