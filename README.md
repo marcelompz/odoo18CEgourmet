@@ -79,9 +79,9 @@ The project contains several scripts to automate imports and test setups. Here i
 - **Verdict:** Perfect as a test command to check if recipes import cleanly in a new database.
 
 ### 4. `setup_spa_final.py` & `setup_spa_data.py`
-- **Path:** Root level (`setup_spa_final.py` / `setup_spa_data.py`)
+- **Path:** Dedicated SPA testing folder (`pruebas_spa/setup_spa_final.py` / `pruebas_spa/setup_spa_data.py`)
 - **Mechanism:** Web API RPC connections (JSON-RPC). They authenticate as `soporte@crossnexion.com` over HTTP and invoke Odoo models remotely.
-- **Target:** Configures test contacts, POS settings, and dummy partners.
+- **Target:** Configures test contacts, POS settings, and dummy partners for the SPA business unit.
 - **Verdict:** Useful for sandbox validation and automated UI test environments.
 
 ---
@@ -107,6 +107,10 @@ odoo18_provecchio/
 │   ├── import_products_direct.py
 │   ├── import_comidas_direct.py
 │   └── import_recipes_direct.py
+├── pruebas_spa/                    # SPA business unit test scripts
+│   ├── setup_spa_data.py
+│   ├── setup_spa_final.py
+│   └── setup_web_data.py
 ├── init_prod_db.sh                 # Database initialization script (called by odoo_init_db_18)
 └── README.md                       # This documentation file
 ```
