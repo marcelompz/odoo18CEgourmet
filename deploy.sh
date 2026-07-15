@@ -37,6 +37,11 @@ docker compose down
 
 if [ "$CLEAN_DB" = true ]; then
     echo -e "\n${YELLOW}[!] ADVERTENCIA: Se limpiará la base de datos por completo.${NC}"
+    read -p " ¿Está seguro de que desea eliminar todos los datos y reconstruir desde cero? (s/N): " confirmacion
+    if [[ ! "$confirmacion" =~ ^[sSyY]$ ]]; then
+        echo -e "\n${RED}Operación cancelada por el usuario.${NC}"
+        exit 0
+    fi
     # Usar contenedor temporal para borrar las carpetas del host que tienen permisos de root
     docker run --rm -v ${DB_VOLUMES}:/db -v ${WEB_VOLUMES}:/web alpine sh -c "rm -rf /db/* /web/*"
     echo -e "${GREEN}✓ Volúmenes de datos limpiados.${NC}"
