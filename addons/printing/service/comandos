@@ -1,0 +1,4 @@
+sudo cp printer-server.service /etc/systemd/system/printer-server.service
+sudo systemctl daemon-reload
+sudo systemctl enable printer-server.service
+sudo systemctl start printer-server.service
