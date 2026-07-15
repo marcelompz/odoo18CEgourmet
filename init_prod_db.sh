@@ -98,10 +98,22 @@ try:
         user = env['res.users'].search([('login', '=', '$ADMIN_EMAIL')], limit=1)
         if user:
             user.sudo().write({'password': '$ADMIN_PASSWORD'})
-            cr.commit()
             print('  ✓ Password establecido')
         else:
             print('  ✗ Usuario no encontrado')
+
+        # Cargar logo de la empresa si existe
+        import os
+        import base64
+        logo_path = '/mnt/migracion/provecchio_logo.png'
+        if os.path.exists(logo_path):
+            with open(logo_path, 'rb') as f:
+                logo_data = base64.b64encode(f.read())
+            company = env['res.company'].browse(1)
+            if company.exists():
+                company.write({'logo': logo_data})
+                print('  ✓ Logo de empresa cargado con éxito')
+        cr.commit()
 except Exception as e:
     print('  ✗ Error:', e)
 PYEOF
