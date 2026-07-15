@@ -4,7 +4,7 @@ nextcloud-api-wrapper
 boto3
 paramiko
 tu-ruc-python-client
-openpyxl
+openpyxl>=3.1.5
 xlrd
 xlwt
 pandas

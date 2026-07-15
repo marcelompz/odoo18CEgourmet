@@ -1,26 +1,45 @@
-# Custom Odoo Modules – Proyecto FARMA-UP
+# Odoo 18 CE - Provecchio Deployment (Gourmet)
 
-Repositorio de módulos personalizados desarrollados para Odoo 18 por Crossnexion EAS.
+**Odoo 18 CE deployment for Provecchio (Paraguay) with full localization support and custom import modules.**
 
----
+## 🚀 Quick Start
 
-## 📦 Módulo pharmacy_core_cross
+### Prerequisites
 
-## 📝 Historial de mejoras
+- Docker & Docker Compose
+- SSH key added to GitHub
+- Access to repository `git@github.com:marcelompz/odoo18CEgourmet.git`
 
-- 2026-01-21 | Se agregan campos de Marca y Laboratorio del Producto
-- 2026-01-29 | Se agrega el campo Unidad de Medida en la vista de reporte de venta.
+### Automatic Installation
 
----
+```bash
+# 1. Clone repository
+git clone git@github.com:marcelompz/odoo18CEgourmet.git odoo18_provecchio
+cd odoo18_provecchio
 
-## 📦 Módulo sale_line_stock_warehouse
+# 2. Start Docker containers (this starts postgres and odoo, plus the init container)
+docker compose up -d
 
-## 📝 Historial de mejoras
+# 3. Wait for initialization to complete
+docker logs -f odoo_init_db_18
+```
 
-- 2026-01-27 | Mejora en el cálculo y visualización de información de stock en líneas de pedido.
+### Access
 
----
+- **URL:** http://localhost:9038
+- **Database:** `prod`
+- **Email:** `soporte@crossnexion.com`
+- **Password:** `Cross1983_`
 
-## ⚠️ Notas importantes
+## 📁 Project Structure
 
----
+```
+odoo18_provecchio/
+├── docker-compose.yml       # Docker configuration
+├── .env                     # Environment variables
+├── config/
+│   └── odoo.conf           # Odoo configuration
+├── addons/                  # Custom modules (excel_recipe_import, product_mass_import, pos_product_bom, etc.)
+├── init_prod_db.sh         # Database initialization script (configured for Odoo 18)
+└── README.md                # This file
+```

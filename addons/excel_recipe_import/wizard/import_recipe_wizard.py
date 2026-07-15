@@ -471,7 +471,7 @@ class ExcelRecipeImportWizard(models.TransientModel):
                 else:
                     bom.bom_line_ids.unlink() # Limpiar existentes
 
-                for _, row in group.iterrows():
+                for idx, row in group.iterrows():
                     comp_name = row.get('Component')
                     if str(comp_name).lower() == 'nan':
                         continue
@@ -514,7 +514,7 @@ class ExcelRecipeImportWizard(models.TransientModel):
                 else:
                     bom.product_bom_line_ids.unlink() # Limpiar existentes
 
-                for _, row in group.iterrows():
+                for idx, row in group.iterrows():
                     comp_name = row.get('Component')
                     if str(comp_name).lower() == 'nan':
                         continue

@@ -15,7 +15,7 @@ RUN uv pip install --system --break-system-packages \
     nextcloud-api-wrapper \
     boto3 \
     paramiko \
-    openpyxl \
+    "openpyxl>=3.1.5" \
     xlrd \
     xlwt \
     dnspython \

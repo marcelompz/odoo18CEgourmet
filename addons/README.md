@@ -1,26 +1,6 @@
-# Custom Odoo Modules – Proyecto FARMA-UP
+# Custom Odoo Modules - Provecchio Odoo 18
 
-Repositorio de módulos personalizados desarrollados para Odoo 18 por Crossnexion EAS.
-
----
-
-## 📦 Módulo pharmacy_core_cross
-
-## 📝 Historial de mejoras
-
-- 2026-01-21 | Se agregan campos de Marca y Laboratorio del Producto
-- 2026-01-29 | Se agrega el campo Unidad de Medida en la vista de reporte de venta.
-
----
-
-## 📦 Módulo sale_line_stock_warehouse
-
-## 📝 Historial de mejoras
-
-- 2026-01-27 | Mejora en el cálculo y visualización de información de stock en líneas de pedido.
-
----
-
-## ⚠️ Notas importantes
-
----
+Custom modules for Odoo 18 used in Provecchio:
+- `excel_recipe_import`: Wizard to import products and BoMs from Excel.
+- `product_mass_import`: Batch product import with inventory.
+- `pos_product_bom`: Ingredients configuration and POS BOM.
