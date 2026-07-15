@@ -46,6 +46,12 @@ else
   echo "✓ Base de datos '$DB_NAME' creada"
 fi
 
+# Verificar si Odoo ya está inicializado (si existe la tabla res_users)
+if psql -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USER" -d "$DB_NAME" -t -c "SELECT 1 FROM pg_tables WHERE tablename='res_users'" 2>/dev/null | grep -q 1; then
+  echo "✓ Odoo ya está inicializado en '$DB_NAME'. Omitiendo configuración."
+  exit 0
+fi
+
 # Inicializar Odoo
 echo "Inicializando Odoo en '$DB_NAME'..."
 odoo \
@@ -56,7 +62,7 @@ odoo \
      --db_port "$DB_PORT" \
      --db_user "$DB_USER" \
      --db_password "$DB_PASSWD" \
-     --addons-path=/mnt/extra-addons,/mnt/extra-addons-customize,/mnt/extra-addons-l10py,/usr/lib/python3/dist-packages/odoo/addons \
+     --addons-path=/mnt/extra-addons-customize,/mnt/extra-addons-l10py,/usr/lib/python3/dist-packages/odoo/addons \
      2>&1 | tail -30
 
 echo "✓ Odoo inicializado"
@@ -124,7 +130,7 @@ odoo \
      --db_port "$DB_PORT" \
      --db_user "$DB_USER" \
      --db_password "$DB_PASSWD" \
-     --addons-path=/mnt/extra-addons,/mnt/extra-addons-customize,/mnt/extra-addons-l10py,/usr/lib/python3/dist-packages/odoo/addons \
+     --addons-path=/mnt/extra-addons-customize,/mnt/extra-addons-l10py,/usr/lib/python3/dist-packages/odoo/addons \
      2>&1 | tail -20
 
 echo ""
