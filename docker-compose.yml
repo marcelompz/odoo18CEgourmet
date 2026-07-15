@@ -43,7 +43,7 @@ services:
 #    restart: always
 
   init:
-    container_name: odoo_init_db
+    container_name: odoo_init_db_18
     image: odoo-migracion-test:18.0
     depends_on:
       - db5771
