@@ -1,0 +1,60 @@
+{
+  "smtp": {
+    "name": "Servidor Saliente Provecchio",
+    "host": "smtp.gmail.com",
+    "port": 587,
+    "encryption": "starttls",
+    "username": "notificaciones@provecchio.com.py",
+    "password": "PasswordSmtp123!"
+  },
+  "warehouses": [
+    {
+      "name": "Depósito Central",
+      "code": "WHC"
+    },
+    {
+      "name": "Sucursal 1",
+      "code": "SUC1"
+    }
+  ],
+  "product_categories_config": [
+    {
+      "name": "Comida",
+      "property_cost_method": "average",
+      "property_valuation": "real_time",
+      "stock_valuation_account": "110100",
+      "stock_input_account": "110200",
+      "stock_output_account": "110300"
+    },
+    {
+      "name": "Materia Prima",
+      "property_cost_method": "average",
+      "property_valuation": "real_time",
+      "stock_valuation_account": "110100",
+      "stock_input_account": "110200",
+      "stock_output_account": "110300"
+    }
+  ],
+  "accounting": {
+    "tax_calculation_rounding_method": "round_per_line",
+    "payment_immediate_rename_to": "Contado"
+  },
+  "journals": [
+    {
+      "name": "Efectivo Sucursal 1",
+      "code": "CS1",
+      "type": "cash"
+    },
+    {
+      "name": "Banco Sucursal 1",
+      "code": "BS1",
+      "type": "bank"
+    }
+  ],
+  "analytic_accounts": [
+    {
+      "name": "Sucursal 1 - Analítica",
+      "code": "SUC1-ANA"
+    }
+  ]
+}

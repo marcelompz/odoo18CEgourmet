@@ -195,7 +195,8 @@ python3 /mnt/migracion/import_products_direct.py
 python3 /mnt/migracion/import_comidas_direct.py
 python3 /mnt/migracion/import_recipes_direct.py
 python3 /mnt/migracion/import_company_users.py
-echo "✓ Datos maestros y configuración de empresa/usuarios importados"
+python3 /mnt/migracion/import_settings.py
+echo "✓ Datos maestros y configuración de empresa/usuarios/parámetros contables importados"
 echo ""
 echo "============================================================"
 echo "✓ Inicialización completada"
