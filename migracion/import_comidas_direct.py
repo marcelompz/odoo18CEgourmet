@@ -76,6 +76,14 @@ def import_comidas():
                 if not categ:
                     categ = env['product.category'].create({'name': categ_name})
                 
+                # POS Category creation/assignment
+                pos_categ_ids_val = []
+                if available_in_pos:
+                    pos_categ = env['pos.category'].search([('name', '=', categ_name)], limit=1)
+                    if not pos_categ:
+                        pos_categ = env['pos.category'].create({'name': categ_name})
+                    pos_categ_ids_val = [(6, 0, [pos_categ.id])]
+                
                 # Prepare values
                 product_vals = {
                     'default_code': default_code,
@@ -88,6 +96,7 @@ def import_comidas():
                     'uom_id': uom_id,
                     'uom_po_id': uom_id,
                     'available_in_pos': available_in_pos,
+                    'pos_categ_ids': pos_categ_ids_val,
                 }
                 
                 # Check if product exists
