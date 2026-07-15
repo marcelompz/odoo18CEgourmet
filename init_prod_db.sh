@@ -52,12 +52,27 @@ if psql -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USER" -d "$DB_NAME" -t -c "SELECT 1 
   exit 0
 fi
 
+# Leer los módulos desde modules.conf
+MODULES_LIST=""
+MODULES_FILE="/modules.conf"
+
+if [ -f "$MODULES_FILE" ]; then
+  echo "✓ Cargando lista de módulos desde $MODULES_FILE"
+  MODULES_LIST=$(grep -v '^#' "$MODULES_FILE" | grep -v '^[[:space:]]*$' | tr '\n' ',' | sed 's/,$//')
+else
+  echo "⚠️ Archivo $MODULES_FILE no encontrado. Usando lista por defecto."
+  MODULES_LIST="base,web,mail,mrp,point_of_sale,pos_restaurant,stock,purchase,sale,product_mass_import,pos_product_bom,excel_recipe_import,ica_web_responsive"
+fi
+
+echo "Módulos a instalar: $MODULES_LIST"
+
 # Inicializar Odoo
 echo "Inicializando Odoo en '$DB_NAME'..."
 odoo \
      -d "$DB_NAME" \
-     --init base,web,mail,mrp,point_of_sale,pos_restaurant,stock,purchase,sale,product_mass_import,pos_product_bom,excel_recipe_import \
+     --init "$MODULES_LIST" \
      --stop-after-init \
+     --without-demo=all \
      --db_host "$DB_HOST" \
      --db_port "$DB_PORT" \
      --db_user "$DB_USER" \
@@ -141,6 +156,7 @@ odoo \
      -d "$DB_NAME" \
      --init l10n_py \
      --stop-after-init \
+     --without-demo=all \
      --db_host "$DB_HOST" \
      --db_port "$DB_PORT" \
      --db_user "$DB_USER" \

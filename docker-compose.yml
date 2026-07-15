@@ -55,6 +55,7 @@ services:
       - ${WEB_ADDONS_CUSTOMIZE}:/mnt/extra-addons-customize
       - ${WEB_ADDONS_L10NPY}:/mnt/extra-addons-l10py
       - ./init_prod_db.sh:/init_prod_db.sh:ro
+      - ./modules.conf:/modules.conf:ro
       - ./migracion:/mnt/migracion
     environment:
       - DB_NAME=${DB_NAME}
