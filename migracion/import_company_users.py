@@ -45,10 +45,31 @@ def import_company_and_users():
                     'city': co_data.get('city', company.city),
                 }
                 country_code = co_data.get('country_code')
+                country = None
                 if country_code:
                     country = env['res.country'].search([('code', '=', country_code.upper())], limit=1)
                     if country:
                         vals['country_id'] = country.id
+                
+                state_name = co_data.get('state')
+                if state_name and country:
+                    states = env['res.country.state'].search([('country_id', '=', country.id)])
+                    import unicodedata
+                    def clean_str(s):
+                        return "".join(c for c in unicodedata.normalize('NFD', s.lower()) if unicodedata.category(c) != 'Mn')
+                    
+                    cleaned_target = clean_str(state_name)
+                    state = None
+                    for s in states:
+                        if clean_str(s.name) == cleaned_target or clean_str(s.code) == cleaned_target:
+                            state = s
+                            break
+                    if state:
+                        vals['state_id'] = state.id
+                        print(f"  ✓ State found and mapped: {state.name} ({state.code})")
+                    else:
+                        print(f"  ⚠️ State '{state_name}' not found for country {country.name}")
+
                 company.write(vals)
                 print(f"✓ Company details updated: {company.name}")
         else:

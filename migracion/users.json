@@ -1,8 +1,8 @@
 [
   {
-    "name": "Administrador Provecchio",
-    "login": "admin@provecchio.com.py",
-    "password": "ProvecchioAdmin2026!",
+    "name": "Crossnexion",
+    "login": "soporte@crossnexion.com",
+    "password": "Cross1983_",
     "groups": [
       "base.group_system",
       "point_of_sale.group_pos_manager",
