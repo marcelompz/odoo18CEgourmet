@@ -29,6 +29,27 @@ else
 fi
 echo ""
 
+# Aplicar parche en caliente para el bug de res_users en electronic_invoice_cross si existe
+BUGGY_FILE="$L10N_PY_DIR/electronic_invoice_cross/models/res_users.py"
+if [ -f "$BUGGY_FILE" ]; then
+    echo "=== Aplicando parche en caliente para electronic_invoice_cross ==="
+    python3 -c "
+file_path = '$BUGGY_FILE'
+with open(file_path, 'r') as f:
+    content = f.read()
+target = \"'l10n_latam_identification_type_id': self.env.ref('l10n_py.it_vat'),\"
+replacement = \"'l10n_latam_identification_type_id': self.env.ref('l10n_py.it_vat').id,\"
+if target in content:
+    content = content.replace(target, replacement)
+    with open(file_path, 'w') as f:
+        f.write(content)
+    print('  ✓ Bug de psycopg2 (l10n_latam.identification.type) corregido en caliente')
+else:
+    print('  ✓ El bug ya estaba corregido o el archivo es diferente')
+"
+fi
+echo ""
+
 # Esperar a que PostgreSQL esté disponible
 echo "Esperando PostgreSQL..."
 until psql -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USER" -d postgres -c '\q' 2>/dev/null; do
