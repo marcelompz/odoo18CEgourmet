@@ -114,6 +114,31 @@ def import_products():
                     'available_in_pos': available_in_pos,
                 }
                 
+                # Try to load image if exists in /mnt/migracion/imagenes_productos/
+                image_folder = '/mnt/migracion/imagenes_productos/'
+                if os.path.exists(image_folder):
+                    import glob
+                    import base64
+                    image_path = None
+                    if default_code:
+                        matches = (glob.glob(os.path.join(image_folder, f"{default_code}.*")) +
+                                   glob.glob(os.path.join(image_folder, f"{default_code.lower()}.*")))
+                        if matches:
+                            image_path = matches[0]
+                    if not image_path and name:
+                        clean_name = "".join([c for c in name if c.isalpha() or c.isdigit() or c==' ']).rstrip()
+                        matches = glob.glob(os.path.join(image_folder, f"{clean_name}.*"))
+                        if matches:
+                            image_path = matches[0]
+                            
+                    if image_path:
+                        try:
+                            with open(image_path, 'rb') as img_file:
+                                product_vals['image_1920'] = base64.b64encode(img_file.read())
+                        except Exception as img_err:
+                            print(f"  Warning: Could not read image {image_path}: {img_err}")
+
+                
                 # Check if product exists
                 existing = env['product.template'].search([('default_code', '=', default_code)], limit=1)
                 
