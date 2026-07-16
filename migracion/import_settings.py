@@ -36,7 +36,7 @@ def import_settings():
         env = api.Environment(cr, SUPERUSER_ID, {})
         
         # Ensure company's currency (PYG) is active (critical for POS)
-        pyg = env['res.currency'].search([('name', '=', 'PYG')], active_test=False)
+        pyg = env['res.currency'].with_context(active_test=False).search([('name', '=', 'PYG')], limit=1)
         if pyg and not pyg.active:
             pyg.write({'active': True})
             print("  ✓ Activated PYG currency (Guaraní) in the system.")
@@ -166,7 +166,13 @@ def import_settings():
                     'type': jr_type,
                 }
                 if jr:
-                    jr.write(jr_vals)
+                    upd_vals = {
+                        'name': name,
+                        'code': code,
+                    }
+                    if jr.type != jr_type:
+                        upd_vals['type'] = jr_type
+                    jr.write(upd_vals)
                     print(f"  ✓ Updated Journal: {name} ({code})")
                 else:
                     env['account.journal'].create(jr_vals)
@@ -229,27 +235,71 @@ def import_settings():
 
         # Create or update POS Config
         pos_config = env['pos.config'].search([('name', '=', 'Caja Principal')], limit=1)
-        payment_methods = []
-        if cash_method:
-            payment_methods.append(cash_method.id)
-        if bank_method:
-            payment_methods.append(bank_method.id)
-            
-        pos_vals = {
-            'name': 'Caja Principal',
-            'module_pos_restaurant': True,
-        }
-        if invoice_journal:
-            pos_vals['invoice_journal_id'] = invoice_journal.id
-        if payment_methods:
-            pos_vals['payment_method_ids'] = [(6, 0, payment_methods)]
-
+        has_active_session = False
         if pos_config:
-            pos_config.write(pos_vals)
-            print(f"  ✓ Updated POS Config: {pos_config.name}")
-        else:
-            pos_config = env['pos.config'].create(pos_vals)
-            print(f"  ✓ Created POS Config: {pos_config.name}")
+            active_sessions = env['pos.session'].search([
+                ('config_id', '=', pos_config.id),
+                ('state', '!=', 'closed')
+            ])
+            if active_sessions:
+                has_active_session = True
+                print("  ℹ POS Caja Principal has active sessions. Skipping configuration updates to avoid Odoo locks.")
+
+        if not has_active_session:
+            payment_methods = []
+            if cash_method:
+                payment_methods.append(cash_method.id)
+            if bank_method:
+                payment_methods.append(bank_method.id)
+                
+            pos_vals = {
+                'name': 'Caja Principal',
+                'module_pos_restaurant': True,
+            }
+            if invoice_journal:
+                pos_vals['invoice_journal_id'] = invoice_journal.id
+            if payment_methods:
+                pos_vals['payment_method_ids'] = [(6, 0, payment_methods)]
+
+            if pos_config:
+                pos_config.write(pos_vals)
+                print(f"  ✓ Updated POS Config: {pos_config.name}")
+            else:
+                pos_config = env['pos.config'].create(pos_vals)
+                print(f"  ✓ Created POS Config: {pos_config.name}")
+
+        # 8. Configure Language (Español América Latina)
+        lang_code = 'es_419'
+        lang = env['res.lang'].search([('code', '=', lang_code)], limit=1)
+        if not lang or not lang.active:
+            print("Installing language: Spanish (Latin America) / Español (América Latina)...")
+            try:
+                lang_installer = env['base.language.install'].create({
+                    'lang': lang_code,
+                    'overwrite': True,
+                })
+                lang_installer.lang_install()
+                print("  ✓ Language es_419 installed successfully.")
+            except Exception as e:
+                print(f"  Warning: Could not install language es_419: {e}")
+                
+        # Set language es_419 for all existing users and partners
+        print("Setting default language es_419 for existing users and partners...")
+        try:
+            env['res.users'].search([]).write({'lang': lang_code})
+            env['res.partner'].search([]).write({'lang': lang_code})
+            print("  ✓ Updated existing users and partners language to es_419.")
+        except Exception as e:
+            print(f"  Warning: Could not update language for users/partners: {e}")
+            
+        # Set ir.default for new users and partners
+        print("Setting default language for future users and partners...")
+        try:
+            env['ir.default'].set('res.partner', 'lang', lang_code)
+            env['ir.default'].set('res.users', 'lang', lang_code)
+            print("  ✓ Default language set for future contacts/users.")
+        except Exception as e:
+            print(f"  Warning: Could not set default language: {e}")
 
         cr.commit()
         print("✓ System Settings configuration finished successfully!")

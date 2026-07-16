@@ -22,6 +22,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Install lightweight pure-python packages that don't require compilation
 RUN pip install --break-system-packages \
     pyncclient \
-    nextcloud-api-wrapper
+    nextcloud-api-wrapper \
+    "openpyxl>=3.1.5"
 
 USER odoo

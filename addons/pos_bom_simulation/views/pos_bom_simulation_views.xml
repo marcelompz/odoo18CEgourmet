@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Sequence for Simulation Reference -->
+    <record id="seq_pos_bom_simulation" model="ir.sequence">
+        <field name="name">POS BOM Simulation Sequence</field>
+        <field name="code">pos.bom.simulation</field>
+        <field name="prefix">SIM/%(year)s/</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <!-- Tree/List View -->
+    <record id="view_pos_bom_simulation_tree" model="ir.ui.view">
+        <field name="name">pos.bom.simulation.tree</field>
+        <field name="model">pos.bom.simulation</field>
+        <field name="arch" type="xml">
+            <list string="BOM &amp; MRP Simulations" decoration-info="state == 'draft'" decoration-success="state == 'done'" decoration-danger="state == 'failed'">
+                <field name="name"/>
+                <field name="finished_product_id"/>
+                <field name="raw_material_qty_init"/>
+                <field name="sale_qty"/>
+                <field name="rm1_final_qty"/>
+                <field name="rm2_final_qty"/>
+                <field name="state" widget="badge"/>
+                <field name="create_date"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_pos_bom_simulation_form" model="ir.ui.view">
+        <field name="name">pos.bom.simulation.form</field>
+        <field name="model">pos.bom.simulation</field>
+        <field name="arch" type="xml">
+            <form string="BOM &amp; MRP Simulation">
+                <header>
+                    <button name="action_run_simulation" string="Ejecutar Simulación" type="object" class="btn-primary" invisible="state in ('running', 'done')"/>
+                    <button name="action_run_simulation" string="Re-ejecutar Simulación" type="object" class="btn-secondary" invisible="state not in ('done', 'failed')"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_products" type="object" class="oe_stat_button" icon="fa-th-large" invisible="not finished_product_id">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Ver Productos</span>
+                            </div>
+                        </button>
+                        <button name="action_view_mrp_production" type="object" class="oe_stat_button" icon="fa-wrench" invisible="not mrp_production_id">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Orden Fabr. (MRP)</span>
+                            </div>
+                        </button>
+                        <button name="action_view_pos_order" type="object" class="oe_stat_button" icon="fa-shopping-cart" invisible="not pos_order_id">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Pedido PDV</span>
+                            </div>
+                        </button>
+                        <button name="action_view_stock_picking" type="object" class="oe_stat_button" icon="fa-truck" invisible="not stock_picking_id">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Albarán/Picking</span>
+                            </div>
+                        </button>
+                        <button name="action_view_account_moves" type="object" class="oe_stat_button" icon="fa-money" invisible="not account_move_ids">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Asientos Cont.</span>
+                            </div>
+                        </button>
+                    </div>
+
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group string="Configuración de Producto">
+                            <field name="finished_product_id" readonly="state in ('running', 'done')" placeholder="Dejar vacío para autogenerar Pizza"/>
+                            <field name="adjust_component_stock" readonly="state in ('running', 'done')"/>
+                        </group>
+                        <group string="Parámetros de Simulación">
+                            <field name="raw_material_qty_init" readonly="state in ('running', 'done')"/>
+                            <field name="sale_qty" readonly="state in ('running', 'done')"/>
+                        </group>
+                    </group>
+
+                    <group string="Resultados del Inventario de Materia Prima" invisible="state != 'done' or not raw_material_1_id">
+                        <group>
+                            <field name="rm1_final_qty" string="Stock Final - Componente 1"/>
+                        </group>
+                        <group>
+                            <field name="rm2_final_qty" string="Stock Final - Componente 2" invisible="not raw_material_2_id"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Detalles de Registros Creados" invisible="state == 'draft'">
+                            <group>
+                                <group string="Productos e Ingredientes">
+                                    <field name="finished_product_id" string="Producto Final"/>
+                                    <field name="raw_material_1_id" invisible="not raw_material_1_id"/>
+                                    <field name="raw_material_2_id" invisible="not raw_material_2_id"/>
+                                    <field name="raw_material_ids" widget="many2many_tags" string="Todos los componentes"/>
+                                </group>
+                                <group string="Listas de Materiales (BoM)">
+                                    <field name="pos_bom_id" invisible="not pos_bom_id"/>
+                                    <field name="mrp_bom_id" invisible="not mrp_bom_id"/>
+                                </group>
+                                <group string="Punto de Venta (PDV)">
+                                    <field name="pos_config_id"/>
+                                    <field name="pos_session_id"/>
+                                    <field name="pos_order_id"/>
+                                </group>
+                                <group string="Operaciones y Finanzas">
+                                    <field name="mrp_production_id" invisible="not mrp_production_id"/>
+                                    <field name="stock_picking_id"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Log de Errores" invisible="state != 'failed'">
+                            <field name="error_message" readonly="1" class="text-danger font-monospace"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_pos_bom_simulation" model="ir.actions.act_window">
+        <field name="name">Simulaciones de BOM &amp; MRP</field>
+        <field name="res_model">pos.bom.simulation</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea una nueva simulación de BOM y MRP
+            </p>
+            <p>
+                Puedes seleccionar un producto existente que ya tenga configuradas sus listas de materiales (BOM de POS y/o MRP), o dejar el campo vacío para autogenerar un caso de prueba.
+            </p>
+        </field>
+    </record>
+
+    <!-- Root Menu -->
+    <menuitem id="menu_bom_simulation_root"
+              name="BOM &amp; MRP Simulations"
+              web_icon="mrp,static/description/icon.png"
+              sequence="99"/>
+
+    <!-- Submenu -->
+    <menuitem id="menu_bom_simulation_action"
+              name="Simulaciones"
+              parent="menu_bom_simulation_root"
+              action="action_pos_bom_simulation"
+              sequence="10"/>
+</odoo>
