@@ -270,18 +270,23 @@ def import_settings():
 
         # 8. Configure Language (Español América Latina)
         lang_code = 'es_419'
-        lang = env['res.lang'].search([('code', '=', lang_code)], limit=1)
-        if not lang or not lang.active:
-            print("Installing language: Spanish (Latin America) / Español (América Latina)...")
+        lang = env['res.lang'].with_context(active_test=False).search([('code', '=', lang_code)], limit=1)
+        if lang:
+            if not lang.active:
+                lang.write({'active': True})
+                print(f"  ✓ Activated language record {lang_code}")
+            print("Installing/loading language translations: Spanish (Latin America) / Español (América Latina)...")
             try:
                 lang_installer = env['base.language.install'].create({
-                    'lang': lang_code,
+                    'lang_ids': [(6, 0, [lang.id])],
                     'overwrite': True,
                 })
                 lang_installer.lang_install()
-                print("  ✓ Language es_419 installed successfully.")
+                print("  ✓ Language es_419 installed/loaded successfully.")
             except Exception as e:
                 print(f"  Warning: Could not install language es_419: {e}")
+        else:
+            print(f"  Warning: Language record {lang_code} not found in res.lang")
                 
         # Set language es_419 for all existing users and partners
         print("Setting default language es_419 for existing users and partners...")
