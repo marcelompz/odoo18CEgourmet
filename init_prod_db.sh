@@ -98,7 +98,7 @@ odoo \
      --db_port "$DB_PORT" \
      --db_user "$DB_USER" \
      --db_password "$DB_PASSWD" \
-     --addons-path=/mnt/extra-addons-customize,/mnt/extra-addons-l10py,/usr/lib/python3/dist-packages/odoo/addons \
+     --addons-path=/mnt/extra-addons,/mnt/extra-addons-customize,/mnt/extra-addons-l10py,/usr/lib/python3/dist-packages/odoo/addons \
      2>&1 | tail -30
 
 echo "✓ Odoo inicializado"
@@ -182,7 +182,7 @@ odoo \
      --db_port "$DB_PORT" \
      --db_user "$DB_USER" \
      --db_password "$DB_PASSWD" \
-     --addons-path=/mnt/extra-addons-customize,/mnt/extra-addons-l10py,/usr/lib/python3/dist-packages/odoo/addons \
+     --addons-path=/mnt/extra-addons,/mnt/extra-addons-customize,/mnt/extra-addons-l10py,/usr/lib/python3/dist-packages/odoo/addons \
      2>&1 | tail -20
 
 echo ""
