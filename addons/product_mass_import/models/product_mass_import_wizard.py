@@ -382,9 +382,13 @@ class ProductMassImportWizard(models.Model):
         if not self.preview_ids:
             raise UserError(_("No hay productos para importar"))
 
+        # Si aún no se ha ejecutado la validación previa, ejecutarla automáticamente
+        if self.state == 'draft' or not any(self.preview_ids.mapped('is_valid')):
+            self.action_parse_excel()
+
         valid_products = self.preview_ids.filtered(lambda p: p.is_valid)
         if not valid_products:
-            raise UserError(_("No hay productos válidos para importar. Corrija los errores primero."))
+            raise UserError(_("No hay productos válidos para importar. Corrija los errores marcados en rojo."))
 
         # PRECARGAR CATEGORÍAS - Una sola consulta con FUZZY MATCH
         unique_categ_names = set(valid_products.mapped('categ_name'))

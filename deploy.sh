@@ -61,12 +61,20 @@ fi
 echo -e "\n${BLUE}[1/4] Deteniendo contenedores existentes...${NC}"
 docker compose down
 
+if [ "$CLEAN_DB" = false ] && [ "$AUTO_YES" = false ]; then
+    echo -e "\n${YELLOW}¿Desea vaciar la base de datos y recrear el entorno desde cero? (s/N): ${NC}\c"
+    read confirm_clean
+    if [[ "$confirm_clean" =~ ^[sSyY]$ ]]; then
+        CLEAN_DB=true
+    fi
+fi
+
 if [ "$CLEAN_DB" = true ]; then
     if [ "$AUTO_YES" = false ]; then
-        echo -e "\n${YELLOW}[!] ADVERTENCIA: Se limpiará la base de datos por completo.${NC}"
-        read -p " ¿Está seguro de que desea eliminar todos los datos y reconstruir desde cero? (s/N): " confirmacion
+        echo -e "\n${YELLOW}[!] ADVERTENCIA: Se eliminarán todos los volúmenes de datos de la base de datos.${NC}"
+        read -p " ¿Confirma que desea vaciar la base de datos por completo? (s/N): " confirmacion
         if [[ ! "$confirmacion" =~ ^[sSyY]$ ]]; then
-            echo -e "\n${RED}Operación cancelada por el usuario.${NC}"
+            echo -e "\n${RED}Operación de limpieza cancelada por el usuario.${NC}"
             exit 0
         fi
     fi

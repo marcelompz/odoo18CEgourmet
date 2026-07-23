@@ -105,6 +105,9 @@
                     </field>
 
                     <footer>
+                        <button name="action_confirm_import" type="object" string="Confirmar e Importar Productos"
+                                class="btn-primary"
+                                invisible="state == 'done'"/>
                         <button name="action_save_draft" type="object" string="Guardar Borrador"
                                 class="btn-secondary"
                                 invisible="state == 'done'"/>
