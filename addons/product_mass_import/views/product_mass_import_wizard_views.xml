@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
-    <!-- Preview List View -->
     <record id="product_mass_import_preview_view_list" model="ir.ui.view">
         <field name="name">product.mass.import.preview.list</field>
         <field name="model">product.mass.import.preview</field>
         <field name="arch" type="xml">
-            <list create="0" delete="0" decoration-danger="error_message != False">
-                <field name="row_number"/>
+            <list create="1" delete="1" editable="bottom" decoration-danger="error_message != False">
+                <field name="row_number" readonly="1"/>
                 <field name="default_code"/>
                 <field name="name"/>
                 <field name="pos_description"/>
@@ -20,13 +18,40 @@
                 <field name="product_type"/>
                 <field name="tracking"/>
                 <field name="available_in_pos"/>
-                <field name="error_message"/>
-                <field name="is_valid" column_invisible="1"/>
+                <field name="error_message" readonly="1"/>
+                <field name="is_valid" invisible="1"/>
             </list>
         </field>
     </record>
 
-    <!-- Wizard Form View -->
+    <record id="product_mass_import_wizard_view_tree" model="ir.ui.view">
+        <field name="name">product.mass.import.wizard.tree</field>
+        <field name="model">product.mass.import.wizard</field>
+        <field name="arch" type="xml">
+            <list decoration-info="state == 'draft'" decoration-success="state == 'done'">
+                <field name="name"/>
+                <field name="state"/>
+                <field name="product_count"/>
+                <field name="location_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="product_mass_import_wizard_view_search" model="ir.ui.view">
+        <field name="name">product.mass.import.wizard.search</field>
+        <field name="model">product.mass.import.wizard</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Importaciones">
+                <field name="name"/>
+                <field name="state"/>
+                <separator/>
+                <filter name="draft" string="Borradores" domain="[('state', '=', 'draft')]"/>
+                <filter name="preview" string="Vista Previa" domain="[('state', '=', 'preview')]"/>
+                <filter name="done" string="Completados" domain="[('state', '=', 'done')]"/>
+            </search>
+        </field>
+    </record>
+
     <record id="product_mass_import_wizard_view_form" model="ir.ui.view">
         <field name="name">product.mass.import.wizard.form</field>
         <field name="model">product.mass.import.wizard</field>
@@ -34,12 +59,19 @@
             <form string="Importación Masiva de Productos">
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button name="action_download_template" type="object" 
+                        <button name="action_download_template" type="object"
                                 class="oe_stat_button" icon="fa-download"
                                 string="Descargar Plantilla"/>
+                        <button name="action_parse_excel" type="object"
+                                class="oe_stat_button" icon="fa-file-excel-o"
+                                string="Cargar Archivo"/>
+                        <button name="action_open_recipe_import" type="object"
+                                class="oe_stat_button" icon="fa-cutlery"
+                                string="Importar Recetas"/>
                     </div>
                     <group>
                         <group>
+                            <field name="name"/>
                             <field name="file_data" filename="filename"/>
                             <field name="filename" invisible="1"/>
                             <field name="location_id"/>
@@ -50,33 +82,30 @@
                         </group>
                     </group>
 
-                    <notebook>
-                        <page string="Vista Previa" name="preview" invisible="state != 'preview'">
-                            <field name="preview_ids">
-                                <list create="0" delete="0" decoration-danger="error_message != False">
-                                    <field name="row_number"/>
-                                    <field name="default_code"/>
-                                    <field name="name"/>
-                                    <field name="pos_description"/>
-                                    <field name="barcode"/>
-                                    <field name="categ_name"/>
-                                    <field name="pos_categ_name"/>
-                                    <field name="list_price"/>
-                                    <field name="standard_price"/>
-                                    <field name="qty_on_hand"/>
-                                    <field name="product_type"/>
-                                    <field name="tracking"/>
-                                    <field name="available_in_pos"/>
-                                    <field name="error_message"/>
-                                </list>
-                            </field>
-                        </page>
-                    </notebook>
+                    <field name="preview_ids">
+                        <list create="1" delete="1" editable="bottom" decoration-danger="error_message != False">
+                            <field name="row_number" readonly="1"/>
+                            <field name="default_code"/>
+                            <field name="name"/>
+                            <field name="pos_description"/>
+                            <field name="barcode"/>
+                            <field name="categ_name"/>
+                            <field name="pos_categ_name"/>
+                            <field name="list_price"/>
+                            <field name="standard_price"/>
+                            <field name="qty_on_hand"/>
+                            <field name="product_type"/>
+                            <field name="tracking"/>
+                            <field name="available_in_pos"/>
+                            <field name="error_message" readonly="1"/>
+                            <field name="is_valid" invisible="1"/>
+                        </list>
+                    </field>
 
                     <footer>
-                        <button name="action_parse_excel" type="object" string="Cargar Archivo"
-                                class="btn-primary" 
-                                invisible="state != 'draft'"/>
+                        <button name="action_save_draft" type="object" string="Guardar"
+                                class="btn-secondary"
+                                invisible="state == 'done'"/>
                         <button name="action_confirm_import" type="object" string="Confirmar Importación"
                                 class="btn-primary"
                                 invisible="state != 'preview'"/>
@@ -88,12 +117,19 @@
         </field>
     </record>
 
-    <!-- Wizard Action -->
     <record id="product_mass_import_wizard_action" model="ir.actions.act_window">
         <field name="name">Importación Masiva desde Excel</field>
         <field name="res_model">product.mass.import.wizard</field>
-        <field name="view_mode">form</field>
-        <field name="target">new</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="product_mass_import_wizard_view_search"/>
+        <field name="context">{'default_name': 'Nuevo'}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear nueva importación masiva
+            </p>
+            <p>
+                Cree productos masivamente desde Excel o ingréselos manualmente en la planilla.
+            </p>
+        </field>
     </record>
-
 </odoo>
