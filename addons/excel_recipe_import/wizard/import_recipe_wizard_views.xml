@@ -4,10 +4,10 @@
         <field name="name">excel.recipe.import.wizard.form</field>
         <field name="model">excel.recipe.import.wizard</field>
         <field name="arch" type="xml">
-            <form string="Importar Recetas">
+            <form string="Importar Lista de Materiales / Recetas (MRP &amp; POS)">
                 <group>
                     <div class="alert alert-info" role="alert">
-                        Por favor, descargue la plantilla, complétela y súbala aquí para importar los productos y recetas a los módulos de Fabricación (MRP) y POS BoM.
+                        Descargue la plantilla base, complétela con los productos manufacturados, componentes o subproductos, y cárguela aquí para generar automáticamente las Listas de Materiales (LdM / BoM) en Fabricación (MRP) o POS.
                     </div>
                 </group>
                 <group>
@@ -20,10 +20,11 @@
                     </group>
                 </group>
                 <footer>
+                    <button name="action_back_to_launcher" type="object" string="Volver" class="btn-secondary"/>
                     <button name="action_validate" string="Validar Archivo" type="object" class="btn-info" style="background-color: #17a2b8; color: white;"/>
                     <button name="action_import" string="Importar" type="object" class="btn-primary"/>
                     <button name="action_download_template" string="Descargar Plantilla Base" type="object" class="btn-secondary"/>
-                    <button name="action_export_missing_pos_bom" string="Exportar Faltantes (POS BoM)" type="object" class="btn-secondary"/>
+                    <button name="action_export_missing_pos_bom" string="Exportar Faltantes (POS LdM)" type="object" class="btn-secondary"/>
                     <button string="Cancelar" class="btn-secondary" special="cancel"/>
                 </footer>
             </form>
@@ -31,28 +32,26 @@
     </record>
 
     <record id="action_excel_recipe_import_wizard" model="ir.actions.act_window">
-        <field name="name">Importar Recetas Excel</field>
+        <field name="name">Importar Lista de Materiales / Recetas</field>
         <field name="res_model">excel.recipe.import.wizard</field>
         <field name="view_mode">form</field>
-        <field name="target">new</field>
     </record>
 
-    <menuitem id="menu_excel_recipe_root" name="Importador Excel" sequence="50"/>
-    <menuitem id="menu_excel_recipe_import_main"
+    <!-- <menuitem id="menu_excel_recipe_import_main"
               name="Importar Recetas"
-              parent="menu_excel_recipe_root"
-              action="action_excel_recipe_import_wizard"
-              sequence="10"/>
+              parent="menu_mass_import_suite_root"
+              action="excel_recipe_import.action_excel_recipe_import_wizard"
+              sequence="10"/> -->
 
-    <menuitem id="menu_excel_recipe_import_mrp"
-              name="Importador Excel"
-              parent="mrp.menu_mrp_root"
-              action="action_excel_recipe_import_wizard"
-              sequence="50"/>
+    <!-- <menuitem id="menu_excel_recipe_import_mrp"
+              name="Importador Excel (MRP)"
+              parent="menu_mass_import_suite_root"
+              action="excel_recipe_import.action_excel_recipe_import_wizard"
+              sequence="20"/> -->
 
-    <menuitem id="menu_excel_recipe_import_pos"
-              name="Importador Excel"
-              parent="point_of_sale.menu_point_root"
-              action="action_excel_recipe_import_wizard"
-              sequence="50"/>
+    <!-- <menuitem id="menu_excel_recipe_import_pos"
+              name="Importador Excel (POS)"
+              parent="menu_mass_import_suite_root"
+              action="excel_recipe_import.action_excel_recipe_import_wizard"
+              sequence="30"/> -->
 </odoo>

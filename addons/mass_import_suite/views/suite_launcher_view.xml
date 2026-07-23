@@ -17,10 +17,10 @@
                                 icon="fa-download"
                                 style="width:100%; margin-bottom:16px;"/>
                         <button name="action_open_recipe_import"
-                                string="Importar Recetas"
+                                string="Importar Lista de Materiales / Recetas"
                                 type="object"
                                 class="btn-info btn-lg"
-                                icon="fa-file-excel-o"
+                                icon="fa-cogs"
                                 style="width:100%;"/>
                     </group>
                 </sheet>

@@ -68,8 +68,8 @@
                                 class="oe_stat_button" icon="fa-download"
                                 string="Descargar Plantilla"/>
                         <button name="action_open_recipe_import" type="object"
-                                class="oe_stat_button" icon="fa-cutlery"
-                                string="Importar Recetas"/>
+                                class="oe_stat_button" icon="fa-cogs"
+                                string="Importar LdM / Recetas"/>
                     </div>
                     <group>
                         <group>
