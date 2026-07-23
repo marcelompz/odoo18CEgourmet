@@ -193,11 +193,59 @@ class ProductMassImportWizard(models.Model):
         }
 
     def action_parse_excel(self):
-        """Parse Excel file and show preview - OPTIMIZED with batch barcode validation"""
+        """Parse Excel file or validate manual rows and show preview"""
         self.ensure_one()
         if not self.file_data:
-            raise UserError(_("Por favor, seleccione un archivo Excel (.xlsx) antes de presionar 'Cargar Archivo'."))
-        
+            if self.preview_ids:
+                # Validar líneas manuales existentes
+                seen_barcodes = set()
+                existing_barcodes = set()
+                barcodes = [p.barcode for p in self.preview_ids if p.barcode]
+                if barcodes:
+                    existing_barcodes = set(self.env['product.product'].search(
+                        [('barcode', 'in', barcodes)]
+                    ).mapped('barcode'))
+
+                for line in self.preview_ids:
+                    error_msgs = []
+                    if not line.default_code:
+                        error_msgs.append("Referencia interna requerida")
+                    if not line.name:
+                        error_msgs.append("Nombre del producto requerido")
+                    if line.barcode:
+                        if line.barcode in existing_barcodes:
+                            error_msgs.append("Código de barras ya existe en Odoo")
+                        if line.barcode in seen_barcodes:
+                            error_msgs.append("Código de barras duplicado en la lista")
+                        seen_barcodes.add(line.barcode)
+                    if line.list_price < 0:
+                        error_msgs.append("Precio de venta no puede ser negativo")
+                    if line.standard_price < 0:
+                        error_msgs.append("Precio de costo no puede ser negativo")
+                    if line.qty_on_hand < 0:
+                        error_msgs.append("Cantidad no puede ser negativa")
+                    
+                    line.error_message = ', '.join(error_msgs) if error_msgs else False
+                    line.is_valid = len(error_msgs) == 0
+
+                self.state = 'preview'
+                valid_count = sum(1 for p in self.preview_ids if p.is_valid)
+                invalid_count = len(self.preview_ids) - valid_count
+                return {
+                    'type': 'ir.actions.client',
+                    'tag': 'display_notification',
+                    'params': {
+                        'title': _('Validación Completada'),
+                        'message': _('Productos válidos: %d, Con errores: %d') % (valid_count, invalid_count),
+                        'type': 'success' if invalid_count == 0 else 'warning',
+                        'sticky': False,
+                        'fadeout': 'quick',
+                        'forceReload': True,
+                    },
+                }
+            else:
+                raise UserError(_("Por favor, seleccione un archivo Excel (.xlsx) o ingrese productos manualmente en la tabla."))
+
         self.preview_ids.unlink()
 
         data = base64.b64decode(self.file_data)
