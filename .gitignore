@@ -2,6 +2,7 @@
 db-data/
 web-data/
 .env
+logs/
 
 # Python files
 __pycache__/
