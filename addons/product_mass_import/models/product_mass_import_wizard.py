@@ -3,7 +3,7 @@
 import base64
 import io
 import unicodedata
-from odoo import models, fields, api, _
+from odoo import models, fields, api, Command, _
 from odoo.exceptions import UserError
 
 import openpyxl
@@ -85,12 +85,12 @@ class ProductMassImportWizard(models.Model):
     name = fields.Char(string='Nombre', default='Nuevo')
     file_data = fields.Binary(string='Archivo Excel (.xlsx)')
 
-    @api.model
-    def create(self, vals):
-        if vals.get('name', 'Nuevo') == 'Nuevo':
-            vals['name'] = self.env['ir.sequence'].next_by_code('product.mass.import.wizard') or 'Nuevo'
-        return super(ProductMassImportWizard, self).create(vals)
-
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('name', 'Nuevo') == 'Nuevo':
+                vals['name'] = self.env['ir.sequence'].next_by_code('product.mass.import.wizard') or 'Nuevo'
+        return super(ProductMassImportWizard, self).create(vals_list)
     filename = fields.Char(string='Nombre del Archivo')
     location_id = fields.Many2one(
         'stock.location',
@@ -289,15 +289,14 @@ class ProductMassImportWizard(models.Model):
             standard_price = float(row[8]) if row[8] else 0.0
             qty_on_hand = float(row[9]) if row[9] else 0.0
 
-            # Product type - ODoo 19: 'consu'=Goods, 'service'=Service, 'combo'=Combo
-            product_type = 'consu'  # Default a Bienes (incluye almacenables)
+            # Product type - Odoo 19: 'consu'=Bienes/Almacenable, 'service'=Servicio, 'combo'=Combo
+            product_type = 'consu'  # Default a Bienes/Almacenable
             if row[10]:
                 type_val = str(row[10]).lower()
                 if type_val in ['servicio', 'service']:
                     product_type = 'service'
                 elif type_val in ['combo']:
                     product_type = 'combo'
-                # 'almacenable', 'storable', 'product' -> quedan como 'consu' (Goods)
 
             # Tracking
             tracking = 'none'
@@ -433,6 +432,10 @@ class ProductMassImportWizard(models.Model):
         product_vals_list = []
         products_to_quant = []
         
+        # Unidades de medida por defecto
+        default_uom = self.env.ref('uom.product_uom_unit', raise_if_not_found=False)
+        default_uom_id = default_uom.id if default_uom else False
+        
         # Buscar categoría por defecto (si no existe, usar la primera disponible)
         default_categ = self.env['product.category'].search([], limit=1, order='id')
         default_categ_id = default_categ.id if default_categ else False
@@ -453,6 +456,7 @@ class ProductMassImportWizard(models.Model):
                 'list_price': preview.list_price,
                 'standard_price': preview.standard_price,
                 'type': preview.product_type,
+                'is_storable': True if preview.product_type == 'consu' else False,
                 'categ_id': categ_id,
                 'tracking': preview.tracking,
                 'available_in_pos': preview.available_in_pos,
@@ -462,7 +466,7 @@ class ProductMassImportWizard(models.Model):
                 product_vals['description_sale'] = preview.pos_description
 
             if pos_categ_id:
-                product_vals['pos_categ_id'] = pos_categ_id
+                product_vals['pos_categ_ids'] = [Command.set([pos_categ_id])]
 
             product_vals_list.append(product_vals)
             
@@ -471,7 +475,14 @@ class ProductMassImportWizard(models.Model):
                 products_to_quant.append((len(product_vals_list) - 1, preview.qty_on_hand))
 
         # Creación masiva en una sola operación
-        created_products = self.env['product.product'].create(product_vals_list)
+        import logging
+        _logger = logging.getLogger('product_mass_import')
+        try:
+            created_products = self.env['product.product'].create(product_vals_list)
+        except Exception as e:
+            _logger.error('Error creando productos masivos: %s', e)
+            _logger.error('Datos: %s', product_vals_list)
+            raise UserError(_("Error al crear productos: %s") % str(e))
 
         # APLICAR INVENTARIO MASIVO - Batch processing
         if products_to_quant and self.location_id:
@@ -516,7 +527,7 @@ class ProductMassImportWizard(models.Model):
         }
 
 
-class ProductMassImportPreview(models.TransientModel):
+class ProductMassImportPreview(models.Model):
     _name = 'product.mass.import.preview'
     _description = 'Vista Previa de Importación de Productos'
     _order = 'row_number'
@@ -534,12 +545,12 @@ class ProductMassImportPreview(models.TransientModel):
     standard_price = fields.Float(string='Precio de Costo')
     qty_on_hand = fields.Float(string='Cantidad a la Mano')
     product_type = fields.Selection([
-        ('consu', 'Bienes (Almacenable/Consumible)'),
+        ('consu', 'Bienes / Almacenable'),
         ('service', 'Servicio'),
         ('combo', 'Combo'),
     ], string='Tipo de Producto', default='consu')
     tracking = fields.Selection([
-        ('none', 'Ninguno'),
+        ('none', 'Por cantidad'),
         ('lot', 'Por Lote'),
         ('serial', 'Por Número de Serie'),
     ], string='Trazabilidad', default='none')

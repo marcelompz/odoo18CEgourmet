@@ -230,6 +230,14 @@ Crossnexion E.A.S. - https://www.crossnexion.com
 
 ## Historial de Versiones
 
+### 19.0.1.6.0 (2026-07-23)
+- ✅ **NEW**: Soporte dual de Carga Manual / Excel en el Wizard de importación.
+- ✅ **UX**: Reorganización de la interfaz con barra de estado visual (`draft` ➔ `preview` ➔ `done`) y botones por etapa.
+- 🔧 **ORM (Odoo 19)**: Compatibilidad con `@api.model_create_multi` en llamadas a `create()`.
+- 🔧 **ORM (Odoo 19)**: Soporte nativo para el atributo `is_storable = True` al registrar cantidades iniciales en `stock.quant`.
+- 🔧 **ORM (Odoo 19)**: Migración de `pos_categ_id` Many2one a `pos_categ_ids` Many2many (`Command.set`).
+- 🔧 **Odoo 19 Standard**: Ajuste del dominio de `type` a `'consu'`, `'service'` y `'combo'`.
+
 ### 19.0.1.2.0 (2026-06-17)
 - ✅ **NEW**: Fuzzy match para categorías (evita duplicados por errores de tipeo)
 - ✅ **NEW**: Notificación detallada de categorías reutilizadas/creadas

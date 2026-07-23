@@ -57,14 +57,16 @@
         <field name="model">product.mass.import.wizard</field>
         <field name="arch" type="xml">
             <form string="Importación Masiva de Productos">
+                <header>
+                    <button name="action_parse_excel" type="object" string="1. Cargar / Validar" class="btn-primary" invisible="state == 'done'"/>
+                    <button name="action_confirm_import" type="object" string="2. Confirmar Importación" class="btn-success" invisible="state != 'preview'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,preview,done"/>
+                </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button name="action_download_template" type="object"
                                 class="oe_stat_button" icon="fa-download"
                                 string="Descargar Plantilla"/>
-                        <button name="action_parse_excel" type="object"
-                                class="oe_stat_button" icon="fa-file-excel-o"
-                                string="Cargar Archivo"/>
                         <button name="action_open_recipe_import" type="object"
                                 class="oe_stat_button" icon="fa-cutlery"
                                 string="Importar Recetas"/>
@@ -103,14 +105,10 @@
                     </field>
 
                     <footer>
-                        <button name="action_save_draft" type="object" string="Guardar"
+                        <button name="action_save_draft" type="object" string="Guardar Borrador"
                                 class="btn-secondary"
                                 invisible="state == 'done'"/>
-                        <button name="action_confirm_import" type="object" string="Confirmar Importación"
-                                class="btn-primary"
-                                invisible="state != 'preview'"/>
-                        <button string="Cancelar" class="btn-secondary" special="cancel"
-                                invisible="state == 'done'"/>
+                        <button string="Cerrar / Cancelar" class="btn-secondary" special="cancel"/>
                     </footer>
                 </sheet>
             </form>

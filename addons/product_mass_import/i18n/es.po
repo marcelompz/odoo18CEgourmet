@@ -138,8 +138,8 @@ msgstr "Trazabilidad"
 #. module: product_mass_import
 #: model:ir.model.fields.selection,name:product_mass_import.field_product_mass_import_preview_tracking_none
 #: model:ir.model.fields.selection,name:product_mass_import.field_product_batch_import_line_tracking_none
-msgid "Ninguno"
-msgstr "Ninguno"
+msgid "Por cantidad"
+msgstr "Por cantidad"
 
 #. module: product_mass_import
 #: model:ir.model.fields.selection,name:product_mass_import.field_product_mass_import_preview_tracking_lot

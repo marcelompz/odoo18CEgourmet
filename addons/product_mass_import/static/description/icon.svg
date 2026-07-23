@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg:svg
+   width="50"
+   height="50"
+   viewBox="0 0 50 50"
+   version="1.1"
+   id="svg3"
+   sodipodi:docname="product_mass_import.svg"
+   inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
+   inkscape:export-filename="product_mass_import.png"
+   inkscape:export-xdpi="300"
+   inkscape:export-ydpi="300"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <svg:defs
+     id="defs3" />
+  <sodipodi:namedview
+     id="namedview3"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showguides="true"
+     inkscape:zoom="7.933519"
+     inkscape:cx="32.583271"
+     inkscape:cy="9.8317027"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3" />
+  <script />
+  <script
+     type="module" />
+  <svg:g
+     id="g1"
+     transform="matrix(1.1640351,0,0,1.1640351,-3.1532696,-4.8098302)">
+    <svg:path
+       d="m 27.250679,6.3986061 6.857,3.9999999 -16.357,11 v 16 l 0.5,5.75 -8.9999992,-5.25 v -21 z"
+       fill="#fbb945"
+       id="path1" />
+    <svg:path
+       d="m 18.078675,43.045494 -6.138,-3.58 v -20.887 l 18.097,-10.5570004 6.283,3.6650004 -14.328,12.892 -3.915,18.467 z"
+       fill="#f86126"
+       id="path2" />
+    <svg:path
+       d="m 32.449177,9.4294888 6.672,3.8900002 v 21 l -18,10.5 -6.914,-4.032 v -20.718 l 18.242,-10.6420002 z"
+       fill="#985184"
+       id="path3" />
+    <svg:rect
+       style="fill:#ffffff;fill-opacity:1;stroke-width:3.23114"
+       id="rect5"
+       width="5.3867612"
+       height="21.033363"
+       x="24.750816"
+       y="15.752085"
+       ry="1.2267343" />
+    <svg:rect
+       style="fill:#ffffff;fill-opacity:1;stroke-width:3.23114"
+       id="rect6"
+       width="5.3867612"
+       height="21.033363"
+       x="23.547243"
+       y="-37.987789"
+       ry="1.2267343"
+       transform="rotate(90.058726)" />
+  </svg:g>
+</svg:svg>

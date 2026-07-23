@@ -1,6 +1,6 @@
 {
     'name': 'Mass Product Import with Inventory',
-    'version': '18.0.1.4.0',
+    'version': '18.0.1.6.0',
     'category': 'Inventory/Products',
     'summary': 'Import products massively from Excel or manual entry with initial stock quantities',
     'description': """
@@ -48,6 +48,7 @@
     'website': 'https://www.crossnexion.com',
     'license': 'OPL-1',
     'depends': ['product', 'stock', 'point_of_sale'],
+    'icon': 'product_mass_import/static/description/icon.png',
     'data': [
         'data/sequence.xml',
         'security/ir.model.access.csv',

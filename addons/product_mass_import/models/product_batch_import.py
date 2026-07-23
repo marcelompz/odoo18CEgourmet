@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import unicodedata
-from odoo import models, fields, api, _
+from odoo import models, fields, api, Command, _
 from odoo.exceptions import UserError
 
 
@@ -98,11 +98,12 @@ class ProductBatchImport(models.Model):
                 res['location_id'] = warehouse.lot_stock_id.id
         return res
 
-    @api.model
-    def create(self, vals):
-        if vals.get('name', 'Nuevo') == 'Nuevo':
-            vals['name'] = self.env['ir.sequence'].next_by_code('product.batch.import') or 'Nuevo'
-        return super(ProductBatchImport, self).create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('name', 'Nuevo') == 'Nuevo':
+                vals['name'] = self.env['ir.sequence'].next_by_code('product.batch.import') or 'Nuevo'
+        return super(ProductBatchImport, self).create(vals_list)
 
     def _compute_product_count(self):
         for batch in self:
@@ -190,6 +191,7 @@ class ProductBatchImport(models.Model):
                     'list_price': line.list_price,
                     'standard_price': line.standard_price,
                     'type': line.product_type,
+                    'is_storable': True if line.product_type == 'consu' else False,
                     'categ_id': categ_id,
                     'tracking': line.tracking,
                     'available_in_pos': line.available_in_pos,
@@ -199,7 +201,7 @@ class ProductBatchImport(models.Model):
                     product_vals['description_sale'] = line.pos_description
 
                 if pos_categ_id:
-                    product_vals['pos_categ_id'] = pos_categ_id
+                    product_vals['pos_categ_ids'] = [Command.set([pos_categ_id])]
 
                 product_vals_list.append(product_vals)
                 
@@ -331,10 +333,10 @@ class ProductBatchImportLine(models.Model):
     standard_price = fields.Float(string='Precio de Costo', default=0.0)
     qty_on_hand = fields.Float(string='Cantidad a la Mano', default=0.0)
     product_type = fields.Selection([
-        ('product', 'Almacenable'),
-        ('consu', 'Consumible'),
+        ('consu', 'Bienes / Almacenable'),
         ('service', 'Servicio'),
-    ], string='Tipo de Producto', default='product')
+        ('combo', 'Combo'),
+    ], string='Tipo de Producto', default='consu')
     tracking = fields.Selection([
         ('none', 'Ninguno'),
         ('lot', 'Por Lote'),

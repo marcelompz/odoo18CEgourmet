@@ -9,5 +9,12 @@
             <field name="padding">5</field>
             <field name="company_id" eval="False"/>
         </record>
+        <record id="seq_product_mass_import_wizard" model="ir.sequence">
+            <field name="name">Secuencia de Importación Masiva</field>
+            <field name="code">product.mass.import.wizard</field>
+            <field name="prefix">PMI/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
     </data>
 </odoo>
