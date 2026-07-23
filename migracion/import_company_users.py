@@ -16,7 +16,22 @@ import odoo.modules.registry
 from odoo import api, SUPERUSER_ID
 
 def import_company_and_users():
+    db_host = os.environ.get('DB_HOST', 'db_odoo_5436')
+    db_port = '5432' if os.environ.get('DB_PORT') in ['5436', None] else os.environ.get('DB_PORT', '5432')
+    db_user = os.environ.get('DB_USER', 'odoo')
+    db_password = os.environ.get('DB_PASSWD', 'cross.159753')
     db_name = os.environ.get('DB_NAME', 'prod')
+    addons_path = os.environ.get('ADDONS_PATH', '/mnt/extra-addons-customize,/mnt/extra-addons-l10py,/usr/lib/python3/dist-packages/odoo/addons')
+    valid_addons = [p for p in addons_path.split(',') if os.path.exists(p)]
+
+    odoo.tools.config.parse_config([
+        '--db_host', db_host,
+        '--db_port', db_port,
+        '--db_user', db_user,
+        '--db_password', db_password,
+        '--addons-path', ','.join(valid_addons),
+    ])
+
     print("=" * 60)
     print(f"Importing Company and Users on database: {db_name}")
     print("=" * 60)
@@ -72,6 +87,23 @@ def import_company_and_users():
 
                 company.write(vals)
                 print(f"✓ Company details updated: {company.name}")
+
+                # Load logo if available in /mnt/migracion/
+                import glob
+                import base64
+                logo_files = glob.glob('/mnt/migracion/*logo*.[pP][nN][gG]') + \
+                             glob.glob('/mnt/migracion/*logo*.[jJ][pP][gG]') + \
+                             glob.glob('/mnt/migracion/*logo*.[jJ][pP][eE][gG]')
+                if not logo_files:
+                    logo_files = glob.glob('/mnt/migracion/*.[pP][nN][gG]') + \
+                                 glob.glob('/mnt/migracion/*.[jJ][pP][gG]') + \
+                                 glob.glob('/mnt/migracion/*.[jJ][pP][eE][gG]')
+                if logo_files:
+                    logo_path = logo_files[0]
+                    with open(logo_path, 'rb') as lf:
+                        logo_data = base64.b64encode(lf.read())
+                    company.write({'logo': logo_data})
+                    print(f"  ✓ Logo cargado exitosamente desde {logo_path}")
         else:
             print("ℹ company.json not found, skipping company details update.")
 
@@ -108,7 +140,8 @@ def import_company_and_users():
                 
                 # Assign groups if specified
                 if group_ids:
-                    user_vals['groups_id'] = [(6, 0, group_ids)]
+                    field_name = 'group_ids' if 'group_ids' in env['res.users']._fields else 'groups_id'
+                    user_vals[field_name] = [(6, 0, group_ids)]
                 
                 if password:
                     user_vals['password'] = password

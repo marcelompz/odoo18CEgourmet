@@ -1,11 +1,11 @@
 {
-  "name": "Provecchio",
-  "vat": "3398859-5",
+  "name": "FerreSur",
+  "vat": "123456-5",
   "phone": "+595  123 456",
-  "email": "contacto@provecchio.com.py",
-  "website": "www.provecchio.com",
-  "street": "Villarrica",
-  "city": "Encarnación",
+  "email": "contacto@ferresur.com.py",
+  "website": "www.ferresur.com.py",
+  "street": "Ruta 1",
+  "city": "Coronel Bogado",
   "state": "ITAPUA",
   "country_code": "PY"
 }

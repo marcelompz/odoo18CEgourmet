@@ -1,0 +1,5 @@
+Nombre;Referencia interna;Unidad;Rastrear inventario;Número de serie/lote personalizado
+Producto no rastreable;PRD004;Unidades;FALSO;
+Producto rastreable que  no tiene;PRD001;Unidades;VERDADERO;
+Producto rastreable que tiene numero de LOTE;PRD003;Unidades;VERDADERO;
+Producto rastreable que tiene numero de serie.;PRD002;Unidades;VERDADERO;

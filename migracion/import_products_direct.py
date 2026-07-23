@@ -18,13 +18,28 @@ from odoo import api, SUPERUSER_ID
 
 def import_products():
     """Import products from CSV file."""
+    db_host = os.environ.get('DB_HOST', 'db5436')
+    db_port = os.environ.get('DB_PORT', '5432')
+    db_user = os.environ.get('DB_USER', 'odoo')
+    db_password = os.environ.get('DB_PASSWD', 'cross.159753')
+    db_name = os.environ.get('DB_NAME', 'prod')
+    addons_path = os.environ.get('ADDONS_PATH', '/mnt/extra-addons-customize,/mnt/extra-addons-l10py,/usr/lib/python3/dist-packages/odoo/addons')
+    valid_addons = [p for p in addons_path.split(',') if os.path.exists(p)]
+
+    odoo.tools.config.parse_config([
+        '--db_host', db_host,
+        '--db_port', db_port,
+        '--db_user', db_user,
+        '--db_password', db_password,
+        '--addons-path', ','.join(valid_addons),
+    ])
     
     print("=" * 60)
     print("Importing products from materia_prima_fixed.csv")
     print("=" * 60)
     
     # Initialize Odoo registry
-    registry = odoo.modules.registry.Registry('prod')
+    registry = odoo.modules.registry.Registry(db_name)
     
     with registry.cursor() as cr:
         env = api.Environment(cr, SUPERUSER_ID, {})
@@ -110,9 +125,10 @@ def import_products():
                     'type': 'consu',
                     'is_storable': is_storable,
                     'uom_id': uom_id,
-                    'uom_po_id': uom_id,
                     'available_in_pos': available_in_pos,
                 }
+                if 'uom_po_id' in env['product.template']._fields:
+                    product_vals['uom_po_id'] = uom_id
                 
                 # Try to load image if exists in /mnt/migracion/imagenes_productos/
                 image_folder = '/mnt/migracion/imagenes_productos/'

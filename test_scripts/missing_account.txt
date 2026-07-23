@@ -1,0 +1,24 @@
+\n!!! MISSING ACCOUNT_ID IN VALS !!!\nVals: {'debit': 0.0, 'credit': 0.0, 'account_id': False, 'move_id': 25}\nTRACEBACK:\n  File "/usr/bin/odoo", line 6, in <module>
+    odoo.cli.main()
+  File "/usr/lib/python3/dist-packages/odoo/cli/command.py", line 133, in main
+    command().run(args)
+  File "/usr/lib/python3/dist-packages/odoo/cli/shell.py", line 162, in run
+    self.shell(dbnames[0])
+  File "/usr/lib/python3/dist-packages/odoo/cli/shell.py", line 148, in shell
+    self.console(local_vars)
+  File "/usr/lib/python3/dist-packages/odoo/cli/shell.py", line 82, in console
+    exec(sys.stdin.read(), local_vars)
+  File "<string>", line 24, in <module>
+  File "/usr/lib/python3/dist-packages/odoo/addons/point_of_sale/models/pos_session.py", line 407, in action_pos_session_closing_control
+    return session.action_pos_session_validate(balancing_account, amount_to_balance, bank_payment_method_diffs)
+  File "/usr/lib/python3/dist-packages/odoo/addons/point_of_sale/models/pos_session.py", line 412, in action_pos_session_validate
+    return self.action_pos_session_close(balancing_account, amount_to_balance, bank_payment_method_diffs)
+  File "/usr/lib/python3/dist-packages/odoo/addons/point_of_sale/models/pos_session.py", line 419, in action_pos_session_close
+    return self._validate_session(balancing_account, amount_to_balance, bank_payment_method_diffs)
+  File "/usr/lib/python3/dist-packages/odoo/addons/point_of_sale/models/pos_session.py", line 440, in _validate_session
+    )._create_account_move(balancing_account, amount_to_balance, bank_payment_method_diffs)
+  File "/usr/lib/python3/dist-packages/odoo/addons/point_of_sale/models/pos_session.py", line 834, in _create_account_move
+    data = self._create_stock_valuation_lines(data)
+  File "/usr/lib/python3/dist-packages/odoo/addons/point_of_sale/models/pos_session.py", line 1279, in _create_stock_valuation_lines
+    stock_valuation_lines[stock_valuation_acc] = MoveLine.create(vals)
+  File "<string>", line 16, in patched_create

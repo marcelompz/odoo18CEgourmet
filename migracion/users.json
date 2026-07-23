@@ -14,18 +14,20 @@
     ]
   },
   {
-    "name": "Encargado Inventario y Producción",
-    "login": "produccion@provecchio.com.py",
-    "password": "ProvecchioProd2026!",
+    "name": "Administrador",
+    "login": "admin@ferresur.com.py",
+    "password": "Admin2026!",
     "groups": [
       "stock.group_stock_manager",
-      "mrp.group_mrp_manager"
+      "mrp.group_mrp_manager",
+      "point_of_sale.group_pos_manager",
+      "purchase.group_purchase_manager"
     ]
   },
   {
     "name": "Cajero POS 1",
-    "login": "pos1@provecchio.com.py",
-    "password": "ProvecchioPos2026!",
+    "login": "pos1@ferresur.com.py",
+    "password": "Pos2026!",
     "groups": [
       "point_of_sale.group_pos_user"
     ]
