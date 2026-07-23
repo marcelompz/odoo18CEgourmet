@@ -78,11 +78,19 @@ def find_best_match_category(category_name, categories_env):
     return None
 
 
-class ProductMassImportWizard(models.TransientModel):
+class ProductMassImportWizard(models.Model):
     _name = 'product.mass.import.wizard'
     _description = 'Wizard de Importación Masiva de Productos desde Excel'
 
+    name = fields.Char(string='Nombre', default='Nuevo')
     file_data = fields.Binary(string='Archivo Excel (.xlsx)', required=True)
+
+    @api.model
+    def create(self, vals):
+        if vals.get('name', 'Nuevo') == 'Nuevo':
+            vals['name'] = self.env['ir.sequence'].next_by_code('product.mass.import.wizard') or 'Nuevo'
+        return super(ProductMassImportWizard, self).create(vals)
+
     filename = fields.Char(string='Nombre del Archivo')
     location_id = fields.Many2one(
         'stock.location',
@@ -110,6 +118,13 @@ class ProductMassImportWizard(models.TransientModel):
     def _compute_product_count(self):
         for wizard in self:
             wizard.product_count = len(wizard.preview_ids)
+
+    def action_save_draft(self):
+        self.ensure_one()
+        self.state = 'draft'
+        return {
+            'type': 'ir.actions.act_window_close',
+        }
 
     def action_download_template(self):
         """Download Excel template for product import"""
@@ -166,6 +181,15 @@ class ProductMassImportWizard(models.TransientModel):
             'type': 'ir.actions.act_url',
             'url': f'/web/content/?model=product.mass.import.wizard&id={self.id}&field=file_data&download=true&filename=plantilla_productos.xlsx',
             'target': 'new',
+        }
+
+    def action_open_recipe_import(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'excel.recipe.import.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': dict(self.env.context),
         }
 
     def action_parse_excel(self):
