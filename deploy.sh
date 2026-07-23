@@ -34,6 +34,13 @@ if [[ "$1" == "--clean" ]]; then
     CLEAN_DB=true
 fi
 
+echo -e "\n${YELLOW}[!] ADVERTENCIA: Se detendrán los contenedores de Docker (db, web, init).${NC}"
+read -p "¿Desea continuar con el deploy? (s/N): " confirm
+if [[ ! "$confirm" =~ ^[sSyY]$ ]]; then
+    echo -e "\n${RED}Operación cancelada por el usuario.${NC}"
+    exit 0
+fi
+
 echo -e "\n${BLUE}[1/4] Deteniendo contenedores existentes...${NC}"
 docker compose down
 
