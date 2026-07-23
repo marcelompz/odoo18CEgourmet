@@ -99,6 +99,7 @@ fi
 
 if [ "$EXIT_CODE" -eq 0 ]; then
     echo -e "\n${GREEN}✓ Inicialización y carga de datos completada con éxito!${NC}"
+    docker rm odoo_init_db_18 2>/dev/null || true
 else
     echo -e "\n${RED}✗ Error: La inicialización falló con código de salida $EXIT_CODE.${NC}"
     exit 1
