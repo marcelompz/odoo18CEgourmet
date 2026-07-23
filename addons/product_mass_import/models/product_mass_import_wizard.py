@@ -83,7 +83,7 @@ class ProductMassImportWizard(models.Model):
     _description = 'Wizard de Importación Masiva de Productos desde Excel'
 
     name = fields.Char(string='Nombre', default='Nuevo')
-    file_data = fields.Binary(string='Archivo Excel (.xlsx)', required=True)
+    file_data = fields.Binary(string='Archivo Excel (.xlsx)')
 
     @api.model
     def create(self, vals):
@@ -195,6 +195,9 @@ class ProductMassImportWizard(models.Model):
     def action_parse_excel(self):
         """Parse Excel file and show preview - OPTIMIZED with batch barcode validation"""
         self.ensure_one()
+        if not self.file_data:
+            raise UserError(_("Por favor, seleccione un archivo Excel (.xlsx) antes de presionar 'Cargar Archivo'."))
+        
         self.preview_ids.unlink()
 
         data = base64.b64decode(self.file_data)
