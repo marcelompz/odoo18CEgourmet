@@ -1,38 +1,39 @@
 {
+  "company_name": "Gourmet",
   "smtp": {
-    "name": "Servidor Saliente Provecchio",
+    "name": "Servidor Odoo 19 CE",
     "host": "smtp.gmail.com",
     "port": 587,
     "encryption": "starttls",
-    "username": "de@provecchio.com",
-    "password": "DiMora123!"
+    "username": "de@pesallaccia.com",
+    "password": "de123!"
   },
   "warehouses": [
     {
       "name": "Depósito Central",
       "code": "WHC"
-    },
-    {
-      "name": "Sucursal 1",
-      "code": "SUC1"
     }
   ],
   "product_categories_config": [
     {
-      "name": "Comida",
+      "name": "HERRAMIENTAS",
       "property_cost_method": "average",
-      "property_valuation": "real_time",
-      "stock_valuation_account": "110100",
-      "stock_input_account": "110200",
-      "stock_output_account": "110300"
+      "property_valuation": "real_time"
     },
     {
-      "name": "Materia Prima",
+      "name": "ART. ELECTRICOS",
       "property_cost_method": "average",
-      "property_valuation": "real_time",
-      "stock_valuation_account": "110100",
-      "stock_input_account": "110200",
-      "stock_output_account": "110300"
+      "property_valuation": "real_time"
+    },
+    {
+      "name": "LIBRERIA",
+      "property_cost_method": "average",
+      "property_valuation": "real_time"
+    },
+    {
+      "name": "PLOMERIA",
+      "property_cost_method": "average",
+      "property_valuation": "real_time"
     }
   ],
   "accounting": {
@@ -41,20 +42,22 @@
   },
   "journals": [
     {
-      "name": "Efectivo Sucursal 1",
-      "code": "CS1",
+      "name": "Efectivo",
+      "code": "CSH1",
       "type": "cash"
     },
     {
-      "name": "Banco Sucursal 1",
-      "code": "BS1",
+      "name": "Banco",
+      "code": "BNK1",
       "type": "bank"
     }
   ],
-  "analytic_accounts": [
+  "analytic_accounts": [],
+  "pos_configs": [
     {
-      "name": "Sucursal 1 - Analítica",
-      "code": "SUC1-ANA"
+      "name": "Ferretería",
+      "is_restaurant": false
     }
-  ]
+  ],
+  "pos_configs_to_remove": ["Bakery", "Clothes Shop", "Furniture Shop", "Shop", "Bar/Restaurant", "Caja Principal"]
 }
