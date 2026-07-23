@@ -1,5 +1,4 @@
 {
-  "company_name": "Gourmet",
   "smtp": {
     "name": "Servidor Odoo 19 CE",
     "host": "smtp.gmail.com",
@@ -59,5 +58,5 @@
       "is_restaurant": false
     }
   ],
-  "pos_configs_to_remove": ["Bakery", "Clothes Shop", "Furniture Shop", "Shop", "Bar/Restaurant", "Caja Principal"]
+  "pos_configs_to_remove": ["Caja Principal", "Punto de venta"]
 }
