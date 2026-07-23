@@ -10,14 +10,14 @@
     <!-- Excel Import Menu -->
     <menuitem id="menu_product_mass_import_excel"
               name="Importar desde Excel"
-              parent="menu_product_mass_import_root"
+              parent="mass_import_suite.menu_mass_import_suite_root"
               action="product_mass_import_wizard_action"
               sequence="10"/>
 
     <!-- Batch Import Menu -->
     <menuitem id="menu_product_batch_import"
-              name="Creación en Lote"
-              parent="menu_product_mass_import_root"
+              name="Creación Manual en Lote"
+              parent="mass_import_suite.menu_mass_import_suite_root"
               action="product_batch_import_action"
               sequence="20"/>
 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mass_import_suite_launcher" model="ir.ui.view">
+        <field name="name">mass.import.suite.launcher.form</field>
+        <field name="model">mass.import.suite</field>
+        <field name="arch" type="xml">
+            <form string="Mass Import Suite">
+                <sheet>
+                    <div class="alert alert-info" role="alert">
+                        Seleccione el tipo de importación que desea realizar:
+                    </div>
+                    <group>
+                        <button name="action_open_product_import"
+                                string="Importar Productos"
+                                type="object"
+                                class="btn-primary btn-lg"
+                                icon="fa-download"
+                                style="width:100%; margin-bottom:16px;"/>
+                        <button name="action_open_recipe_import"
+                                string="Importar Recetas"
+                                type="object"
+                                class="btn-info btn-lg"
+                                icon="fa-file-excel-o"
+                                style="width:100%;"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mass_import_suite_launcher" model="ir.actions.act_window">
+        <field name="name">Mass Import Suite</field>
+        <field name="res_model">mass.import.suite</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{}</field>
+    </record>
+</odoo>

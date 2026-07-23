@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_mass_import_suite_root"
+              name="Mass Import Suite"
+              web_icon="mass_import_suite,static/description/icon.png"
+              action="product_mass_import.product_mass_import_wizard_action"
+              sequence="50"/>
+</odoo>
