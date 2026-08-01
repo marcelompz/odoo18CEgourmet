@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- ============================================================ -->
+        <!-- PISO 1: Cafe / Barra                                         -->
+        <!-- ============================================================ -->
+        <record id="floor_cafe" model="restaurant.floor">
+            <field name="name">Cafe</field>
+            <field name="sequence">1</field>
+            <field name="background_color">rgb(255,255,255,0.75)</field>
+        </record>
+
+        <record id="table_cafe_1" model="restaurant.table">
+            <field name="table_number">1</field>
+            <field name="floor_id" ref="floor_cafe"/>
+            <field name="seats">1</field>
+            <field name="shape">square</field>
+            <field name="position_h">10.0</field>
+            <field name="position_v">10.0</field>
+            <field name="width">50.0</field>
+            <field name="height">50.0</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="table_cafe_2" model="restaurant.table">
+            <field name="table_number">2</field>
+            <field name="floor_id" ref="floor_cafe"/>
+            <field name="seats">1</field>
+            <field name="shape">square</field>
+            <field name="position_h">90.0</field>
+            <field name="position_v">10.0</field>
+            <field name="width">50.0</field>
+            <field name="height">50.0</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="table_cafe_3" model="restaurant.table">
+            <field name="table_number">3</field>
+            <field name="floor_id" ref="floor_cafe"/>
+            <field name="seats">1</field>
+            <field name="shape">square</field>
+            <field name="position_h">180.0</field>
+            <field name="position_v">10.0</field>
+            <field name="width">50.0</field>
+            <field name="height">50.0</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="table_cafe_4" model="restaurant.table">
+            <field name="table_number">4</field>
+            <field name="floor_id" ref="floor_cafe"/>
+            <field name="seats">1</field>
+            <field name="shape">square</field>
+            <field name="position_h">260.0</field>
+            <field name="position_v">10.0</field>
+            <field name="width">50.0</field>
+            <field name="height">50.0</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="table_cafe_5" model="restaurant.table">
+            <field name="table_number">5</field>
+            <field name="floor_id" ref="floor_cafe"/>
+            <field name="seats">1</field>
+            <field name="shape">square</field>
+            <field name="position_h">260.0</field>
+            <field name="position_v">90.0</field>
+            <field name="width">50.0</field>
+            <field name="height">50.0</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="table_cafe_6" model="restaurant.table">
+            <field name="table_number">6</field>
+            <field name="floor_id" ref="floor_cafe"/>
+            <field name="seats">1</field>
+            <field name="shape">square</field>
+            <field name="position_h">140.0</field>
+            <field name="position_v">80.0</field>
+            <field name="width">50.0</field>
+            <field name="height">50.0</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="table_cafe_7" model="restaurant.table">
+            <field name="table_number">7</field>
+            <field name="floor_id" ref="floor_cafe"/>
+            <field name="seats">1</field>
+            <field name="shape">square</field>
+            <field name="position_h">30.0</field>
+            <field name="position_v">150.0</field>
+            <field name="width">50.0</field>
+            <field name="height">50.0</field>
+            <field name="active">True</field>
+        </record>
+
+        <!-- ============================================================ -->
+        <!-- PISO 2: Jardin                                               -->
+        <!-- ============================================================ -->
+        <record id="floor_jardin" model="restaurant.floor">
+            <field name="name">Jardin</field>
+            <field name="sequence">1</field>
+            <field name="background_color">rgb(255,255,255,0.75)</field>
+        </record>
+
+        <record id="table_jardin_1" model="restaurant.table">
+            <field name="table_number">1</field>
+            <field name="floor_id" ref="floor_jardin"/>
+            <field name="seats">4</field>
+            <field name="shape">square</field>
+            <field name="position_h">230.0</field>
+            <field name="position_v">20.0</field>
+            <field name="width">50.0</field>
+            <field name="height">50.0</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="table_jardin_2" model="restaurant.table">
+            <field name="table_number">2</field>
+            <field name="floor_id" ref="floor_jardin"/>
+            <field name="seats">4</field>
+            <field name="shape">square</field>
+            <field name="position_h">230.0</field>
+            <field name="position_v">100.0</field>
+            <field name="width">50.0</field>
+            <field name="height">50.0</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="table_jardin_3" model="restaurant.table">
+            <field name="table_number">3</field>
+            <field name="floor_id" ref="floor_jardin"/>
+            <field name="seats">2</field>
+            <field name="shape">square</field>
+            <field name="position_h">120.0</field>
+            <field name="position_v">100.0</field>
+            <field name="width">50.0</field>
+            <field name="height">50.0</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="table_jardin_4" model="restaurant.table">
+            <field name="table_number">4</field>
+            <field name="floor_id" ref="floor_jardin"/>
+            <field name="seats">2</field>
+            <field name="shape">square</field>
+            <field name="position_h">30.0</field>
+            <field name="position_v">100.0</field>
+            <field name="width">50.0</field>
+            <field name="height">50.0</field>
+            <field name="active">True</field>
+        </record>
+
+        <!-- ============================================================ -->
+        <!-- PISO 3: Restó                                                -->
+        <!-- ============================================================ -->
+        <record id="floor_resto" model="restaurant.floor">
+            <field name="name">Restó</field>
+            <field name="sequence">1</field>
+            <field name="background_color">rgb(255,255,255,0.75)</field>
+        </record>
+
+        <record id="table_resto_1" model="restaurant.table">
+            <field name="table_number">1</field>
+            <field name="floor_id" ref="floor_resto"/>
+            <field name="seats">4</field>
+            <field name="shape">square</field>
+            <field name="position_h">160.0</field>
+            <field name="position_v">10.0</field>
+            <field name="width">90.0</field>
+            <field name="height">140.0</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="table_resto_2" model="restaurant.table">
+            <field name="table_number">2</field>
+            <field name="floor_id" ref="floor_resto"/>
+            <field name="seats">4</field>
+            <field name="shape">square</field>
+            <field name="position_h">320.0</field>
+            <field name="position_v">10.0</field>
+            <field name="width">90.0</field>
+            <field name="height">140.0</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="table_resto_3" model="restaurant.table">
+            <field name="table_number">3</field>
+            <field name="floor_id" ref="floor_resto"/>
+            <field name="seats">4</field>
+            <field name="shape">square</field>
+            <field name="position_h">480.0</field>
+            <field name="position_v">10.0</field>
+            <field name="width">90.0</field>
+            <field name="height">140.0</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="table_resto_4" model="restaurant.table">
+            <field name="table_number">4</field>
+            <field name="floor_id" ref="floor_resto"/>
+            <field name="seats">2</field>
+            <field name="shape">square</field>
+            <field name="position_h">560.0</field>
+            <field name="position_v">220.0</field>
+            <field name="width">90.0</field>
+            <field name="height">100.0</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="table_resto_5" model="restaurant.table">
+            <field name="table_number">5</field>
+            <field name="floor_id" ref="floor_resto"/>
+            <field name="seats">2</field>
+            <field name="shape">square</field>
+            <field name="position_h">420.0</field>
+            <field name="position_v">220.0</field>
+            <field name="width">90.0</field>
+            <field name="height">100.0</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="table_resto_6" model="restaurant.table">
+            <field name="table_number">6</field>
+            <field name="floor_id" ref="floor_resto"/>
+            <field name="seats">2</field>
+            <field name="shape">square</field>
+            <field name="position_h">270.0</field>
+            <field name="position_v">220.0</field>
+            <field name="width">90.0</field>
+            <field name="height">100.0</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="table_resto_7" model="restaurant.table">
+            <field name="table_number">7</field>
+            <field name="floor_id" ref="floor_resto"/>
+            <field name="seats">2</field>
+            <field name="shape">square</field>
+            <field name="position_h">120.0</field>
+            <field name="position_v">220.0</field>
+            <field name="width">90.0</field>
+            <field name="height">100.0</field>
+            <field name="active">True</field>
+        </record>
+
+        <!-- ============================================================ -->
+        <!-- PISO 4: Terraza                                              -->
+        <!-- ============================================================ -->
+        <record id="floor_terraza" model="restaurant.floor">
+            <field name="name">Terraza</field>
+            <field name="sequence">1</field>
+            <field name="background_color">rgb(249,250,251)</field>
+        </record>
+
+        <record id="table_terraza_1" model="restaurant.table">
+            <field name="table_number">1</field>
+            <field name="floor_id" ref="floor_terraza"/>
+            <field name="seats">1</field>
+            <field name="shape">square</field>
+            <field name="position_h">10.0</field>
+            <field name="position_v">10.0</field>
+            <field name="width">50.0</field>
+            <field name="height">50.0</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="table_terraza_2" model="restaurant.table">
+            <field name="table_number">2</field>
+            <field name="floor_id" ref="floor_terraza"/>
+            <field name="seats">1</field>
+            <field name="shape">square</field>
+            <field name="position_h">70.0</field>
+            <field name="position_v">10.0</field>
+            <field name="width">50.0</field>
+            <field name="height">50.0</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="table_terraza_3" model="restaurant.table">
+            <field name="table_number">3</field>
+            <field name="floor_id" ref="floor_terraza"/>
+            <field name="seats">1</field>
+            <field name="shape">square</field>
+            <field name="position_h">130.0</field>
+            <field name="position_v">10.0</field>
+            <field name="width">50.0</field>
+            <field name="height">50.0</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="table_terraza_4" model="restaurant.table">
+            <field name="table_number">4</field>
+            <field name="floor_id" ref="floor_terraza"/>
+            <field name="seats">1</field>
+            <field name="shape">square</field>
+            <field name="position_h">190.0</field>
+            <field name="position_v">10.0</field>
+            <field name="width">50.0</field>
+            <field name="height">50.0</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="table_terraza_5" model="restaurant.table">
+            <field name="table_number">5</field>
+            <field name="floor_id" ref="floor_terraza"/>
+            <field name="seats">1</field>
+            <field name="shape">square</field>
+            <field name="position_h">250.0</field>
+            <field name="position_v">10.0</field>
+            <field name="width">50.0</field>
+            <field name="height">50.0</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="table_terraza_6" model="restaurant.table">
+            <field name="table_number">6</field>
+            <field name="floor_id" ref="floor_terraza"/>
+            <field name="seats">1</field>
+            <field name="shape">square</field>
+            <field name="position_h">310.0</field>
+            <field name="position_v">10.0</field>
+            <field name="width">50.0</field>
+            <field name="height">50.0</field>
+            <field name="active">True</field>
+        </record>
+
+    </data>
+</odoo>
