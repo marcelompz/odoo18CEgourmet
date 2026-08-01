@@ -88,12 +88,11 @@ def import_pos_floors():
             # Import Tables for this Floor
             tables_data = f_data.get('tables', [])
             for t_data in tables_data:
-                table_name = t_data.get('name')
+                table_name = str(t_data.get('table_number') or t_data.get('name') or '')
                 if not table_name:
                     continue
 
                 table_vals = {
-                    'name': table_name,
                     'floor_id': floor.id,
                     'seats': t_data.get('seats', 2),
                     'shape': t_data.get('shape', 'square'),
@@ -103,8 +102,18 @@ def import_pos_floors():
                     'height': t_data.get('height', 100),
                     'active': t_data.get('active', True),
                 }
+                if 'table_number' in Table._fields:
+                    table_vals['table_number'] = table_name
+                if 'name' in Table._fields:
+                    table_vals['name'] = table_name
 
-                table = Table.search([('name', '=', table_name), ('floor_id', '=', floor.id)], limit=1)
+                domain = [('floor_id', '=', floor.id)]
+                if 'table_number' in Table._fields:
+                    domain.append(('table_number', '=', table_name))
+                else:
+                    domain.append(('name', '=', table_name))
+
+                table = Table.search(domain, limit=1)
                 if table:
                     table.write(table_vals)
                     print(f"  └─ Table updated: {table_name} (seats: {table.seats})")

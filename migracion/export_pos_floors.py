@@ -57,8 +57,10 @@ def export_pos_floors():
 
             tables = env['restaurant.table'].search([('floor_id', '=', floor.id)])
             for table in tables:
+                t_name = getattr(table, 'table_number', False) or getattr(table, 'name', False) or str(table.id)
                 t_item = {
-                    'name': table.name,
+                    'name': t_name,
+                    'table_number': getattr(table, 'table_number', t_name),
                     'seats': table.seats,
                     'shape': table.shape,
                     'position_h': table.position_h,
