@@ -1,0 +1,294 @@
+[
+    {
+        "name": "Cafe",
+        "sequence": 1,
+        "background_color": "rgb(255,255,255,0.75)",
+        "tables": [
+            {
+                "name": 1,
+                "table_number": 1,
+                "seats": 1,
+                "shape": "square",
+                "position_h": 10.0,
+                "position_v": 10.0,
+                "width": 50.0,
+                "height": 50.0,
+                "active": true
+            },
+            {
+                "name": 2,
+                "table_number": 2,
+                "seats": 1,
+                "shape": "square",
+                "position_h": 90.0,
+                "position_v": 10.0,
+                "width": 50.0,
+                "height": 50.0,
+                "active": true
+            },
+            {
+                "name": 3,
+                "table_number": 3,
+                "seats": 1,
+                "shape": "square",
+                "position_h": 180.0,
+                "position_v": 10.0,
+                "width": 50.0,
+                "height": 50.0,
+                "active": true
+            },
+            {
+                "name": 4,
+                "table_number": 4,
+                "seats": 1,
+                "shape": "square",
+                "position_h": 260.0,
+                "position_v": 10.0,
+                "width": 50.0,
+                "height": 50.0,
+                "active": true
+            },
+            {
+                "name": 5,
+                "table_number": 5,
+                "seats": 1,
+                "shape": "square",
+                "position_h": 260.0,
+                "position_v": 90.0,
+                "width": 50.0,
+                "height": 50.0,
+                "active": true
+            },
+            {
+                "name": 6,
+                "table_number": 6,
+                "seats": 1,
+                "shape": "square",
+                "position_h": 140.0,
+                "position_v": 80.0,
+                "width": 50.0,
+                "height": 50.0,
+                "active": true
+            },
+            {
+                "name": 7,
+                "table_number": 7,
+                "seats": 1,
+                "shape": "square",
+                "position_h": 30.0,
+                "position_v": 150.0,
+                "width": 50.0,
+                "height": 50.0,
+                "active": true
+            }
+        ]
+    },
+    {
+        "name": "Jardin",
+        "sequence": 1,
+        "background_color": "rgb(255,255,255,0.75)",
+        "tables": [
+            {
+                "name": 1,
+                "table_number": 1,
+                "seats": 4,
+                "shape": "square",
+                "position_h": 230.0,
+                "position_v": 20.0,
+                "width": 50.0,
+                "height": 50.0,
+                "active": true
+            },
+            {
+                "name": 2,
+                "table_number": 2,
+                "seats": 4,
+                "shape": "square",
+                "position_h": 230.0,
+                "position_v": 100.0,
+                "width": 50.0,
+                "height": 50.0,
+                "active": true
+            },
+            {
+                "name": 3,
+                "table_number": 3,
+                "seats": 2,
+                "shape": "square",
+                "position_h": 120.0,
+                "position_v": 100.0,
+                "width": 50.0,
+                "height": 50.0,
+                "active": true
+            },
+            {
+                "name": 4,
+                "table_number": 4,
+                "seats": 2,
+                "shape": "square",
+                "position_h": 30.0,
+                "position_v": 100.0,
+                "width": 50.0,
+                "height": 50.0,
+                "active": true
+            }
+        ]
+    },
+    {
+        "name": "Restó",
+        "sequence": 1,
+        "background_color": "rgb(255,255,255,0.75)",
+        "tables": [
+            {
+                "name": 1,
+                "table_number": 1,
+                "seats": 4,
+                "shape": "square",
+                "position_h": 160.0,
+                "position_v": 10.0,
+                "width": 90.0,
+                "height": 140.0,
+                "active": true
+            },
+            {
+                "name": 2,
+                "table_number": 2,
+                "seats": 4,
+                "shape": "square",
+                "position_h": 320.0,
+                "position_v": 10.0,
+                "width": 90.0,
+                "height": 140.0,
+                "active": true
+            },
+            {
+                "name": 3,
+                "table_number": 3,
+                "seats": 4,
+                "shape": "square",
+                "position_h": 480.0,
+                "position_v": 10.0,
+                "width": 90.0,
+                "height": 140.0,
+                "active": true
+            },
+            {
+                "name": 4,
+                "table_number": 4,
+                "seats": 2,
+                "shape": "square",
+                "position_h": 560.0,
+                "position_v": 220.0,
+                "width": 90.0,
+                "height": 100.0,
+                "active": true
+            },
+            {
+                "name": 5,
+                "table_number": 5,
+                "seats": 2,
+                "shape": "square",
+                "position_h": 420.0,
+                "position_v": 220.0,
+                "width": 90.0,
+                "height": 100.0,
+                "active": true
+            },
+            {
+                "name": 6,
+                "table_number": 6,
+                "seats": 2,
+                "shape": "square",
+                "position_h": 270.0,
+                "position_v": 220.0,
+                "width": 90.0,
+                "height": 100.0,
+                "active": true
+            },
+            {
+                "name": 7,
+                "table_number": 7,
+                "seats": 2,
+                "shape": "square",
+                "position_h": 120.0,
+                "position_v": 220.0,
+                "width": 90.0,
+                "height": 100.0,
+                "active": true
+            }
+        ]
+    },
+    {
+        "name": "Terraza",
+        "sequence": 1,
+        "background_color": "rgb(249,250,251)",
+        "tables": [
+            {
+                "name": 1,
+                "table_number": 1,
+                "seats": 1,
+                "shape": "square",
+                "position_h": 10.0,
+                "position_v": 10.0,
+                "width": 50.0,
+                "height": 50.0,
+                "active": true
+            },
+            {
+                "name": 2,
+                "table_number": 2,
+                "seats": 1,
+                "shape": "square",
+                "position_h": 70.0,
+                "position_v": 10.0,
+                "width": 50.0,
+                "height": 50.0,
+                "active": true
+            },
+            {
+                "name": 3,
+                "table_number": 3,
+                "seats": 1,
+                "shape": "square",
+                "position_h": 130.0,
+                "position_v": 10.0,
+                "width": 50.0,
+                "height": 50.0,
+                "active": true
+            },
+            {
+                "name": 4,
+                "table_number": 4,
+                "seats": 1,
+                "shape": "square",
+                "position_h": 190.0,
+                "position_v": 10.0,
+                "width": 50.0,
+                "height": 50.0,
+                "active": true
+            },
+            {
+                "name": 5,
+                "table_number": 5,
+                "seats": 1,
+                "shape": "square",
+                "position_h": 250.0,
+                "position_v": 10.0,
+                "width": 50.0,
+                "height": 50.0,
+                "active": true
+            },
+            {
+                "name": 6,
+                "table_number": 6,
+                "seats": 1,
+                "shape": "square",
+                "position_h": 310.0,
+                "position_v": 10.0,
+                "width": 50.0,
+                "height": 50.0,
+                "active": true
+            }
+        ]
+    }
+]
