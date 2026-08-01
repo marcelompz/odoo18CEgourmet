@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Excel Recipe Import',
-    'version': '19.0.3.0.0',
+    'version': '18.0.3.0.0',
     'summary': 'Import Products, MRP BoMs and POS BoMs from Excel Template with Validation',
     'author': 'Crossnexion',
     'category': 'Manufacturing',
