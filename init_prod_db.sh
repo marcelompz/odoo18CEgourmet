@@ -205,6 +205,11 @@ if [ -f "/mnt/migracion/import_settings.py" ]; then
     python3 /mnt/migracion/import_settings.py 2>&1 || echo "⚠️ Warning: Ocurrió un aviso en import_settings.py"
 fi
 
+if [ -f "/mnt/migracion/import_pos_floors.py" ]; then
+    echo "  → Importando pisos y mesas del PDV (/mnt/migracion/import_pos_floors.py)..."
+    python3 /mnt/migracion/import_pos_floors.py 2>&1 || echo "⚠️ Warning: Ocurrió un aviso en import_pos_floors.py"
+fi
+
 echo "============================================================"
 echo "✓ Inicialización de Odoo 19 CE completada con éxito"
 echo "============================================================"
