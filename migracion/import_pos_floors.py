@@ -18,7 +18,7 @@ def import_pos_floors():
     db_host = os.environ.get('DB_HOST', 'db_odoo_8085')
     db_port = '5432' if os.environ.get('DB_PORT') in ['5436', None] else os.environ.get('DB_PORT', '5432')
     db_user = os.environ.get('DB_USER', 'odoo')
-    db_password = os.environ.get('DB_PASSWD', 'cross.159753')
+    db_password = os.environ.get('DB_PASSWD', 'odoo')
     db_name = os.environ.get('DB_NAME', 'prod')
     addons_path = os.environ.get('ADDONS_PATH', '/mnt/extra-addons-customize,/mnt/extra-addons-l10py,/usr/lib/python3/dist-packages/odoo/addons')
     valid_addons = [p for p in addons_path.split(',') if os.path.exists(p)]
