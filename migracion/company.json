@@ -1,11 +1,11 @@
 {
   "name": "Provecchio",
-  "vat": "80000000-1",
+  "vat": "PY80000000-1",
   "phone": "+595 981 123 456",
   "email": "contacto@provecchio.com.py",
   "website": "https://odoo.provecchio.com",
   "street": "Asunción",
   "city": "Asunción",
-  "state": "ASUNCION",
+  "state": "Capital",
   "country_code": "PY"
 }
