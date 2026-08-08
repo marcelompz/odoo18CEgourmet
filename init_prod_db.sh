@@ -86,10 +86,17 @@ else
   MODULES_LIST="base,web,mail,mrp,point_of_sale,stock,purchase,sale,product_mass_import,ica_web_responsive,base_accounting_kit"
 fi
 
-echo "Instalando/asegurando módulos de modules.conf: $MODULES_LIST"
-echo "⏳ Por favor espere: Compilando e instalando estructura de módulos (este proceso toma entre 2 y 4 minutos en silencio)..."
+# Si existen módulos l10n_py, asegurar que l10n_py esté en la lista única de instalación
+if [ -d "$L10N_PY_DIR/l10n_py" ]; then
+  if [[ ",$MODULES_LIST," != *",l10n_py,"* ]]; then
+    MODULES_LIST="$MODULES_LIST,l10n_py"
+  fi
+fi
 
-# Instalar/Actualizar módulos listados en modules.conf
+echo "Instalando/asegurando módulos de modules.conf: $MODULES_LIST"
+echo "⏳ Por favor espere: Compilando e instalando estructura de módulos (este proceso toma entre 2 y 3 minutos en silencio)..."
+
+# Instalar/Actualizar todos los módulos en un SOLO pase de compilación
 odoo \
      -d "$DB_NAME" \
      -i "$MODULES_LIST" \
@@ -162,21 +169,9 @@ psql -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USER" -d "$DB_NAME" -c \
 
 echo "✓ Paraguay configurado"
 
-# Instalar módulos l10n_py si están disponibles
+# Confirmación de localización Paraguay
 if [ -d "$L10N_PY_DIR/l10n_py" ]; then
-    echo "Instalando módulos de localización Paraguay (l10n_py)..."
-    odoo \
-         -d "$DB_NAME" \
-         -i l10n_py \
-         --stop-after-init \
-         --without-demo=all \
-         --db_host "$DB_HOST" \
-         --db_port "$DB_PORT" \
-         --db_user "$DB_USER" \
-         --db_password "$DB_PASSWD" \
-         --addons-path=/mnt/extra-addons-customize,/mnt/extra-addons-l10py,/mnt/extra-addons,/usr/lib/python3/dist-packages/odoo/addons \
-         2>&1 | tail -20
-    echo "✓ Módulos de localización Paraguay instalados"
+    echo "✓ Módulos de localización Paraguay (l10n_py) integrados"
 fi
 
 echo ""
