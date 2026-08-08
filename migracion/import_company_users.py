@@ -50,6 +50,8 @@ def import_company_and_users():
             
             company = env['res.company'].browse(1)
             if company.exists():
+                company = company.with_context(check_vat=False)
+                partner = company.partner_id.with_context(check_vat=False)
                 vals = {
                     'name': co_data.get('name', company.name),
                     'phone': co_data.get('phone', company.phone),
