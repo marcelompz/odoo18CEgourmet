@@ -20,3 +20,8 @@ __pycache__/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Odoo migration
+migracion/bebida.csv
+migracion/bebidas.xlsx
+migracion/recetas_bebidas.xlsx

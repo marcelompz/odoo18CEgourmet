@@ -42,12 +42,58 @@ WEB_VOLS=${WEB_VOLUMES:-./web-data}
 # Opción para limpiar base de datos y modo no interactivo
 CLEAN_DB=false
 AUTO_YES=false
+IMPORT_PRODUCTS=${IMPORT_PRODUCTS:-true}
+
 for arg in "$@"; do
     case $arg in
         --clean) CLEAN_DB=true ;;
         -y|--yes) AUTO_YES=true ;;
+        --import-products|--with-products) IMPORT_PRODUCTS=true ;;
+        --skip-products|--no-products) IMPORT_PRODUCTS=false ;;
     esac
 done
+
+export IMPORT_PRODUCTS
+
+# Pre-flight Check: Verificar y clonar repositorios necesarios si no existen
+echo -e "\n${BLUE}[0/4] Verificando presencia de repositorios de código...${NC}"
+
+# 1. Verificar / Clonar odoo-addons (v18)
+ADDONS_DIR="${WEB_ADDONS_CUSTOMIZE:-/srv/odoo8085/addons}"
+ADDONS_BRANCH="${ADDONS_BRANCH:-18.0}"
+ADDONS_REPO="git@github.com:marcelompz/odoo-addons.git"
+
+if [ ! -d "$ADDONS_DIR" ] || [ -z "$(ls -A "$ADDONS_DIR" 2>/dev/null)" ]; then
+    echo -e "${YELLOW}⚠️ No se encontró el directorio de addons en: $ADDONS_DIR${NC}"
+    echo -e "${YELLOW}Clonando $ADDONS_REPO (rama $ADDONS_BRANCH)...${NC}"
+    mkdir -p "$(dirname "$ADDONS_DIR")"
+    if git clone -b "$ADDONS_BRANCH" "$ADDONS_REPO" "$ADDONS_DIR"; then
+        echo -e "${GREEN}✓ Repo odoo-addons clonado exitosamente en $ADDONS_DIR${NC}"
+    else
+        echo -e "${RED}✗ Error al clonar $ADDONS_REPO. Verifica permisos de Git/SSH.${NC}"
+        exit 1
+    fi
+else
+    echo -e "${GREEN}✓ Repo odoo-addons verificado en $ADDONS_DIR${NC}"
+fi
+
+# 2. Verificar / Clonar odoo-l10n-py
+L10N_DIR="${WEB_ADDONS_L10NPY:-/srv/odoo-modules/l10n_py}"
+L10N_REPO="git@github.com:marcelompz/odoo-l10n-py.git"
+
+if [ ! -d "$L10N_DIR" ] || [ -z "$(ls -A "$L10N_DIR" 2>/dev/null)" ]; then
+    echo -e "${YELLOW}⚠️ No se encontró el directorio de localización paraguaya en: $L10N_DIR${NC}"
+    echo -e "${YELLOW}Clonando $L10N_REPO...${NC}"
+    mkdir -p "$(dirname "$L10N_DIR")"
+    if git clone "$L10N_REPO" "$L10N_DIR"; then
+        echo -e "${GREEN}✓ Repo odoo-l10n-py clonado exitosamente en $L10N_DIR${NC}"
+    else
+        echo -e "${RED}✗ Error al clonar $L10N_REPO. Verifica permisos de Git/SSH.${NC}"
+        exit 1
+    fi
+else
+    echo -e "${GREEN}✓ Repo odoo-l10n-py verificado en $L10N_DIR${NC}"
+fi
 
 if [ "$AUTO_YES" = false ]; then
     echo -e "\n${YELLOW}[!] ADVERTENCIA: Se detendrán los contenedores de Docker (db, web, init).${NC}"
