@@ -88,6 +88,16 @@ def import_company_and_users():
                 company.write(vals)
                 print(f"✓ Company details updated: {company.name}")
 
+                # Update Website name if website module exists
+                if 'website' in env:
+                    website_rec = env['website'].search([], limit=1)
+                    if website_rec:
+                        website_rec.write({
+                            'name': company.name,
+                            'domain': company.website or website_rec.domain
+                        })
+                        print(f"  ✓ Website name updated to: {company.name}")
+
                 # Load logo if available in /mnt/migracion/
                 import glob
                 import base64
