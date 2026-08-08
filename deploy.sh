@@ -162,6 +162,10 @@ fi
 echo -e "\n${BLUE}[4/4] Levantando servidor Web de Odoo...${NC}"
 docker compose up -d web9049
 
+# Conectar contenedor Web a la red de Traefik Reverse Proxy si existe
+echo -e "${BLUE}[4.5/4] Conectando contenedor a la red traefik-public...${NC}"
+docker network connect traefik-public "${WEB_HOST:-odoo_web_8085}" 2>/dev/null || true
+
 echo -e "\n${BOLD}${GREEN}============================================================${NC}"
 echo -e "${BOLD}${GREEN}  ¡Despliegue finalizado con éxito!                         ${NC}"
 echo -e "${BOLD}${GREEN}  Acceso web: http://localhost:$PORT                        ${NC}"
