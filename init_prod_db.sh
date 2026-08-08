@@ -87,6 +87,7 @@ else
 fi
 
 echo "Instalando/asegurando módulos de modules.conf: $MODULES_LIST"
+echo "⏳ Por favor espere: Compilando e instalando estructura de módulos (este proceso toma entre 2 y 4 minutos en silencio)..."
 
 # Instalar/Actualizar módulos listados en modules.conf
 odoo \
