@@ -15,7 +15,7 @@
   },
   {
     "name": "Administrador",
-    "login": "admin@ferresur.com.py",
+    "login": "admin@provecchio.com.py",
     "password": "Admin2026!",
     "groups": [
       "stock.group_stock_manager",
@@ -26,7 +26,7 @@
   },
   {
     "name": "Cajero POS 1",
-    "login": "pos1@ferresur.com.py",
+    "login": "pos1@provecchio.com.py",
     "password": "Pos2026!",
     "groups": [
       "point_of_sale.group_pos_user"
