@@ -87,7 +87,10 @@ def import_company_and_users():
                     else:
                         print(f"  ⚠️ State '{state_name}' not found for country {country.name}")
 
+                company = company.with_context(check_vat=False, no_vat_validation=True)
                 company.write(vals)
+                if company.partner_id:
+                    company.partner_id.with_context(check_vat=False, no_vat_validation=True).write({'vat': vals.get('vat')})
                 print(f"✓ Company details updated: {company.name}")
 
                 # Update Website name if website module exists
